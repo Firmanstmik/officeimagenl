@@ -224,7 +224,7 @@ function Hero() {
   return (
     <section ref={ref} className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-[var(--ink)]">
       <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
-        <img src={hero} alt="Premium modern office interior at golden hour" className="h-full w-full object-cover" />
+        <img src={OI.hero} alt="Luxe kantoorinrichting van Office Image" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/40 via-[var(--ink)]/10 to-[var(--ink)]/85" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)]/45 via-transparent to-transparent" />
       </motion.div>
@@ -236,12 +236,12 @@ function Hero() {
             <Reveal delay={0.2}>
               <div className="text-[var(--bone)]/70 eyebrow mb-6 flex items-center gap-3">
                 <span className="inline-block size-1.5 rounded-full bg-[var(--ochre)]" />
-                <span>Workspace Design · Est. 1994 · Amsterdam</span>
+                <span>Office Image · Kantoormeubelen · Rotterdam</span>
               </div>
             </Reveal>
 
             <h1 className="font-display text-[var(--bone)] leading-[0.92] tracking-[-0.03em] text-[14vw] md:text-[8.5vw] lg:text-[7.2vw] max-w-[15ch]">
-              {"Designing Exceptional".split(" ").map((w, i) => (
+              {"Exclusieve kantoorinrichting".split(" ").map((w, i) => (
                 <motion.span
                   key={w + i}
                   initial={{ y: "110%", opacity: 0 }}
@@ -259,7 +259,7 @@ function Hero() {
                 transition={{ duration: 1.1, delay: 0.55, ease }}
                 className="inline-block italic text-[var(--ochre)]"
               >
-                Workspaces
+                voor moderne
               </motion.span>{" "}
               <motion.span
                 initial={{ y: "110%", opacity: 0 }}
@@ -267,18 +267,18 @@ function Hero() {
                 transition={{ duration: 1.1, delay: 0.65, ease }}
                 className="inline-block text-[var(--bone)]/85"
               >
-                for Modern Companies.
+                bedrijven.
               </motion.span>
             </h1>
 
             <Reveal delay={0.95} y={16}>
               <div className="mt-10 grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
                 <p className="max-w-xl text-[var(--bone)]/75 text-base md:text-lg leading-relaxed">
-                  From strategic planning and ergonomic expertise to complete office transformations, OfficeImage creates environments where people and businesses thrive.
+                  Als jong en dynamisch bedrijf biedt Office Image u een unieke mogelijkheid snel en gemakkelijk te bestellen. Directiemeubelen, werkplekken, bureaustoelen en archiefkasten — uit voorraad leverbaar.
                 </p>
                 <div className="flex flex-wrap items-center gap-3">
-                  <ArrowLink variant="clay">Explore workspace concepts</ArrowLink>
-                  <ArrowLink variant="bone">Schedule consultation</ArrowLink>
+                  <ArrowLink variant="clay">Bekijk collecties</ArrowLink>
+                  <ArrowLink variant="bone">Bezoek showroom</ArrowLink>
                 </div>
               </div>
             </Reveal>
@@ -294,16 +294,16 @@ function Hero() {
         >
           <div className="glass-dark rounded-2xl p-5 w-[280px] text-[var(--bone)]">
             <div className="flex items-center justify-between text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/60">
-              <span>Live · Project</span>
-              <span className="num">NL · 04</span>
+              <span>Showroom · Open</span>
+              <span className="num">NL · 3044</span>
             </div>
-            <div className="mt-3 font-display text-2xl leading-tight">Atelier HQ, Amsterdam</div>
-            <div className="mt-1 text-sm text-[var(--bone)]/70">Hybrid workplace · 4,200 m²</div>
+            <div className="mt-3 font-display text-2xl leading-tight">{OI.showroom.name}</div>
+            <div className="mt-1 text-sm text-[var(--bone)]/70">{OI.showroom.address} · {OI.showroom.zip}</div>
             <div className="mt-5 grid grid-cols-3 gap-2 text-center">
               {[
-                ["12", "weeks"],
-                ["230", "people"],
-                ["3D", "preview"],
+                ["6", "dgn/week"],
+                ["40%", "korting"],
+                ["NL", "voorraad"],
               ].map(([k, v]) => (
                 <div key={k} className="rounded-lg bg-[var(--bone)]/8 py-2">
                   <div className="font-display text-lg num">{k}</div>
@@ -323,17 +323,17 @@ function Hero() {
         className="absolute inset-x-0 bottom-0 z-10 border-t border-[var(--bone)]/10"
       >
         <div className="px-6 md:px-12 py-4 flex items-center justify-between text-[var(--bone)]/55 text-[11px] tracking-[0.22em] uppercase">
-          <span>Scroll to explore</span>
+          <span>Scroll om te ontdekken</span>
           <div className="hidden md:flex items-center gap-8">
-            <span>Strategy</span>
+            <span>Directie</span>
             <span>·</span>
-            <span>Visualization</span>
+            <span>Werkplekken</span>
             <span>·</span>
-            <span>Ergonomics</span>
+            <span>Tafels</span>
             <span>·</span>
-            <span>Realization</span>
+            <span>Archief</span>
           </div>
-          <span className="num">© MMXXVI</span>
+          <span className="num">EST · MMXIX</span>
         </div>
       </motion.div>
     </section>
