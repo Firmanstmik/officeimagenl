@@ -988,12 +988,15 @@ function Home() {
       <Header />
       <Hero />
       <Trust />
+      <Categories />
       <Configurator />
+      <Bestsellers />
       <Process />
       <Visualization />
       <Services />
       <Projects />
       <Testimonials />
+      <Showroom />
       <CTA />
       <Footer />
       <FloatingCTA />
@@ -1188,23 +1191,23 @@ function FloatingCTA() {
                 className="inline-flex items-center gap-2.5 rounded-full bg-[var(--clay)] text-[var(--bone)] pl-4 pr-2 py-2 text-[12.5px] font-medium tracking-tight hover:bg-[var(--ochre)] hover:text-[var(--ink)] transition-colors"
               >
                 <span className="size-1.5 rounded-full bg-[var(--bone)] animate-pulse" />
-                Book Consultation
+                Bezoek showroom
                 <span className="grid size-6 place-items-center rounded-full bg-[var(--bone)]/15">
                   <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" /></svg>
                 </span>
               </a>
               <a
-                href="#concepts"
+                href="#bestsellers"
                 className="hidden lg:inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-medium text-[var(--bone)]/85 hover:text-[var(--bone)] hover:bg-[var(--bone)]/10 transition-colors whitespace-nowrap"
               >
-                Request Workspace Analysis
+                Bekijk bestsellers
               </a>
               <a
-                href="tel:+31204700000"
+                href={OI.showroom.telHref}
                 className="hidden lg:inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-medium text-[var(--bone)]/85 hover:text-[var(--bone)] hover:bg-[var(--bone)]/10 transition-colors whitespace-nowrap"
               >
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M3 1.5h2l1.2 3-1.5 1a8 8 0 0 0 3.8 3.8l1-1.5 3 1.2v2A1.5 1.5 0 0 1 11 12.5C5.5 12.5 1.5 8.5 1.5 3A1.5 1.5 0 0 1 3 1.5Z" stroke="currentColor" strokeWidth="1.2" /></svg>
-                Contact Expert
+                Bel direct {OI.showroom.tel}
               </a>
             </motion.div>
             <button
