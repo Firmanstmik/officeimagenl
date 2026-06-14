@@ -582,12 +582,12 @@ function Configurator() {
 /* ──────────────────────────── 4. process storytelling ──────────────────────────── */
 
 const STEPS = [
-  { n: "01", t: "Empty Space", d: "We begin with what is — and what could be." },
-  { n: "02", t: "Strategic Planning", d: "Workplace strategy aligned to culture, growth and ways of working." },
-  { n: "03", t: "3D Visualization", d: "Photoreal renderings make the future office tangible before a brick moves." },
-  { n: "04", t: "Furniture Selection", d: "Curated specifications from Europe's finest workplace manufacturers." },
-  { n: "05", t: "Installation", d: "Choreographed delivery with minimal disruption to your operations." },
-  { n: "06", t: "Premium Workspace", d: "Handover of an environment where people genuinely want to be." },
+  { n: "01", t: "Adviesgesprek", d: "Bezoek de showroom of bel ons — we denken vrijblijvend mee over uw kantoorinrichting." },
+  { n: "02", t: "Ruimteplan", d: "Een passend voorstel met indeling, materialen en budget binnen 48 uur." },
+  { n: "03", t: "3D Visualisatie", d: "Foto-realistische renderings tonen het eindresultaat voordat er één product wordt geleverd." },
+  { n: "04", t: "Productselectie", d: "Bestsellers uit eigen voorraad of op maat geconfigureerd — directiemeubelen tot werkplekken." },
+  { n: "05", t: "Levering & Montage", d: "Snelle landelijke levering met professionele montage door ons eigen team." },
+  { n: "06", t: "Klanttevredenheid", d: "Ingericht, klaar om te gebruiken. 100% klanttevredenheid is ons uitgangspunt." },
 ];
 
 function Process() {
@@ -600,14 +600,14 @@ function Process() {
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
           <Reveal>
-            <Eyebrow>The transformation</Eyebrow>
+            <Eyebrow>Ons proces</Eyebrow>
             <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[14ch]">
-              From empty shell to <span className="italic text-[var(--clay)]">living workplace.</span>
+              Van adviesgesprek tot <span className="italic text-[var(--clay)]">opgeleverd kantoor.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-[var(--muted-foreground)] text-lg max-w-xl leading-relaxed">
-              We don't sell furniture. We deliver a process — measured, transparent, and built around the way your organisation actually works.
+              Wij verkopen niet alleen meubels — wij ontzorgen het hele inrichtingstraject. Transparant, snel en met aandacht voor detail.
             </p>
           </Reveal>
         </div>
@@ -622,13 +622,13 @@ function Process() {
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <img
-                  src={idx === 0 ? empty : idx === 1 ? viz : idx === 2 ? viz : idx === 3 ? cCollab : idx === 4 ? cHybrid : hero}
+                  src={OI.categories[idx % OI.categories.length].img}
                   alt={s.t}
                   className="h-full w-full object-cover transition-transform duration-[1.4s] hover:scale-105"
-                  style={{ filter: idx === 0 ? "grayscale(0.6) contrast(0.95)" : undefined }}
+                  style={{ filter: idx === 0 ? "grayscale(0.4) contrast(0.95)" : undefined }}
                 />
                 <div className="absolute top-4 left-4 glass rounded-full px-3 py-1 text-[11px] tracking-[0.22em] uppercase num">
-                  Stage {s.n}
+                  Stap {s.n}
                 </div>
               </div>
               <div className="p-6 md:p-8">
@@ -636,7 +636,7 @@ function Process() {
                 <p className="mt-3 text-[var(--muted-foreground)] text-sm md:text-base leading-relaxed">{s.d}</p>
                 <div className="mt-6 h-px bg-[var(--ink)]/10" />
                 <div className="mt-4 flex items-center justify-between text-[11px] uppercase tracking-widest text-[var(--muted-foreground)]">
-                  <span>Week {idx * 2 + 1}–{idx * 2 + 3}</span>
+                  <span>Fase {idx + 1}</span>
                   <span className="num">{String(idx + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")}</span>
                 </div>
               </div>
