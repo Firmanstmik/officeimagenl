@@ -15,13 +15,59 @@ import p3 from "@/assets/project-3.jpg";
 import empty from "@/assets/process-empty.jpg";
 import ctaImg from "@/assets/cta-dark.jpg";
 
+/* ──────────────────────────── real OfficeImage assets (from officeimage.nl) ──────────────────────────── */
+const OI = {
+  logo: "https://officeimage.nl/wp-content/uploads/2024/10/logo-nieuw.png",
+  hero: "https://officeimage.nl/wp-content/uploads/2025/03/Luxe-kantoorinrichting.jpg",
+  categories: [
+    { name: "Directie meubelen", img: "https://officeimage.nl/wp-content/uploads/2025/03/Luxe-kantoorinrichting.jpg", href: "https://officeimage.nl/product-categorie/directie-meubelen/" },
+    { name: "Werkplekken",       img: "https://officeimage.nl/wp-content/uploads/2020/07/HR_ZF3ZHFlaag_ret-scaled.jpg",  href: "https://officeimage.nl/product-categorie/werkplekken-elektrisch/" },
+    { name: "Tafels",            img: "https://officeimage.nl/wp-content/uploads/2025/03/HR_20230806_16-scaled.jpg",     href: "https://officeimage.nl/product-categorie/tafels/" },
+    { name: "Bureaustoelen",     img: "https://officeimage.nl/wp-content/uploads/2024/12/fede7c3c-3427-4597-80b1-9a169a5fd6a4.jpg", href: "https://officeimage.nl/product-categorie/bureaustoelen-stoelen/" },
+    { name: "Archiefkasten",     img: "https://officeimage.nl/wp-content/uploads/2024/10/roldeurkast-ch-1.jpg",          href: "https://officeimage.nl/product-categorie/archiefkasten/" },
+    { name: "Ladenkasten",       img: "https://officeimage.nl/wp-content/uploads/2024/12/tekeningladekast-A3-8L-300x300-1.jpg", href: "https://officeimage.nl/product-categorie/ladenkasten-rolblokken/" },
+    { name: "Lockers",           img: "https://officeimage.nl/wp-content/uploads/2025/01/wrc.2.perfo_.bl-min_1.jpg",     href: "https://officeimage.nl/product-categorie/lockers/" },
+  ],
+  bestsellers: [
+    { name: "Bartafel Manage-it 220×80cm — Halifax",  price: "€529", was: null,    img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: "https://officeimage.nl/product/bartafel-model-manage-it-220x80cm-halifax-kleur/" },
+    { name: "Bartafel Manage-it 220×80cm",            price: "€429", was: null,    img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: "https://officeimage.nl/product/bartafel-model-manage-it-220x80cm/" },
+    { name: "Raptor 24uurs Bureaustoel — stof",       price: "€669", was: "€749",  img: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_4A-scaled.jpg",                  href: "https://officeimage.nl/product/raptor-24uurs-bureaustoel-stof/" },
+    { name: "Raptor 24uurs Bureaustoel — leder",      price: "€729", was: "€799",  img: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_3A-scaled.jpg",                  href: "https://officeimage.nl/product/raptor-24uurs-bureaustoel-leder/" },
+  ],
+  showroom: {
+    name: "Office Image Kantoormeubelen",
+    address: "Industrieweg 167",
+    zip: "3044 AS Rotterdam",
+    tel: "010 230 99 44",
+    telHref: "tel:0102309944",
+    mobile: "+31 6 22778481",
+    mobileHref: "tel:+31622778481",
+    email: "info@officeimage.nl",
+    kvk: "71542027",
+  },
+  social: {
+    facebook: "https://www.facebook.com/officeimage.kantoormeubelen",
+    instagram: "https://www.instagram.com/officeimage.kantoormeubelen/",
+    linkedin: "https://www.linkedin.com/company/office-image-kantoormeubelen/",
+  },
+  hours: [
+    ["Maandag", "09:00 – 17:30"],
+    ["Dinsdag", "09:00 – 17:30"],
+    ["Woensdag", "09:00 – 17:30"],
+    ["Donderdag", "09:00 – 17:30"],
+    ["Vrijdag", "09:00 – 17:30"],
+    ["Zaterdag", "11:00 – 16:00"],
+    ["Zondag", "Gesloten"],
+  ] as const,
+};
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "OfficeImage — Designing Exceptional Workspaces" },
-      { name: "description", content: "Premium workspace design and office transformations for ambitious modern companies. Strategy, 3D visualization, ergonomics and turn-key delivery." },
-      { property: "og:title", content: "OfficeImage — Designing Exceptional Workspaces" },
-      { property: "og:description", content: "Premium workspace design and office transformations for ambitious modern companies." },
+      { title: "Office Image — Premium Kantoormeubelen & Werkplekinrichting" },
+      { name: "description", content: "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering, grote voorraad, fysieke showroom in Rotterdam — 6 dagen per week open." },
+      { property: "og:title", content: "Office Image — Premium Kantoormeubelen" },
+      { property: "og:description", content: "Exclusieve kantoorinrichting voor ambitieuze bedrijven. Showroom Rotterdam, 6 dagen per week open." },
     ],
   }),
   component: Home,
