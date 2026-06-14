@@ -740,11 +740,11 @@ function Visualization() {
 /* ──────────────────────────── 6. services ──────────────────────────── */
 
 const SERVICES = [
-  { n: "01", t: "Workspace Strategy", d: "Diagnostics, programming and a roadmap that ties space to business outcomes.", img: cCollab },
-  { n: "02", t: "Interior Design & Planning", d: "Spatial concepts, material direction and architectural detailing.", img: cExec },
-  { n: "03", t: "Ergonomic Consulting", d: "Health-led specifications across desks, seating, light and acoustics.", img: cFocus },
-  { n: "04", t: "Project Realization", d: "Turn-key procurement, install and handover — under one accountable team.", img: cHybrid },
-  { n: "05", t: "Workspace Optimization", d: "Post-occupancy tuning informed by data and lived experience.", img: cCreative },
+  { n: "01", t: "Inrichtingsadvies",   d: "Vrijblijvend adviesgesprek in onze showroom of bij u op locatie. Wij denken mee over indeling en stijl.", img: OI.categories[0].img },
+  { n: "02", t: "3D Visualisatie",      d: "Foto-realistische renderings van uw nieuwe kantoor — zien is geloven, kiezen wordt eenvoudig.", img: OI.categories[1].img },
+  { n: "03", t: "Ergonomisch Advies",   d: "24-uurs stoelen, elektrisch verstelbare bureaus en akoestiek — gezondheid en productiviteit voorop.", img: OI.categories[3].img },
+  { n: "04", t: "Levering & Montage",   d: "Landelijke levering met eigen montageteam — uw kantoor staat klaar wanneer u het nodig heeft.", img: OI.categories[2].img },
+  { n: "05", t: "Onderhoud & Service",  d: "Reparatie, uitbreiding en herinrichting. Eén partner voor de hele levensduur van uw kantoor.", img: OI.categories[6].img },
 ];
 
 function Services() {
@@ -753,14 +753,14 @@ function Services() {
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-end">
           <Reveal>
-            <Eyebrow>What we do</Eyebrow>
+            <Eyebrow>Onze diensten</Eyebrow>
             <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[12ch]">
-              Outcomes, not <span className="italic text-[var(--clay)]">catalogues.</span>
+              Meer dan <span className="italic text-[var(--clay)]">meubelverkoop.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-[var(--muted-foreground)] text-lg max-w-xl leading-relaxed">
-              Five disciplines, one continuous service. Engage us at any stage — or for the entire arc, from first conversation to five-year tune-up.
+              Vijf disciplines onder één dak. Schakel ons in voor één onderdeel of het complete inrichtingstraject — van advies tot service.
             </p>
           </Reveal>
         </div>
@@ -806,9 +806,9 @@ function Services() {
 /* ──────────────────────────── 7. featured projects ──────────────────────────── */
 
 const PROJECTS = [
-  { img: p1, t: "Northwind Capital", type: "Headquarters", scope: "12,500 m² · 6 floors", city: "Amsterdam", year: "2025" },
-  { img: p2, t: "Vermeer & Partners", type: "Law firm", scope: "3,200 m² · 1 floor", city: "Rotterdam", year: "2024" },
-  { img: p3, t: "Studio Atelier", type: "Creative agency", scope: "1,800 m² · loft", city: "Utrecht", year: "2024" },
+  { img: OI.categories[0].img, t: "Directie Suite",    type: "Directiemeubelen", scope: "Exclusief · op maat", city: "Rotterdam", year: "2025" },
+  { img: OI.categories[1].img, t: "Foxline Werkplek",  type: "Werkplekken",       scope: "Elektrisch verstelbaar", city: "Showroom", year: "2025" },
+  { img: OI.categories[3].img, t: "Raptor Bureaustoel",type: "Bureaustoelen",     scope: "24-uurs · vanaf €669",  city: "Bestseller", year: "2026" },
 ];
 
 function Projects() {
@@ -817,13 +817,13 @@ function Projects() {
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
           <Reveal>
-            <Eyebrow>Selected work</Eyebrow>
+            <Eyebrow>Uitgelichte collecties</Eyebrow>
             <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[14ch]">
-              Workspaces, <span className="italic text-[var(--clay)]">recently realized.</span>
+              Onze meest <span className="italic text-[var(--clay)]">gevraagde stukken.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
-            <ArrowLink>All projects</ArrowLink>
+            <ArrowLink>Bekijk alle producten</ArrowLink>
           </Reveal>
         </div>
 
@@ -849,9 +849,9 @@ function Projects() {
                     <div
                       className="mt-3 overflow-hidden text-[var(--bone)]/80 text-sm max-h-0 group-hover:max-h-32 transition-all duration-700 ease-out"
                     >
-                      <p>{p.scope} — a full transformation programme delivered with the client's leadership team and OI's in-house realization studio.</p>
+                      <p>{p.scope} — direct uit voorraad leverbaar, met snelle landelijke levering vanuit Rotterdam.</p>
                       <div className="mt-3 inline-flex items-center gap-2 text-[var(--ochre)] text-xs uppercase tracking-widest">
-                        Explore project →
+                        Bekijk collectie →
                       </div>
                     </div>
                   </div>
