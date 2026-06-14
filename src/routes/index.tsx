@@ -874,28 +874,28 @@ function CTA() {
   return (
     <section id="contact" className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
       <div className="absolute inset-0">
-        <img src={ctaImg} alt="" className="h-full w-full object-cover opacity-70" />
+        <img src={OI.categories[0].img} alt="" className="h-full w-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)] via-[var(--ink)]/70 to-[var(--ink)]/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-transparent to-[var(--ink)]/40" />
       </div>
 
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 py-28 md:py-44">
         <Reveal>
-          <Eyebrow>Begin a conversation</Eyebrow>
+          <Eyebrow>Begin een gesprek</Eyebrow>
         </Reveal>
         <Reveal delay={0.1}>
           <h2 className="mt-6 font-display text-[var(--bone)] leading-[0.95] tracking-tight text-[12vw] md:text-[7.5vw] max-w-[14ch]">
-            Let's create a workplace that <span className="italic text-[var(--ochre)]">inspires performance.</span>
+            Laten we samen uw <span className="italic text-[var(--ochre)]">kantoor inrichten.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
           <div className="mt-10 grid md:grid-cols-[1fr_auto] gap-10 items-end">
             <p className="max-w-xl text-[var(--bone)]/70 text-lg leading-relaxed">
-              Partner with OfficeImage to transform your office into an environment that enhances wellbeing, productivity and long-term success.
+              Bezoek onze showroom in Rotterdam, bel ons direct of stuur een bericht. We helpen u snel en deskundig op weg — zes dagen per week.
             </p>
             <div className="flex flex-wrap gap-3">
-              <ArrowLink variant="clay">Schedule a consultation</ArrowLink>
-              <ArrowLink variant="bone">Download capability deck</ArrowLink>
+              <a href={OI.showroom.telHref}><ArrowLink variant="clay">Bel {OI.showroom.tel}</ArrowLink></a>
+              <a href="#showroom"><ArrowLink variant="bone">Plan showroombezoek</ArrowLink></a>
             </div>
           </div>
         </Reveal>
@@ -903,10 +903,10 @@ function CTA() {
         <Reveal delay={0.3}>
           <div className="mt-20 pt-10 border-t border-[var(--bone)]/15 grid md:grid-cols-4 gap-8 text-sm text-[var(--bone)]/65">
             {[
-              ["Studio", "Keizersgracht 213\n1016 DX Amsterdam"],
-              ["Consult", "studio@officeimage.nl\n+31 (0)20 470 0000"],
-              ["Hours", "Mon — Fri · 09:00 – 18:00\nWeekend by appointment"],
-              ["Visit", "By scheduled appointment\nonly — material library on site"],
+              ["Showroom", `${OI.showroom.address}\n${OI.showroom.zip}`],
+              ["Telefoon", `${OI.showroom.tel}\n${OI.showroom.mobile}`],
+              ["Openingstijden", "Ma–Vr · 09:00 – 17:30\nZa · 11:00 – 16:00"],
+              ["KvK", `${OI.showroom.kvk}\n${OI.showroom.email}`],
             ].map(([h, b]) => (
               <div key={h}>
                 <div className="eyebrow text-[var(--bone)]/55 mb-3">{h}</div>
@@ -923,18 +923,58 @@ function CTA() {
 function Footer() {
   return (
     <footer className="bg-[var(--ink)] text-[var(--bone)]/55 border-t border-[var(--bone)]/10">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-8 flex flex-wrap items-center justify-between gap-4 text-xs uppercase tracking-[0.22em]">
-        <div className="flex items-center gap-2.5">
-          <span className="grid size-6 place-items-center rounded bg-[var(--bone)] text-[var(--ink)] font-display text-sm leading-none">O</span>
-          <span className="font-display text-base normal-case tracking-tight text-[var(--bone)]">OfficeImage</span>
+      <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-14 grid md:grid-cols-4 gap-10 text-sm">
+        <div>
+          <span className="inline-block rounded-lg bg-[var(--bone)]/95 px-3 py-2">
+            <img src={OI.logo} alt="Office Image" className="h-8 w-auto" />
+          </span>
+          <p className="mt-5 text-[var(--bone)]/55 leading-relaxed">
+            Office Image Kantoormeubelen — exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering uit eigen voorraad.
+          </p>
+          <div className="mt-5 flex gap-3">
+            <a href={OI.social.facebook} target="_blank" rel="noreferrer" className="hover:text-[var(--bone)]">Facebook</a>
+            <span className="opacity-30">·</span>
+            <a href={OI.social.instagram} target="_blank" rel="noreferrer" className="hover:text-[var(--bone)]">Instagram</a>
+            <span className="opacity-30">·</span>
+            <a href={OI.social.linkedin} target="_blank" rel="noreferrer" className="hover:text-[var(--bone)]">LinkedIn</a>
+          </div>
         </div>
-        <div className="flex items-center gap-6">
-          <a href="#" className="hover:text-[var(--bone)]">Imprint</a>
-          <a href="#" className="hover:text-[var(--bone)]">Privacy</a>
-          <a href="#" className="hover:text-[var(--bone)]">LinkedIn</a>
-          <a href="#" className="hover:text-[var(--bone)]">Instagram</a>
+        <div>
+          <div className="eyebrow text-[var(--bone)]/55 mb-4">Catalogus</div>
+          <ul className="space-y-2 text-[var(--bone)]/70">
+            {OI.categories.map(c => (
+              <li key={c.name}><a href={c.href} className="hover:text-[var(--bone)]">{c.name}</a></li>
+            ))}
+          </ul>
         </div>
-        <div className="num">© 1994 — 2026 · Amsterdam</div>
+        <div>
+          <div className="eyebrow text-[var(--bone)]/55 mb-4">Informatie</div>
+          <ul className="space-y-2 text-[var(--bone)]/70">
+            <li><a href="https://officeimage.nl/klantenservice/" className="hover:text-[var(--bone)]">Klantenservice</a></li>
+            <li><a href="https://officeimage.nl/bezorgen/" className="hover:text-[var(--bone)]">Bezorgen</a></li>
+            <li><a href="https://officeimage.nl/betaalmethoden/" className="hover:text-[var(--bone)]">Betaalmethoden</a></li>
+            <li><a href="https://officeimage.nl/annuleren-retourneren/" className="hover:text-[var(--bone)]">Retourneren</a></li>
+            <li><a href="https://officeimage.nl/algemene-voorwaarden/" className="hover:text-[var(--bone)]">Algemene voorwaarden</a></li>
+            <li><a href="https://officeimage.nl/privacy-policy/" className="hover:text-[var(--bone)]">Privacy policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <div className="eyebrow text-[var(--bone)]/55 mb-4">Showroom</div>
+          <ul className="space-y-2 text-[var(--bone)]/70">
+            <li>{OI.showroom.name}</li>
+            <li>{OI.showroom.address}</li>
+            <li>{OI.showroom.zip}</li>
+            <li><a href={OI.showroom.telHref} className="hover:text-[var(--bone)] num">Tel: {OI.showroom.tel}</a></li>
+            <li><a href={OI.showroom.mobileHref} className="hover:text-[var(--bone)] num">Mob: {OI.showroom.mobile}</a></li>
+            <li className="num">KvK: {OI.showroom.kvk}</li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-[var(--bone)]/10">
+        <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-6 flex flex-wrap items-center justify-between gap-4 text-xs uppercase tracking-[0.22em] text-[var(--bone)]/45">
+          <span>© 2024 — 2026 · Office Image · Alle rechten voorbehouden</span>
+          <span>Veilig betalen · iDEAL · Creditcard · Bancontact</span>
+        </div>
       </div>
     </footer>
   );
