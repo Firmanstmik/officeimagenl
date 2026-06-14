@@ -131,18 +131,18 @@ function Header() {
     return () => window.removeEventListener("scroll", on);
   }, []);
   const nav = [
-    { label: "Home", href: "#" },
-    { label: "Workspace Solutions", href: "#concepts" },
-    { label: "Projects", href: "#projects" },
-    { label: "Process", href: "#process" },
-    { label: "About", href: "#about" },
+    { label: "Directiemeubelen", href: "#categories" },
+    { label: "Werkplekken", href: "#concepts" },
+    { label: "Bestsellers", href: "#bestsellers" },
+    { label: "Showroom", href: "#showroom" },
+    { label: "Proces", href: "#process" },
     { label: "Contact", href: "#contact" },
   ];
   const utility = [
-    { i: "◇", t: "Workspace Planning Experts" },
-    { i: "✦", t: "Free Consultation" },
-    { i: "◐", t: "3D Visualization Specialists" },
-    { i: "→", t: "studio@officeimage.nl · +31 20 470 0000" },
+    { i: "◇", t: "Snelle levering — grote voorraad" },
+    { i: "✦", t: "Showroom Rotterdam · 6 dagen open" },
+    { i: "◐", t: "Tot 40% korting op bestsellers" },
+    { i: "→", t: `${OI.showroom.email} · ${OI.showroom.tel}` },
   ];
   return (
     <motion.header
@@ -176,15 +176,11 @@ function Header() {
       <div className={`transition-all duration-500 ${scrolled ? "py-3" : "py-4"}`}>
         <div className={`mx-3 md:mx-6 rounded-full transition-all duration-500 ${scrolled ? "glass shadow-[0_20px_60px_-30px_rgba(17,24,39,0.35)]" : "bg-transparent"}`}>
           <div className="px-5 md:px-7 py-3 flex items-center justify-between gap-6">
-            <a href="#" className="flex items-center gap-3 shrink-0">
-              <span className="relative grid size-9 place-items-center rounded-lg bg-[var(--ink)] text-[var(--bone)]">
-                <span className="absolute inset-0 rounded-lg ring-1 ring-[var(--ochre)]/40" />
-                <span className="font-display text-lg leading-none tracking-tighter">OI</span>
+            <a href="https://officeimage.nl/" className="flex items-center gap-3 shrink-0">
+              <span className={`rounded-lg px-3 py-1.5 transition-colors ${scrolled ? "bg-transparent" : "bg-[var(--bone)]/90"}`}>
+                <img src={OI.logo} alt="Office Image" className="h-7 md:h-8 w-auto" />
               </span>
-              <div className="flex flex-col leading-none">
-                <span className={`font-display text-lg tracking-tight ${scrolled ? "text-[var(--ink)]" : "text-[var(--bone)]"}`}>OfficeImage</span>
-                <span className={`mt-1 text-[9px] tracking-[0.28em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>Workspace Studio · est. 1994</span>
-              </div>
+              <span className={`hidden sm:inline mt-1 text-[9px] tracking-[0.28em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>Kantoormeubelen · Rotterdam</span>
             </a>
 
             <nav className="hidden xl:flex items-center gap-1">
@@ -201,13 +197,13 @@ function Header() {
             </nav>
 
             <div className="flex items-center gap-3">
-              <span className={`hidden md:inline text-[11px] tracking-[0.22em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>EN / NL</span>
-              <button className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] text-[var(--bone)] pl-5 pr-2 py-2 text-[13px] font-medium hover:bg-[var(--clay)] transition-colors">
-                <span>Book Consultation</span>
+              <a href={OI.showroom.telHref} className={`hidden md:inline num text-[12px] tracking-tight ${scrolled ? "text-[var(--ink)]/70 hover:text-[var(--ink)]" : "text-[var(--bone)]/70 hover:text-[var(--bone)]"}`}>{OI.showroom.tel}</a>
+              <a href="#showroom" className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] text-[var(--bone)] pl-5 pr-2 py-2 text-[13px] font-medium hover:bg-[var(--clay)] transition-colors">
+                <span>Bezoek showroom</span>
                 <span className="grid size-7 place-items-center rounded-full bg-[var(--bone)]/12 group-hover:bg-[var(--bone)]/25 transition-colors">
                   <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.3" /></svg>
                 </span>
-              </button>
+              </a>
             </div>
           </div>
         </div>
