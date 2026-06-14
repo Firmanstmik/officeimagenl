@@ -84,32 +84,85 @@ function Header() {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
-  const nav = ["Concepts", "Process", "Visualization", "Services", "Projects", "Studio"];
+  const nav = [
+    { label: "Home", href: "#" },
+    { label: "Workspace Solutions", href: "#concepts" },
+    { label: "Projects", href: "#projects" },
+    { label: "Process", href: "#process" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
+  ];
+  const utility = [
+    { i: "◇", t: "Workspace Planning Experts" },
+    { i: "✦", t: "Free Consultation" },
+    { i: "◐", t: "3D Visualization Specialists" },
+    { i: "→", t: "studio@officeimage.nl · +31 20 470 0000" },
+  ];
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"}`}
+      transition={{ duration: 0.9, ease }}
+      className="fixed inset-x-0 top-0 z-50"
     >
-      <div className={`mx-4 md:mx-8 rounded-full px-5 md:px-7 py-3 transition-all duration-500 ${scrolled ? "glass shadow-[0_8px_40px_-20px_rgba(20,15,10,0.25)]" : ""}`}>
-        <div className="flex items-center justify-between gap-6">
-          <a href="#" className="flex items-center gap-2.5 shrink-0">
-            <span className="grid size-7 place-items-center rounded-md bg-[var(--ink)] text-[var(--bone)] font-display text-base leading-none">O</span>
-            <span className="font-display text-xl tracking-tight">OfficeImage</span>
-          </a>
-          <nav className="hidden lg:flex items-center gap-8 text-[13px] text-[var(--graphite)]">
-            {nav.map(n => (
-              <a key={n} href={`#${n.toLowerCase()}`} className="relative hover:text-[var(--ink)] transition-colors">
-                {n}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
-            <span className="hidden md:inline text-[12px] text-[var(--muted-foreground)] num">EN / NL</span>
-            <button className="rounded-full bg-[var(--ink)] text-[var(--bone)] px-4 py-2 text-[13px] font-medium hover:bg-[var(--clay)] transition-colors">
-              Consultation
-            </button>
+      {/* utility bar — fades on scroll */}
+      <motion.div
+        animate={{ height: scrolled ? 0 : 38, opacity: scrolled ? 0 : 1 }}
+        transition={{ duration: 0.5, ease }}
+        className="overflow-hidden"
+      >
+        <div className="border-b border-[var(--bone)]/12 backdrop-blur-md bg-[var(--ink)]/60">
+          <div className="max-w-[1600px] mx-auto px-6 md:px-10 h-[38px] flex items-center justify-between text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/70">
+            <div className="flex items-center gap-7">
+              {utility.slice(0, 3).map(u => (
+                <span key={u.t} className="hidden md:flex items-center gap-2">
+                  <span className="text-[var(--ochre)]">{u.i}</span>
+                  <span>{u.t}</span>
+                </span>
+              ))}
+            </div>
+            <span className="num normal-case tracking-[0.12em]">{utility[3].t}</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* main nav */}
+      <div className={`transition-all duration-500 ${scrolled ? "py-3" : "py-4"}`}>
+        <div className={`mx-3 md:mx-6 rounded-full transition-all duration-500 ${scrolled ? "glass shadow-[0_20px_60px_-30px_rgba(17,24,39,0.35)]" : "bg-transparent"}`}>
+          <div className="px-5 md:px-7 py-3 flex items-center justify-between gap-6">
+            <a href="#" className="flex items-center gap-3 shrink-0">
+              <span className="relative grid size-9 place-items-center rounded-lg bg-[var(--ink)] text-[var(--bone)]">
+                <span className="absolute inset-0 rounded-lg ring-1 ring-[var(--ochre)]/40" />
+                <span className="font-display text-lg leading-none tracking-tighter">OI</span>
+              </span>
+              <div className="flex flex-col leading-none">
+                <span className={`font-display text-lg tracking-tight ${scrolled ? "text-[var(--ink)]" : "text-[var(--bone)]"}`}>OfficeImage</span>
+                <span className={`mt-1 text-[9px] tracking-[0.28em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>Workspace Studio · est. 1994</span>
+              </div>
+            </a>
+
+            <nav className="hidden xl:flex items-center gap-1">
+              {nav.map(n => (
+                <a
+                  key={n.label}
+                  href={n.href}
+                  className={`group relative px-3.5 py-2 text-[13px] font-medium tracking-tight transition-colors ${scrolled ? "text-[var(--ink)]/75 hover:text-[var(--ink)]" : "text-[var(--bone)]/75 hover:text-[var(--bone)]"}`}
+                >
+                  {n.label}
+                  <span className="absolute left-3.5 right-3.5 -bottom-0.5 h-px scale-x-0 origin-left bg-[var(--clay)] transition-transform duration-500 group-hover:scale-x-100" />
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <span className={`hidden md:inline text-[11px] tracking-[0.22em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>EN / NL</span>
+              <button className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] text-[var(--bone)] pl-5 pr-2 py-2 text-[13px] font-medium hover:bg-[var(--clay)] transition-colors">
+                <span>Book Consultation</span>
+                <span className="grid size-7 place-items-center rounded-full bg-[var(--bone)]/12 group-hover:bg-[var(--bone)]/25 transition-colors">
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.3" /></svg>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
