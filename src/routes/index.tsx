@@ -1005,31 +1005,31 @@ function Home() {
 
 const TESTIMONIALS = [
   {
-    type: "Headquarters · 12,500 m²",
+    type: "Directiekantoor · Rotterdam",
     quote:
-      "OfficeImage translated our culture into space with extraordinary precision. The new headquarters has measurably changed how our teams collaborate.",
-    name: "Mariska de Vries",
-    role: "Chief People Officer",
-    company: "Northwind Capital",
-    metric: "+38% in-office attendance",
+      "Snel geleverd, perfect afgewerkt en het directiekantoor oogt nu echt representatief. Het persoonlijke advies in de showroom maakte het verschil.",
+    name: "Mark van den Berg",
+    role: "Directeur",
+    company: "Tevreden klant",
+    metric: "100% klanttevredenheid",
   },
   {
-    type: "Law firm · 3,200 m²",
+    type: "Werkplekken · 24 stuks",
     quote:
-      "From the first strategy workshop to handover, one team, one standard. The level of finish is on par with the best in Europe.",
-    name: "Pieter Vermeer",
-    role: "Managing Partner",
-    company: "Vermeer & Partners",
-    metric: "98 NPS at handover",
+      "Binnen een week stonden alle elektrisch verstelbare bureaus en Raptor stoelen op kantoor. Montage door eigen team — niets aan de hand met de planning.",
+    name: "Sandra Jansen",
+    role: "Office Manager",
+    company: "MKB Rotterdam",
+    metric: "7 dagen levertijd",
   },
   {
-    type: "Creative agency · 1,800 m²",
+    type: "Archiefkasten · 12 stuks",
     quote:
-      "Architectural thinking applied to a working office. The studio feels considered in every corner — staff retention has visibly improved.",
-    name: "Lars Bakker",
-    role: "Founder",
-    company: "Studio Atelier",
-    metric: "−22% attrition YoY",
+      "Exclusieve roldeurkasten tegen scherpe prijzen, uit voorraad geleverd. De showroom in Rotterdam is een aanrader voordat je beslist.",
+    name: "Erik de Wit",
+    role: "Facility Manager",
+    company: "ZZP & MKB",
+    metric: "40% korting bestsellers",
   },
 ];
 
@@ -1041,14 +1041,14 @@ function Testimonials() {
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
           <Reveal>
-            <Eyebrow>Voices from the workplace</Eyebrow>
+            <Eyebrow>Wat klanten zeggen</Eyebrow>
             <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[14ch]">
-              Trusted by leaders who <em>measure the difference</em>.
+              Vertrouwd door bedrijven die <em>het verschil voelen</em>.
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-[var(--muted-foreground)] text-lg max-w-xl leading-relaxed">
-              Every transformation is benchmarked against the outcomes our clients set at the start — attendance, retention, sentiment and net promoter score after handover.
+              Van directiekantoor tot complete werkplekinrichting — onze klanten waarderen het snelle advies, de scherpe prijzen en de zorgvuldige montage.
             </p>
           </Reveal>
         </div>
@@ -1059,7 +1059,7 @@ function Testimonials() {
             <div className="absolute -top-10 -right-10 size-72 rounded-full bg-[var(--clay)]/12 blur-3xl" />
             <div className="relative">
               <div className="flex items-center justify-between text-[11px] tracking-[0.22em] uppercase text-[var(--bone)]/55">
-                <span>Client testimonial · {String(i + 1).padStart(2, "0")} / {String(TESTIMONIALS.length).padStart(2, "0")}</span>
+                <span>Klantverhaal · {String(i + 1).padStart(2, "0")} / {String(TESTIMONIALS.length).padStart(2, "0")}</span>
                 <span>{t.type}</span>
               </div>
 
@@ -1122,10 +1122,10 @@ function Testimonials() {
           {/* credibility metrics stack */}
           <div className="grid grid-cols-2 gap-5">
             {[
-              { k: "4.96", v: "Average client rating", sub: "Last 24 months" },
-              { k: "98", v: "Net Promoter Score", sub: "At handover" },
-              { k: "100%", v: "On-time delivery", sub: "2023 — 2026" },
-              { k: "5 yr", v: "Avg. client retention", sub: "Across EU portfolio" },
+              { k: "100%", v: "Klanttevredenheid", sub: "Bewezen kwaliteit" },
+              { k: "6", v: "Dagen per week open", sub: "Showroom Rotterdam" },
+              { k: "40%", v: "Korting bestsellers", sub: "30% over hele site" },
+              { k: "NL", v: "Uit eigen voorraad", sub: "Snelle levering" },
             ].map(s => (
               <Reveal key={s.v} className="rounded-2xl border border-[var(--ink)]/10 bg-[var(--bone)] p-6 md:p-7">
                 <div className="font-display text-5xl text-[var(--ink)] num tracking-tight">{s.k}</div>
@@ -1135,15 +1135,15 @@ function Testimonials() {
             ))}
             <div className="col-span-2 rounded-2xl border border-[var(--ink)]/10 bg-[var(--bone)] p-6 md:p-7 flex items-center justify-between gap-4">
               <div>
-                <div className="eyebrow">Recognised by</div>
+                <div className="eyebrow">Veilig betalen via</div>
                 <div className="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 font-display text-lg text-[var(--graphite)]">
-                  <span>Frame Awards</span>
+                  <span>iDEAL</span>
                   <span className="text-[var(--slate)]/40">·</span>
-                  <span>Dezeen</span>
+                  <span>Creditcard</span>
                   <span className="text-[var(--slate)]/40">·</span>
-                  <span>Wallpaper*</span>
+                  <span>Bancontact</span>
                   <span className="text-[var(--slate)]/40">·</span>
-                  <span>FX Design</span>
+                  <span>Op rekening</span>
                 </div>
               </div>
             </div>
