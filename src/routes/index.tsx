@@ -651,7 +651,7 @@ function Process() {
 /* ──────────────────────────── 5. 3D visualization ──────────────────────────── */
 
 function Visualization() {
-  const tabs = ["Floor plan", "Concept", "Render", "Realized"];
+  const tabs = ["Plattegrond", "Concept", "Render", "Opgeleverd"];
   const [t, setT] = useState(2);
   return (
     <section id="visualization" className="bg-[var(--sand)] py-24 md:py-36">
@@ -667,11 +667,11 @@ function Visualization() {
                     <span className="size-2.5 rounded-full bg-[var(--clay)]/60" />
                   </div>
                   <div className="ml-3 text-[11px] tracking-[0.22em] uppercase text-[var(--muted-foreground)] num">
-                    OI · Studio Viewport
+                    Office Image · Studio Viewport
                   </div>
                   <div className="ml-auto text-[11px] num text-[var(--muted-foreground)]">v2.4</div>
                 </div>
-                <img src={viz} alt="3D workspace visualization" className="w-full aspect-[4/3] object-cover" />
+                <img src={OI.categories[2].img} alt="3D weergave kantoorinrichting" className="w-full aspect-[4/3] object-cover" />
                 <div className="absolute bottom-4 left-4 right-4 glass rounded-xl p-3 flex items-center gap-2 flex-wrap">
                   {tabs.map((tt, idx) => (
                     <button
@@ -682,7 +682,7 @@ function Visualization() {
                       {tt}
                     </button>
                   ))}
-                  <span className="ml-auto text-[11px] uppercase tracking-widest text-[var(--muted-foreground)] num">2,400 m² · 6 floors</span>
+                  <span className="ml-auto text-[11px] uppercase tracking-widest text-[var(--muted-foreground)] num">240 m² · 1 verdieping</span>
                 </div>
               </div>
 
@@ -694,31 +694,31 @@ function Visualization() {
                 transition={{ duration: 0.9, delay: 0.3, ease }}
                 className="absolute -bottom-8 -right-4 md:-right-10 glass rounded-2xl p-5 w-[230px] hidden md:block"
               >
-                <div className="eyebrow">Material set</div>
+                <div className="eyebrow">Materiaalkeuze</div>
                 <div className="mt-3 flex gap-2">
                   {["#3b2a20", "#c7956b", "#e8dfd1", "#5a6b54"].map(c => (
                     <div key={c} className="size-9 rounded-full border border-[var(--ink)]/10" style={{ background: c }} />
                   ))}
                 </div>
-                <div className="mt-3 text-xs text-[var(--muted-foreground)]">Walnut · Travertine · Bouclé · Moss felt</div>
+                <div className="mt-3 text-xs text-[var(--muted-foreground)]">Walnoot · Halifax · Wit · Antraciet</div>
               </motion.div>
             </div>
           </Reveal>
 
           <Reveal delay={0.15}>
-            <Eyebrow>3D Visualization studio</Eyebrow>
+            <Eyebrow>3D Visualisatie</Eyebrow>
             <h2 className="mt-5 font-display text-5xl md:text-6xl leading-[1] max-w-[12ch]">
-              Plan with <span className="italic text-[var(--clay)]">confidence</span> before execution begins.
+              Plan met <span className="italic text-[var(--clay)]">zekerheid</span> voordat de eerste bestelling vertrekt.
             </h2>
             <p className="mt-7 text-[var(--muted-foreground)] text-lg leading-relaxed max-w-lg">
-              Our in-house visualization studio renders every concept in photoreal detail — from floor plans and material samples to the final installed result. You sign off on the experience, not a spreadsheet.
+              Vrijblijvend laten wij u zien hoe uw nieuwe kantoor eruit komt te zien. Van plattegrond en materiaalstalen tot een foto-realistische render — zodat u kiest op basis van beleving, niet alleen op productcode.
             </p>
             <ul className="mt-8 space-y-4 text-[15px]">
               {[
-                ["Floor plans", "Programming, circulation and acoustic zoning resolved on paper first."],
-                ["3D walkthroughs", "Step inside the future office in browser-based, real-time models."],
-                ["Material libraries", "Touch the textiles, woods and finishes before they are specified."],
-                ["Live revisions", "Every iteration mirrored across stakeholders in 48 hours."],
+                ["Plattegrond", "Looplijnen, indeling en akoestiek eerst op papier opgelost."],
+                ["3D walkthrough", "Loop door uw toekomstige kantoor in een interactief 3D-model."],
+                ["Materiaalstalen", "Voel hout, textiel en metaal in onze showroom in Rotterdam."],
+                ["Snelle revisies", "Iedere aanpassing binnen 48 uur terug bij alle betrokkenen."],
               ].map(([t2, d]) => (
                 <li key={t2} className="grid grid-cols-[auto_1fr] gap-5 items-baseline">
                   <span className="size-1.5 rounded-full bg-[var(--clay)] translate-y-2" />
@@ -729,7 +729,7 @@ function Visualization() {
                 </li>
               ))}
             </ul>
-            <div className="mt-10"><ArrowLink>Tour the studio</ArrowLink></div>
+            <div className="mt-10"><ArrowLink>Bezoek de showroom</ArrowLink></div>
           </Reveal>
         </div>
       </div>
