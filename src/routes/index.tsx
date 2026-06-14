@@ -1159,6 +1159,184 @@ function Testimonials() {
 
 /* ──────────────────────────── floating CTA ──────────────────────────── */
 
+/* ──────────────────────────── categories (real OfficeImage) ──────────────────────────── */
+
+function Categories() {
+  return (
+    <section id="categories" className="bg-[var(--sand)] py-24 md:py-36">
+      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+        <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-end">
+          <Reveal>
+            <Eyebrow>Onze collecties</Eyebrow>
+            <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[14ch]">
+              Exclusief bij <span className="italic text-[var(--clay)]">Office Image.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="text-[var(--muted-foreground)] text-lg max-w-xl leading-relaxed">
+              Van directiemeubelen tot werkplekken, bureaustoelen, archiefkasten en lockers. Onze complete catalogus — uit voorraad leverbaar.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="mt-14 md:mt-20 grid gap-5 md:gap-6 md:grid-cols-12">
+          {OI.categories.map((c, i) => {
+            // bento spans — first one bigger, then 3+3, then 2+2+2
+            const span =
+              i === 0 ? "md:col-span-6 md:row-span-2" :
+              i === 1 ? "md:col-span-6" :
+              i === 2 ? "md:col-span-3" :
+              i === 3 ? "md:col-span-3" :
+              i === 4 ? "md:col-span-4" :
+              i === 5 ? "md:col-span-4" :
+                        "md:col-span-4";
+            const aspect = i === 0 ? "aspect-[4/5] md:aspect-auto md:h-full" : "aspect-[4/3]";
+            return (
+              <Reveal key={c.name} delay={i * 0.04} className={span}>
+                <a href={c.href} target="_blank" rel="noreferrer" className="group block relative rounded-2xl overflow-hidden bg-[var(--graphite)] h-full">
+                  <div className={`relative ${aspect} overflow-hidden`}>
+                    <img src={c.img} alt={c.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/75 via-[var(--ink)]/10 to-transparent" />
+                    <div className="absolute top-5 left-5 glass-dark rounded-full px-3 py-1 text-[11px] uppercase tracking-widest text-[var(--bone)] num">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="absolute inset-x-0 bottom-0 p-6 md:p-7 flex items-end justify-between gap-4">
+                      <div className="font-display text-2xl md:text-4xl text-[var(--bone)] leading-tight">{c.name}</div>
+                      <span className="text-[var(--bone)] opacity-70 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500 text-xl">→</span>
+                    </div>
+                  </div>
+                </a>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────── bestsellers (real OfficeImage products) ──────────────────────────── */
+
+function Bestsellers() {
+  return (
+    <section id="bestsellers" className="bg-[var(--bone)] py-24 md:py-36">
+      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+        <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
+          <Reveal>
+            <Eyebrow>Bestsellers · tot 40% korting</Eyebrow>
+            <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[14ch]">
+              De meest <span className="italic text-[var(--clay)]">gevraagde stukken.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <a href="https://officeimage.nl/alle-artikelen/" target="_blank" rel="noreferrer">
+              <ArrowLink>Alle artikelen</ArrowLink>
+            </a>
+          </Reveal>
+        </div>
+
+        <div className="mt-14 md:mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {OI.bestsellers.map((b, i) => (
+            <Reveal key={b.name} delay={i * 0.06}>
+              <a href={b.href} target="_blank" rel="noreferrer" className="group block rounded-2xl overflow-hidden bg-[var(--card)] border border-[var(--ink)]/8 h-full">
+                <div className="relative aspect-square overflow-hidden bg-[var(--sand)]">
+                  <img src={b.img} alt={b.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.05]" />
+                  {b.was && (
+                    <div className="absolute top-4 left-4 rounded-full bg-[var(--clay)] text-[var(--bone)] px-3 py-1 text-[11px] uppercase tracking-widest font-medium">
+                      Sale
+                    </div>
+                  )}
+                  <div className="absolute top-4 right-4 glass rounded-full px-3 py-1 text-[10px] uppercase tracking-widest num text-[var(--ink)]">
+                    Op voorraad
+                  </div>
+                </div>
+                <div className="p-5 md:p-6">
+                  <div className="font-display text-lg md:text-xl leading-snug tracking-tight text-[var(--ink)] min-h-[3em]">{b.name}</div>
+                  <div className="mt-4 flex items-baseline justify-between">
+                    <div className="flex items-baseline gap-2">
+                      {b.was && <span className="text-sm text-[var(--muted-foreground)] line-through num">{b.was}</span>}
+                      <span className="font-display text-2xl num text-[var(--ink)]">{b.price}</span>
+                    </div>
+                    <span className="text-[var(--clay)] text-sm group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </div>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────── showroom (real Rotterdam address & hours) ──────────────────────────── */
+
+function Showroom() {
+  return (
+    <section id="showroom" className="bg-[var(--ink)] text-[var(--bone)] py-24 md:py-36 overflow-hidden">
+      <div className="max-w-[1500px] mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
+        <Reveal>
+          <div className="relative rounded-2xl overflow-hidden border border-[var(--bone)]/12">
+            <img src={OI.categories[0].img} alt="Office Image showroom" className="w-full aspect-[4/3] object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/70 to-transparent" />
+            <div className="absolute left-6 bottom-6 right-6 flex items-end justify-between gap-4">
+              <div>
+                <div className="eyebrow text-[var(--bone)]/65">Showroom · Rotterdam</div>
+                <div className="mt-2 font-display text-3xl md:text-4xl">{OI.showroom.address}</div>
+                <div className="text-[var(--bone)]/70">{OI.showroom.zip}</div>
+              </div>
+              <div className="glass-dark rounded-xl px-4 py-3 text-center">
+                <div className="font-display text-2xl num">6/7</div>
+                <div className="text-[10px] uppercase tracking-widest text-[var(--bone)]/55">dagen open</div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.15}>
+          <Eyebrow>Bezoek de showroom</Eyebrow>
+          <h2 className="mt-5 font-display text-5xl md:text-6xl leading-[1] max-w-[14ch]">
+            Voel de kwaliteit, <span className="italic text-[var(--clay)]">zie de afwerking.</span>
+          </h2>
+          <p className="mt-6 text-[var(--bone)]/70 text-lg leading-relaxed max-w-lg">
+            Onze fysieke showroom in Rotterdam is zes dagen per week open. Buiten openingstijden kunt u ook op afspraak langskomen — wij staan voor u klaar.
+          </p>
+
+          <div className="mt-8 grid sm:grid-cols-2 gap-5">
+            <div className="rounded-2xl border border-[var(--bone)]/12 p-5">
+              <div className="eyebrow text-[var(--bone)]/55">Contact</div>
+              <ul className="mt-3 space-y-1.5 text-[var(--bone)]/85 text-sm">
+                <li><a href={OI.showroom.telHref} className="hover:text-[var(--ochre)] num">Tel · {OI.showroom.tel}</a></li>
+                <li><a href={OI.showroom.mobileHref} className="hover:text-[var(--ochre)] num">Mob · {OI.showroom.mobile}</a></li>
+                <li className="num">{OI.showroom.email}</li>
+                <li className="num text-[var(--bone)]/55">KvK · {OI.showroom.kvk}</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-[var(--bone)]/12 p-5">
+              <div className="eyebrow text-[var(--bone)]/55">Openingstijden</div>
+              <ul className="mt-3 space-y-1.5 text-sm">
+                {OI.hours.map(([d, h]) => (
+                  <li key={d} className="flex justify-between text-[var(--bone)]/85">
+                    <span>{d}</span>
+                    <span className={`num ${h === "Gesloten" ? "text-[var(--bone)]/40" : ""}`}>{h}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href={OI.showroom.telHref}><ArrowLink variant="clay">Bel direct</ArrowLink></a>
+            <a href={OI.social.instagram} target="_blank" rel="noreferrer"><ArrowLink variant="bone">Volg op Instagram</ArrowLink></a>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────── floating CTA — repeated marker removed ──────────────────────────── */
+
 function FloatingCTA() {
   const [visible, setVisible] = useState(false);
   const [expanded, setExpanded] = useState(true);
