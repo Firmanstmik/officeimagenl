@@ -84,32 +84,85 @@ function Header() {
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
-  const nav = ["Concepts", "Process", "Visualization", "Services", "Projects", "Studio"];
+  const nav = [
+    { label: "Home", href: "#" },
+    { label: "Workspace Solutions", href: "#concepts" },
+    { label: "Projects", href: "#projects" },
+    { label: "Process", href: "#process" },
+    { label: "About", href: "#about" },
+    { label: "Contact", href: "#contact" },
+  ];
+  const utility = [
+    { i: "◇", t: "Workspace Planning Experts" },
+    { i: "✦", t: "Free Consultation" },
+    { i: "◐", t: "3D Visualization Specialists" },
+    { i: "→", t: "studio@officeimage.nl · +31 20 470 0000" },
+  ];
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? "py-3" : "py-5"}`}
+      transition={{ duration: 0.9, ease }}
+      className="fixed inset-x-0 top-0 z-50"
     >
-      <div className={`mx-4 md:mx-8 rounded-full px-5 md:px-7 py-3 transition-all duration-500 ${scrolled ? "glass shadow-[0_8px_40px_-20px_rgba(20,15,10,0.25)]" : ""}`}>
-        <div className="flex items-center justify-between gap-6">
-          <a href="#" className="flex items-center gap-2.5 shrink-0">
-            <span className="grid size-7 place-items-center rounded-md bg-[var(--ink)] text-[var(--bone)] font-display text-base leading-none">O</span>
-            <span className="font-display text-xl tracking-tight">OfficeImage</span>
-          </a>
-          <nav className="hidden lg:flex items-center gap-8 text-[13px] text-[var(--graphite)]">
-            {nav.map(n => (
-              <a key={n} href={`#${n.toLowerCase()}`} className="relative hover:text-[var(--ink)] transition-colors">
-                {n}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
-            <span className="hidden md:inline text-[12px] text-[var(--muted-foreground)] num">EN / NL</span>
-            <button className="rounded-full bg-[var(--ink)] text-[var(--bone)] px-4 py-2 text-[13px] font-medium hover:bg-[var(--clay)] transition-colors">
-              Consultation
-            </button>
+      {/* utility bar — fades on scroll */}
+      <motion.div
+        animate={{ height: scrolled ? 0 : 38, opacity: scrolled ? 0 : 1 }}
+        transition={{ duration: 0.5, ease }}
+        className="overflow-hidden"
+      >
+        <div className="border-b border-[var(--bone)]/12 backdrop-blur-md bg-[var(--ink)]/60">
+          <div className="max-w-[1600px] mx-auto px-6 md:px-10 h-[38px] flex items-center justify-between text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/70">
+            <div className="flex items-center gap-7">
+              {utility.slice(0, 3).map(u => (
+                <span key={u.t} className="hidden md:flex items-center gap-2">
+                  <span className="text-[var(--ochre)]">{u.i}</span>
+                  <span>{u.t}</span>
+                </span>
+              ))}
+            </div>
+            <span className="num normal-case tracking-[0.12em]">{utility[3].t}</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* main nav */}
+      <div className={`transition-all duration-500 ${scrolled ? "py-3" : "py-4"}`}>
+        <div className={`mx-3 md:mx-6 rounded-full transition-all duration-500 ${scrolled ? "glass shadow-[0_20px_60px_-30px_rgba(17,24,39,0.35)]" : "bg-transparent"}`}>
+          <div className="px-5 md:px-7 py-3 flex items-center justify-between gap-6">
+            <a href="#" className="flex items-center gap-3 shrink-0">
+              <span className="relative grid size-9 place-items-center rounded-lg bg-[var(--ink)] text-[var(--bone)]">
+                <span className="absolute inset-0 rounded-lg ring-1 ring-[var(--ochre)]/40" />
+                <span className="font-display text-lg leading-none tracking-tighter">OI</span>
+              </span>
+              <div className="flex flex-col leading-none">
+                <span className={`font-display text-lg tracking-tight ${scrolled ? "text-[var(--ink)]" : "text-[var(--bone)]"}`}>OfficeImage</span>
+                <span className={`mt-1 text-[9px] tracking-[0.28em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>Workspace Studio · est. 1994</span>
+              </div>
+            </a>
+
+            <nav className="hidden xl:flex items-center gap-1">
+              {nav.map(n => (
+                <a
+                  key={n.label}
+                  href={n.href}
+                  className={`group relative px-3.5 py-2 text-[13px] font-medium tracking-tight transition-colors ${scrolled ? "text-[var(--ink)]/75 hover:text-[var(--ink)]" : "text-[var(--bone)]/75 hover:text-[var(--bone)]"}`}
+                >
+                  {n.label}
+                  <span className="absolute left-3.5 right-3.5 -bottom-0.5 h-px scale-x-0 origin-left bg-[var(--clay)] transition-transform duration-500 group-hover:scale-x-100" />
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex items-center gap-3">
+              <span className={`hidden md:inline text-[11px] tracking-[0.22em] uppercase ${scrolled ? "text-[var(--slate)]" : "text-[var(--bone)]/55"}`}>EN / NL</span>
+              <button className="group inline-flex items-center gap-2.5 rounded-full bg-[var(--ink)] text-[var(--bone)] pl-5 pr-2 py-2 text-[13px] font-medium hover:bg-[var(--clay)] transition-colors">
+                <span>Book Consultation</span>
+                <span className="grid size-7 place-items-center rounded-full bg-[var(--bone)]/12 group-hover:bg-[var(--bone)]/25 transition-colors">
+                  <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.3" /></svg>
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -777,7 +830,7 @@ function Projects() {
 
 function CTA() {
   return (
-    <section className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
+    <section id="contact" className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
       <div className="absolute inset-0">
         <img src={ctaImg} alt="" className="h-full w-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)] via-[var(--ink)]/70 to-[var(--ink)]/30" />
@@ -858,8 +911,236 @@ function Home() {
       <Visualization />
       <Services />
       <Projects />
+      <Testimonials />
       <CTA />
       <Footer />
+      <FloatingCTA />
     </main>
+  );
+}
+
+/* ──────────────────────────── testimonials ──────────────────────────── */
+
+const TESTIMONIALS = [
+  {
+    type: "Headquarters · 12,500 m²",
+    quote:
+      "OfficeImage translated our culture into space with extraordinary precision. The new headquarters has measurably changed how our teams collaborate.",
+    name: "Mariska de Vries",
+    role: "Chief People Officer",
+    company: "Northwind Capital",
+    metric: "+38% in-office attendance",
+  },
+  {
+    type: "Law firm · 3,200 m²",
+    quote:
+      "From the first strategy workshop to handover, one team, one standard. The level of finish is on par with the best in Europe.",
+    name: "Pieter Vermeer",
+    role: "Managing Partner",
+    company: "Vermeer & Partners",
+    metric: "98 NPS at handover",
+  },
+  {
+    type: "Creative agency · 1,800 m²",
+    quote:
+      "Architectural thinking applied to a working office. The studio feels considered in every corner — staff retention has visibly improved.",
+    name: "Lars Bakker",
+    role: "Founder",
+    company: "Studio Atelier",
+    metric: "−22% attrition YoY",
+  },
+];
+
+function Testimonials() {
+  const [i, setI] = useState(0);
+  const t = TESTIMONIALS[i];
+  return (
+    <section id="about" className="bg-[var(--sand)] py-24 md:py-36">
+      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+        <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
+          <Reveal>
+            <Eyebrow>Voices from the workplace</Eyebrow>
+            <h2 className="mt-5 font-display text-5xl md:text-7xl leading-[0.98] max-w-[14ch]">
+              Trusted by leaders who <em>measure the difference</em>.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="text-[var(--muted-foreground)] text-lg max-w-xl leading-relaxed">
+              Every transformation is benchmarked against the outcomes our clients set at the start — attendance, retention, sentiment and net promoter score after handover.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="mt-14 md:mt-20 grid lg:grid-cols-[1.4fr_1fr] gap-6 lg:gap-8">
+          {/* primary testimonial card */}
+          <div className="relative rounded-2xl bg-[var(--ink)] text-[var(--bone)] p-8 md:p-12 overflow-hidden">
+            <div className="absolute -top-10 -right-10 size-72 rounded-full bg-[var(--clay)]/12 blur-3xl" />
+            <div className="relative">
+              <div className="flex items-center justify-between text-[11px] tracking-[0.22em] uppercase text-[var(--bone)]/55">
+                <span>Client testimonial · {String(i + 1).padStart(2, "0")} / {String(TESTIMONIALS.length).padStart(2, "0")}</span>
+                <span>{t.type}</span>
+              </div>
+
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={t.name}
+                  initial={{ opacity: 0, y: 18 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.6, ease }}
+                >
+                  <p className="mt-8 font-display text-3xl md:text-4xl leading-[1.15] tracking-tight">
+                    <span className="text-[var(--ochre)] font-display">“</span>
+                    {t.quote}
+                    <span className="text-[var(--ochre)] font-display">”</span>
+                  </p>
+
+                  <div className="mt-10 flex flex-wrap items-end justify-between gap-6">
+                    <div>
+                      <div className="font-display text-xl">{t.name}</div>
+                      <div className="mt-1 text-sm text-[var(--bone)]/65">{t.role} · {t.company}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-display text-3xl text-[var(--ochre)] num tracking-tight">{t.metric.split(" ")[0]}</div>
+                      <div className="text-[11px] uppercase tracking-widest text-[var(--bone)]/55 mt-1">
+                        {t.metric.split(" ").slice(1).join(" ")}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="mt-10 pt-6 border-t border-[var(--bone)]/12 flex items-center gap-3">
+                {TESTIMONIALS.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setI(idx)}
+                    className={`h-1 rounded-full transition-all duration-500 ${idx === i ? "bg-[var(--ochre)] w-10" : "bg-[var(--bone)]/20 w-6 hover:bg-[var(--bone)]/40"}`}
+                    aria-label={`Show testimonial ${idx + 1}`}
+                  />
+                ))}
+                <div className="ml-auto flex gap-2">
+                  <button
+                    onClick={() => setI((i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+                    className="grid size-9 place-items-center rounded-full border border-[var(--bone)]/15 hover:bg-[var(--bone)]/10 transition"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M13 7H1M6 2L1 7l5 5" stroke="currentColor" strokeWidth="1.3" /></svg>
+                  </button>
+                  <button
+                    onClick={() => setI((i + 1) % TESTIMONIALS.length)}
+                    className="grid size-9 place-items-center rounded-full border border-[var(--bone)]/15 hover:bg-[var(--bone)]/10 transition"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.3" /></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* credibility metrics stack */}
+          <div className="grid grid-cols-2 gap-5">
+            {[
+              { k: "4.96", v: "Average client rating", sub: "Last 24 months" },
+              { k: "98", v: "Net Promoter Score", sub: "At handover" },
+              { k: "100%", v: "On-time delivery", sub: "2023 — 2026" },
+              { k: "5 yr", v: "Avg. client retention", sub: "Across EU portfolio" },
+            ].map(s => (
+              <Reveal key={s.v} className="rounded-2xl border border-[var(--ink)]/10 bg-[var(--bone)] p-6 md:p-7">
+                <div className="font-display text-5xl text-[var(--ink)] num tracking-tight">{s.k}</div>
+                <div className="mt-3 text-sm font-medium">{s.v}</div>
+                <div className="mt-1 text-[11px] uppercase tracking-widest text-[var(--muted-foreground)]">{s.sub}</div>
+              </Reveal>
+            ))}
+            <div className="col-span-2 rounded-2xl border border-[var(--ink)]/10 bg-[var(--bone)] p-6 md:p-7 flex items-center justify-between gap-4">
+              <div>
+                <div className="eyebrow">Recognised by</div>
+                <div className="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 font-display text-lg text-[var(--graphite)]">
+                  <span>Frame Awards</span>
+                  <span className="text-[var(--slate)]/40">·</span>
+                  <span>Dezeen</span>
+                  <span className="text-[var(--slate)]/40">·</span>
+                  <span>Wallpaper*</span>
+                  <span className="text-[var(--slate)]/40">·</span>
+                  <span>FX Design</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ──────────────────────────── floating CTA ──────────────────────────── */
+
+function FloatingCTA() {
+  const [visible, setVisible] = useState(false);
+  const [expanded, setExpanded] = useState(true);
+  useEffect(() => {
+    const on = () => setVisible(window.scrollY > window.innerHeight * 0.6);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 80, opacity: 0 }}
+          transition={{ duration: 0.6, ease }}
+          className="fixed bottom-5 left-1/2 -translate-x-1/2 z-40 hidden md:block"
+        >
+          <div className="glass-dark rounded-full pl-2 pr-2 py-2 flex items-center gap-1.5 shadow-[0_30px_80px_-30px_rgba(17,24,39,0.55)]">
+            <motion.div
+              initial={false}
+              animate={{ width: expanded ? "auto" : 0, opacity: expanded ? 1 : 0 }}
+              transition={{ duration: 0.5, ease }}
+              className="overflow-hidden flex items-center gap-1.5"
+            >
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2.5 rounded-full bg-[var(--clay)] text-[var(--bone)] pl-4 pr-2 py-2 text-[12.5px] font-medium tracking-tight hover:bg-[var(--ochre)] hover:text-[var(--ink)] transition-colors"
+              >
+                <span className="size-1.5 rounded-full bg-[var(--bone)] animate-pulse" />
+                Book Consultation
+                <span className="grid size-6 place-items-center rounded-full bg-[var(--bone)]/15">
+                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.4" /></svg>
+                </span>
+              </a>
+              <a
+                href="#concepts"
+                className="hidden lg:inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-medium text-[var(--bone)]/85 hover:text-[var(--bone)] hover:bg-[var(--bone)]/10 transition-colors whitespace-nowrap"
+              >
+                Request Workspace Analysis
+              </a>
+              <a
+                href="tel:+31204700000"
+                className="hidden lg:inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12.5px] font-medium text-[var(--bone)]/85 hover:text-[var(--bone)] hover:bg-[var(--bone)]/10 transition-colors whitespace-nowrap"
+              >
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M3 1.5h2l1.2 3-1.5 1a8 8 0 0 0 3.8 3.8l1-1.5 3 1.2v2A1.5 1.5 0 0 1 11 12.5C5.5 12.5 1.5 8.5 1.5 3A1.5 1.5 0 0 1 3 1.5Z" stroke="currentColor" strokeWidth="1.2" /></svg>
+                Contact Expert
+              </a>
+            </motion.div>
+            <button
+              onClick={() => setExpanded(e => !e)}
+              className="grid size-9 place-items-center rounded-full text-[var(--bone)]/80 hover:text-[var(--bone)] hover:bg-[var(--bone)]/10 transition-colors"
+              aria-label={expanded ? "Collapse" : "Expand"}
+            >
+              <motion.svg
+                animate={{ rotate: expanded ? 0 : 180 }}
+                transition={{ duration: 0.4, ease }}
+                width="12" height="12" viewBox="0 0 14 14" fill="none"
+              >
+                <path d="M2 5l5 5 5-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+              </motion.svg>
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

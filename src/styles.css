@@ -34,25 +34,30 @@
   --color-clay: var(--clay);
   --color-ochre: var(--ochre);
   --color-graphite: var(--graphite);
-  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-sans: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --color-bronze: var(--clay);
+  --color-stone: var(--bone);
+  --color-charcoal: var(--ink);
+  --color-slate: var(--graphite);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 :root {
   --radius: 0.5rem;
 
-  /* Premium architectural palette */
-  --bone: oklch(0.965 0.012 80);
-  --sand: oklch(0.91 0.018 75);
-  --ink: oklch(0.16 0.012 60);
-  --graphite: oklch(0.28 0.008 60);
-  --clay: oklch(0.52 0.12 38);   /* terracotta accent */
-  --ochre: oklch(0.74 0.10 70);
+  /* Premium architectural palette — charcoal + soft stone + warm bronze */
+  --bone: #F8F7F4;          /* Soft Stone */
+  --sand: #EFEDE6;          /* warmer stone tone */
+  --ink: #111827;           /* Deep Charcoal */
+  --graphite: #1F2937;      /* charcoal-2 */
+  --slate: #64748B;         /* Slate Gray */
+  --clay: #B88A5A;          /* Warm Bronze accent */
+  --ochre: #D4A574;         /* light bronze highlight */
 
   --background: var(--bone);
   --foreground: var(--ink);
-  --card: oklch(0.985 0.006 80);
+  --card: #FDFCFA;
   --card-foreground: var(--ink);
   --popover: var(--card);
   --popover-foreground: var(--ink);
@@ -60,14 +65,14 @@
   --primary-foreground: var(--bone);
   --secondary: var(--sand);
   --secondary-foreground: var(--ink);
-  --muted: oklch(0.93 0.012 78);
-  --muted-foreground: oklch(0.42 0.012 60);
+  --muted: #EDEBE4;
+  --muted-foreground: #64748B;
   --accent: var(--clay);
   --accent-foreground: var(--bone);
   --destructive: oklch(0.55 0.22 25);
   --destructive-foreground: var(--bone);
-  --border: oklch(0.86 0.012 75);
-  --input: oklch(0.86 0.012 75);
+  --border: #E5E2D9;
+  --input: #E5E2D9;
   --ring: var(--clay);
 }
 
@@ -90,8 +95,10 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
+    font-optical-sizing: auto;
   }
-  h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.02em; }
+  h1, h2, h3, .font-display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.035em; }
+  h1 em, h2 em, h3 em, .font-display em { font-style: normal; font-weight: 400; color: var(--clay); font-family: "Instrument Serif", ui-serif, Georgia, serif; font-style: italic; letter-spacing: -0.01em; }
   ::selection { background: var(--clay); color: var(--bone); }
 }
 
