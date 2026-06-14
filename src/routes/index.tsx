@@ -344,25 +344,25 @@ function Hero() {
 
 function Trust() {
   const stats = [
-    { k: "30+", v: "Years of expertise", note: "Since 1994" },
-    { k: "1,200", v: "Workspaces delivered", note: "EU-wide" },
-    { k: "98%", v: "Client retention", note: "5-year average" },
-    { k: "End-to-end", v: "Strategy → realization", note: "Single partner" },
+    { k: "100%", v: "Klanttevredenheid", note: "Bewezen kwaliteit" },
+    { k: "6", v: "Dagen per week open", note: "Fysieke showroom" },
+    { k: "40%", v: "Tot korting op bestsellers", note: "30% over hele site" },
+    { k: "NL", v: "Grote voorraad", note: "Snelle levering" },
   ];
-  const logos = ["Adyen", "Booking", "Mollie", "Picnic", "Bunq", "Heineken", "Backbase", "WeTransfer"];
+  const logos = ["Directie", "Bureaustoelen", "Tafels", "Archiefkasten", "Lockers", "Werkplekken", "Foxline", "T-line"];
   return (
     <section className="bg-[var(--bone)] py-24 md:py-32">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-end">
           <Reveal>
-            <Eyebrow>Trusted across Europe</Eyebrow>
+            <Eyebrow>Waarom Office Image</Eyebrow>
             <h2 className="mt-5 font-display text-5xl md:text-6xl leading-[1.02]">
-              Three decades of <span className="italic text-[var(--clay)]">quiet, considered</span> workspace craft.
+              De nieuwste producten, <span className="italic text-[var(--clay)]">de juiste prijzen</span> — direct uit voorraad.
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-[var(--muted-foreground)] text-lg leading-relaxed max-w-xl">
-              We partner with ambitious organisations to translate culture and strategy into space. From the first sketch to the last detail, one team carries the project — and the standard.
+              Office Image is een jong en dynamisch bedrijf dat zakelijke kantoorinrichting eenvoudig en snel maakt. Bestel online of bezoek onze showroom in Rotterdam — wij denken graag mee.
             </p>
           </Reveal>
         </div>
