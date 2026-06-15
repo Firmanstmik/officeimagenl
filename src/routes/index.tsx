@@ -151,23 +151,73 @@ function Header() {
       transition={{ duration: 0.9, ease }}
       className="fixed inset-x-0 top-0 z-50"
     >
-      {/* utility bar — fades on scroll */}
+      {/* utility bar — premium marquee, fades on scroll */}
       <motion.div
-        animate={{ height: scrolled ? 0 : 38, opacity: scrolled ? 0 : 1 }}
+        animate={{ height: scrolled ? 0 : 40, opacity: scrolled ? 0 : 1 }}
         transition={{ duration: 0.5, ease }}
-        className="overflow-hidden"
+        className="overflow-hidden relative"
       >
-        <div className="border-b border-[var(--bone)]/12 backdrop-blur-md bg-[var(--ink)]/60">
-          <div className="max-w-[1600px] mx-auto px-6 md:px-10 h-[38px] flex items-center justify-between text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/70">
-            <div className="flex items-center gap-7">
-              {utility.slice(0, 3).map(u => (
-                <span key={u.t} className="hidden md:flex items-center gap-2">
-                  <span className="text-[var(--ochre)]">{u.i}</span>
-                  <span>{u.t}</span>
-                </span>
-              ))}
+        <div className="relative bg-[var(--ink)] border-b border-[var(--bone)]/10">
+          {/* animated bronze sheen */}
+          <motion.div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.18] pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(110deg, transparent 30%, var(--ochre) 50%, transparent 70%)",
+              backgroundSize: "240% 100%",
+            }}
+            animate={{ backgroundPosition: ["0% 0%", "-240% 0%"] }}
+            transition={{ duration: 14, ease: "linear", repeat: Infinity }}
+          />
+          {/* grain */}
+          <div
+            aria-hidden
+            className="absolute inset-0 opacity-[0.06] pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 1px 1px, var(--bone) 1px, transparent 0)",
+              backgroundSize: "14px 14px",
+            }}
+          />
+
+          <div className="relative max-w-[1600px] mx-auto px-3 md:px-6 h-[40px] flex items-center gap-4">
+            {/* left static badge */}
+            <div className="hidden md:flex items-center gap-2 shrink-0 pr-4 mr-1 border-r border-[var(--bone)]/12">
+              <span className="relative grid place-items-center size-4">
+                <span className="absolute inset-0 rounded-full bg-[var(--ochre)]/40 animate-ping" />
+                <span className="relative size-1.5 rounded-full bg-[var(--ochre)]" />
+              </span>
+              <span className="text-[10px] tracking-[0.28em] uppercase text-[var(--bone)]/85 font-medium">
+                Live · Showroom open
+              </span>
             </div>
-            <span className="num normal-case tracking-[0.12em]">{utility[3].t}</span>
+
+            {/* infinite marquee */}
+            <div className="flex-1 overflow-hidden mask-marquee">
+              <motion.div
+                className="flex items-center gap-10 w-max whitespace-nowrap"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 38, ease: "linear", repeat: Infinity }}
+              >
+                {[...utility, ...utility, ...utility, ...utility].map((u, i) => (
+                  <span key={i} className="flex items-center gap-3 text-[11px] tracking-[0.22em] uppercase text-[var(--bone)]/75">
+                    <span className="text-[var(--ochre)] text-sm leading-none">{u.i}</span>
+                    <span>{u.t}</span>
+                    <span className="text-[var(--bone)]/20">|</span>
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* right cta */}
+            <a
+              href={OI.showroom.telHref}
+              className="hidden md:inline-flex items-center gap-2 shrink-0 pl-4 ml-1 border-l border-[var(--bone)]/12 text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/80 hover:text-[var(--ochre)] transition-colors num"
+            >
+              <span>Bel direct</span>
+              <span className="text-[var(--ochre)]">{OI.showroom.tel}</span>
+            </a>
           </div>
         </div>
       </motion.div>
