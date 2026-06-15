@@ -264,68 +264,151 @@ function Header() {
 
 /* ──────────────────────────── 1. hero ──────────────────────────── */
 
+const HERO_SLIDES = [
+  {
+    img: OI.hero,
+    eyebrow: "Directie · Premium collectie",
+    title: ["Exclusieve kantoorinrichting", "voor moderne", "bedrijven."],
+    italicIndex: 1,
+    sub: "Directiemeubelen, vergadertafels en luxe afwerkingen — uit eigen voorraad in Rotterdam.",
+    tag: "Collectie Directie",
+    meta: "240 m² showroom",
+  },
+  {
+    img: OI.categories[1].img,
+    eyebrow: "Werkplekken · Foxline & T-line",
+    title: ["Ergonomische werkplekken", "die meegroeien", "met uw team."],
+    italicIndex: 1,
+    sub: "Elektrisch verstelbare bureaus, modulair en op maat geconfigureerd. Vandaag besteld, snel geleverd.",
+    tag: "Werkplek-systemen",
+    meta: "Tot 40% korting",
+  },
+  {
+    img: OI.bestsellers[2].img,
+    eyebrow: "Bureaustoelen · 24-uurs gecertificeerd",
+    title: ["24-uurs stoelen,", "getest voor", "échte werkdagen."],
+    italicIndex: 1,
+    sub: "Raptor en topmerken — leder en stof. Comfort, support en duurzaamheid voor intensieve werkomgevingen.",
+    tag: "Raptor 24h",
+    meta: "v.a. €669",
+  },
+];
+
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const imgScale = useTransform(scrollYProgress, [0, 1], [1.05, 1.15]);
   const txtY = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
 
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const total = HERO_SLIDES.length;
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setTimeout(() => setIdx(i => (i + 1) % total), 6200);
+    return () => clearTimeout(t);
+  }, [idx, paused, total]);
+
+  const slide = HERO_SLIDES[idx];
+
   return (
-    <section ref={ref} className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-[var(--ink)]">
-      <motion.div style={{ y: imgY, scale: imgScale }} className="absolute inset-0">
-        <img src={OI.hero} alt="Luxe kantoorinrichting van Office Image" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/40 via-[var(--ink)]/10 to-[var(--ink)]/85" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)]/45 via-transparent to-transparent" />
+    <section
+      ref={ref}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      className="relative h-[100svh] min-h-[680px] w-full overflow-hidden bg-[var(--ink)]"
+    >
+      {/* slide layer with ken-burns + crossfade */}
+      <motion.div style={{ y: imgY }} className="absolute inset-0">
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, scale: 1.18 }}
+            animate={{ opacity: 1, scale: 1.05 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ opacity: { duration: 1.6, ease }, scale: { duration: 7.2, ease: "linear" } }}
+            className="absolute inset-0"
+          >
+            <img src={slide.img} alt={slide.eyebrow} className="h-full w-full object-cover" />
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/45 via-[var(--ink)]/10 to-[var(--ink)]/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)]/55 via-transparent to-transparent" />
+        {/* film grain */}
+        <div
+          aria-hidden
+          className="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, var(--bone) 1px, transparent 0)",
+            backgroundSize: "3px 3px",
+          }}
+        />
+        {/* sweeping bronze line */}
+        <motion.div
+          aria-hidden
+          key={`sweep-${idx}`}
+          initial={{ x: "-30%", opacity: 0 }}
+          animate={{ x: "130%", opacity: [0, 0.35, 0] }}
+          transition={{ duration: 2.4, ease, delay: 0.2 }}
+          className="absolute inset-y-0 w-[40%] pointer-events-none"
+          style={{ background: "linear-gradient(100deg, transparent, color-mix(in oklab, var(--ochre) 60%, transparent), transparent)" }}
+        />
       </motion.div>
 
       <motion.div style={{ y: txtY }} className="relative z-10 flex h-full flex-col">
         <div className="flex-1" />
         <div className="px-6 md:px-12 pb-14 md:pb-20">
           <div className="max-w-[1500px] mx-auto">
-            <Reveal delay={0.2}>
-              <div className="text-[var(--bone)]/70 eyebrow mb-6 flex items-center gap-3">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`eyebrow-${idx}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.6, ease }}
+                className="text-[var(--bone)]/70 eyebrow mb-6 flex items-center gap-3"
+              >
                 <span className="inline-block size-1.5 rounded-full bg-[var(--ochre)]" />
-                <span>Office Image · Kantoormeubelen · Rotterdam</span>
-              </div>
-            </Reveal>
+                <span>{slide.eyebrow}</span>
+              </motion.div>
+            </AnimatePresence>
 
-            <h1 className="font-display text-[var(--bone)] leading-[0.92] tracking-[-0.03em] text-[14vw] md:text-[8.5vw] lg:text-[7.2vw] max-w-[15ch]">
-              {"Exclusieve kantoorinrichting".split(" ").map((w, i) => (
-                <motion.span
-                  key={w + i}
-                  initial={{ y: "110%", opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 1.1, delay: 0.3 + i * 0.08, ease }}
-                  className="inline-block overflow-hidden mr-[0.18em]"
-                >
-                  {w}
+            <h1 className="font-display text-[var(--bone)] leading-[0.92] tracking-[-0.03em] text-[14vw] md:text-[8.5vw] lg:text-[7vw] max-w-[15ch] min-h-[2.6em]">
+              <AnimatePresence mode="wait">
+                <motion.span key={`title-${idx}`} className="block">
+                  {slide.title.map((line, li) => (
+                    <span key={li} className="block overflow-hidden">
+                      <motion.span
+                        initial={{ y: "108%" }}
+                        animate={{ y: 0 }}
+                        exit={{ y: "-108%" }}
+                        transition={{ duration: 1.05, delay: 0.08 + li * 0.09, ease }}
+                        className={`inline-block ${li === slide.italicIndex ? "italic text-[var(--ochre)]" : "text-[var(--bone)]"}`}
+                      >
+                        {line}
+                      </motion.span>
+                    </span>
+                  ))}
                 </motion.span>
-              ))}
-              <br />
-              <motion.span
-                initial={{ y: "110%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1.1, delay: 0.55, ease }}
-                className="inline-block italic text-[var(--ochre)]"
-              >
-                voor moderne
-              </motion.span>{" "}
-              <motion.span
-                initial={{ y: "110%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1.1, delay: 0.65, ease }}
-                className="inline-block text-[var(--bone)]/85"
-              >
-                bedrijven.
-              </motion.span>
+              </AnimatePresence>
             </h1>
 
-            <Reveal delay={0.95} y={16}>
+            <Reveal delay={0.5} y={16}>
               <div className="mt-10 grid gap-10 md:grid-cols-[1fr_auto] md:items-end">
-                <p className="max-w-xl text-[var(--bone)]/75 text-base md:text-lg leading-relaxed">
-                  Als jong en dynamisch bedrijf biedt Office Image u een unieke mogelijkheid snel en gemakkelijk te bestellen. Directiemeubelen, werkplekken, bureaustoelen en archiefkasten — uit voorraad leverbaar.
-                </p>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={`sub-${idx}`}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.7, ease }}
+                    className="max-w-xl text-[var(--bone)]/75 text-base md:text-lg leading-relaxed"
+                  >
+                    {slide.sub}
+                  </motion.p>
+                </AnimatePresence>
                 <div className="flex flex-wrap items-center gap-3">
                   <ArrowLink variant="clay">Bekijk collecties</ArrowLink>
                   <ArrowLink variant="bone">Bezoek showroom</ArrowLink>
@@ -335,34 +418,72 @@ function Hero() {
           </div>
         </div>
 
-        {/* floating glass card */}
+        {/* floating glass card — reflects current slide */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.1, ease }}
-          className="absolute right-6 md:right-12 top-28 md:top-32 hidden md:block"
+          className="absolute right-6 md:right-12 top-28 md:top-36 hidden md:block"
         >
-          <div className="glass-dark rounded-2xl p-5 w-[280px] text-[var(--bone)]">
-            <div className="flex items-center justify-between text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/60">
+          <div className="glass-dark rounded-2xl p-2 w-[300px] text-[var(--bone)]">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`card-${idx}`}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.7, ease }}
+              >
+                <div className="relative h-[150px] rounded-xl overflow-hidden">
+                  <img src={slide.img} alt="" className="h-full w-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/80 to-transparent" />
+                  <div className="absolute top-3 left-3 text-[10px] tracking-[0.22em] uppercase glass rounded-full px-2.5 py-1 text-[var(--ink)]">
+                    Slide {String(idx + 1).padStart(2, "0")}
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-3 text-[var(--bone)]">
+                    <div className="text-[11px] tracking-[0.22em] uppercase opacity-70">{slide.tag}</div>
+                    <div className="font-display text-lg leading-tight mt-0.5">{slide.meta}</div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+            <div className="px-3 pt-3 pb-2 flex items-center justify-between text-[11px] tracking-[0.18em] uppercase text-[var(--bone)]/60">
               <span>Showroom · Open</span>
               <span className="num">NL · 3044</span>
             </div>
-            <div className="mt-3 font-display text-2xl leading-tight">{OI.showroom.name}</div>
-            <div className="mt-1 text-sm text-[var(--bone)]/70">{OI.showroom.address} · {OI.showroom.zip}</div>
-            <div className="mt-5 grid grid-cols-3 gap-2 text-center">
-              {[
-                ["6", "dgn/week"],
-                ["40%", "korting"],
-                ["NL", "voorraad"],
-              ].map(([k, v]) => (
-                <div key={k} className="rounded-lg bg-[var(--bone)]/8 py-2">
-                  <div className="font-display text-lg num">{k}</div>
-                  <div className="text-[10px] uppercase tracking-widest text-[var(--bone)]/55">{v}</div>
-                </div>
-              ))}
-            </div>
           </div>
         </motion.div>
+
+        {/* slide indicators */}
+        <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col gap-4">
+          {HERO_SLIDES.map((s, i) => (
+            <button
+              key={i}
+              onClick={() => setIdx(i)}
+              className="group flex items-center gap-3 text-left"
+              aria-label={`Slide ${i + 1}`}
+            >
+              <div className="relative h-10 w-px bg-[var(--bone)]/20 overflow-hidden">
+                {i === idx && !paused && (
+                  <motion.div
+                    key={`prog-${idx}`}
+                    initial={{ height: "0%" }}
+                    animate={{ height: "100%" }}
+                    transition={{ duration: 6.2, ease: "linear" }}
+                    className="absolute inset-x-0 top-0 bg-[var(--ochre)]"
+                  />
+                )}
+                {i === idx && paused && (
+                  <div className="absolute inset-x-0 top-0 h-full bg-[var(--ochre)]" />
+                )}
+              </div>
+              <div className={`transition-colors ${i === idx ? "text-[var(--bone)]" : "text-[var(--bone)]/40 group-hover:text-[var(--bone)]/70"}`}>
+                <div className="num text-[11px] tracking-[0.22em]">{String(i + 1).padStart(2, "0")}</div>
+                <div className="text-[10px] uppercase tracking-[0.2em] mt-0.5 max-w-[120px] truncate">{s.tag}</div>
+              </div>
+            </button>
+          ))}
+        </div>
       </motion.div>
 
       {/* bottom marquee/trust */}
