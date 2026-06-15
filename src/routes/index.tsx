@@ -591,12 +591,21 @@ const STEPS = [
 ];
 
 function Process() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const x = useTransform(scrollYProgress, [0.05, 0.95], ["8%", "-58%"]);
+  const [paused, setPaused] = useState(false);
+  const loop = [...STEPS, ...STEPS];
 
   return (
-    <section id="process" ref={ref} className="bg-[var(--bone)] py-24 md:py-36 overflow-hidden">
+    <section id="process" className="bg-[var(--bone)] py-24 md:py-36 overflow-hidden relative">
+      {/* subtle background grain */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.035]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, var(--ink) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
+      />
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
           <Reveal>
@@ -613,36 +622,85 @@ function Process() {
         </div>
       </div>
 
-      <div className="mt-20 md:mt-28">
-        <motion.div style={{ x }} className="flex gap-6 md:gap-8 will-change-transform pl-6 md:pl-12">
-          {STEPS.map((s, idx) => (
-            <div
-              key={s.n}
-              className="shrink-0 w-[78vw] sm:w-[56vw] md:w-[440px] lg:w-[480px] rounded-2xl overflow-hidden border border-[var(--ink)]/8 bg-[var(--card)]"
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={OI.categories[idx % OI.categories.length].img}
-                  alt={s.t}
-                  className="h-full w-full object-cover transition-transform duration-[1.4s] hover:scale-105"
-                  style={{ filter: idx === 0 ? "grayscale(0.4) contrast(0.95)" : undefined }}
-                />
-                <div className="absolute top-4 left-4 glass rounded-full px-3 py-1 text-[11px] tracking-[0.22em] uppercase num">
-                  Stap {s.n}
+      <div
+        className="mt-20 md:mt-28 relative group"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        {/* edge gradient masks */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 md:w-40 z-10 bg-gradient-to-r from-[var(--bone)] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 md:w-40 z-10 bg-gradient-to-l from-[var(--bone)] to-transparent" />
+
+        <motion.div
+          className="flex gap-6 md:gap-8 w-max will-change-transform"
+          animate={{ x: paused ? undefined : ["0%", "-50%"] }}
+          transition={{
+            duration: 50,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+          {loop.map((s, idx) => {
+            const i = idx % STEPS.length;
+            return (
+              <motion.article
+                key={idx}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="group/card shrink-0 w-[80vw] sm:w-[52vw] md:w-[420px] lg:w-[460px] rounded-[20px] overflow-hidden border border-[var(--ink)]/8 bg-[var(--card)] shadow-[0_1px_2px_rgba(20,15,10,0.04)] hover:shadow-[0_40px_80px_-30px_rgba(20,15,10,0.35)] hover:border-[var(--clay)]/40 transition-[box-shadow,border-color] duration-500"
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-[var(--sand)]">
+                  <img
+                    src={OI.categories[i % OI.categories.length].img}
+                    alt={s.t}
+                    className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover/card:scale-[1.08]"
+                  />
+                  {/* gradient veil */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/55 via-[var(--ink)]/10 to-transparent" />
+
+                  {/* step badge */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2 glass rounded-full pl-1.5 pr-3.5 py-1">
+                    <span className="size-6 rounded-full bg-[var(--ink)] text-[var(--bone)] grid place-items-center text-[10px] num">
+                      {s.n}
+                    </span>
+                    <span className="text-[10px] tracking-[0.22em] uppercase">Stap</span>
+                  </div>
+
+                  {/* big numeral */}
+                  <div className="absolute bottom-4 right-5 font-display text-[88px] leading-none text-[var(--bone)]/85 num tracking-tighter drop-shadow-[0_2px_10px_rgba(0,0,0,0.25)]">
+                    {s.n}
+                  </div>
+
+                  {/* bottom title overlay */}
+                  <div className="absolute bottom-5 left-5 right-24">
+                    <div className="font-display text-2xl md:text-[28px] text-[var(--bone)] leading-tight">
+                      {s.t}
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="p-6 md:p-8">
-                <div className="font-display text-3xl md:text-4xl tracking-tight">{s.t}</div>
-                <p className="mt-3 text-[var(--muted-foreground)] text-sm md:text-base leading-relaxed">{s.d}</p>
-                <div className="mt-6 h-px bg-[var(--ink)]/10" />
-                <div className="mt-4 flex items-center justify-between text-[11px] uppercase tracking-widest text-[var(--muted-foreground)]">
-                  <span>Fase {idx + 1}</span>
-                  <span className="num">{String(idx + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")}</span>
+
+                <div className="p-6 md:p-7">
+                  <p className="text-[var(--muted-foreground)] text-[15px] leading-relaxed min-h-[72px]">
+                    {s.d}
+                  </p>
+                  <div className="mt-6 h-px bg-gradient-to-r from-[var(--ink)]/15 via-[var(--clay)]/40 to-transparent" />
+                  <div className="mt-4 flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+                    <span>Fase {i + 1}</span>
+                    <span className="num inline-flex items-center gap-2">
+                      <span className="size-1.5 rounded-full bg-[var(--clay)] animate-pulse" />
+                      {String(i + 1).padStart(2, "0")} / {String(STEPS.length).padStart(2, "0")}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </motion.article>
+            );
+          })}
         </motion.div>
+
+        <div className="mt-10 md:mt-14 max-w-[1500px] mx-auto px-6 md:px-12 flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
+          <span className="size-1.5 rounded-full bg-[var(--clay)]" />
+          <span>Hover om te pauzeren · Doorlopend traject</span>
+        </div>
       </div>
     </section>
   );
