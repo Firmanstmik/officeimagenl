@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { CartProvider } from "@/lib/cart";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 
 function NotFoundComponent() {
   return (
@@ -77,10 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "OfficeImage — Designing Exceptional Workspaces" },
-      { name: "description", content: "OfficeImage is a premium workspace design and office transformation partner for ambitious modern companies." },
-      { property: "og:title", content: "OfficeImage — Designing Exceptional Workspaces" },
-      { property: "og:description", content: "Strategic planning, ergonomic expertise and full office transformations — environments where people and businesses thrive." },
+      { title: "Office Image, Premium Kantoormeubelen & Werkplekinrichting" },
+      { name: "description", content: "Office Image is een premium partner voor kantoorinrichting en werkplektransformaties voor ambitieuze moderne bedrijven." },
+      { property: "og:title", content: "Office Image, Premium Kantoormeubelen" },
+      { property: "og:description", content: "Strategische planning, ergonomische expertise en complete kantoortransformaties. Omgevingen waar mensen en bedrijven floreren." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -116,8 +118,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <CartProvider>
+        <Outlet />
+        <CartDrawer />
+      </CartProvider>
     </QueryClientProvider>
   );
 }

@@ -108,9 +108,10 @@
   border: 1px solid color-mix(in oklab, var(--bone) 70%, transparent);
 }
 @utility glass-dark {
-  background: color-mix(in oklab, #0c0a08 35%, transparent);
-  backdrop-filter: blur(18px) saturate(140%);
-  border: 1px solid color-mix(in oklab, #ffffff 12%, transparent);
+  background: color-mix(in oklab, #0c0a08 42%, transparent);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid color-mix(in oklab, #ffffff 14%, transparent);
+  box-shadow: 0 8px 32px -8px rgba(0, 0, 0, 0.35);
 }
 @utility hairline {
   border-top: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
@@ -130,4 +131,57 @@
 @utility mask-marquee {
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+@keyframes process-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@utility process-marquee-track {
+  animation: process-marquee 52s linear infinite;
+  will-change: transform;
+}
+
+@utility category-card-glow {
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 100%,
+    color-mix(in oklab, var(--clay) 18%, transparent),
+    transparent 70%
+  );
+}
+
+@utility category-shine {
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    color-mix(in oklab, var(--bone) 35%, transparent) 50%,
+    transparent 60%
+  );
+}
+
+@utility service-frame-border {
+  background: conic-gradient(
+    from var(--service-frame-angle, 0deg),
+    color-mix(in oklab, var(--ochre) 70%, transparent),
+    color-mix(in oklab, var(--clay) 50%, transparent),
+    transparent 35%,
+    color-mix(in oklab, var(--ochre) 40%, transparent),
+    transparent 70%,
+    color-mix(in oklab, var(--clay) 60%, transparent)
+  );
+}
+
+@keyframes service-frame-spin {
+  to { --service-frame-angle: 360deg; }
+}
+
+@property --service-frame-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@utility service-frame-animate {
+  animation: service-frame-spin 6s linear infinite;
 }
