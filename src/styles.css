@@ -185,3 +185,29 @@
 @utility service-frame-animate {
   animation: service-frame-spin 6s linear infinite;
 }
+
+@utility section-ambient-clay {
+  background-image: radial-gradient(
+    ellipse 70% 55% at 20% 0%,
+    color-mix(in oklab, var(--clay) 10%, transparent),
+    transparent 58%
+  );
+}
+
+@utility section-ambient-ochre-dark {
+  background-image: radial-gradient(
+    ellipse 65% 50% at 85% 100%,
+    color-mix(in oklab, var(--ochre) 9%, transparent),
+    transparent 55%
+  );
+}
+
+@utility section-grain {
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--ink) 4%, transparent) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+@utility section-grain-light {
+  background-image: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--bone) 5%, transparent) 1px, transparent 0);
+  background-size: 28px 28px;
+}

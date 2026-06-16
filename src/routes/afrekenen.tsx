@@ -6,14 +6,16 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { formatEuro, useCart } from "@/lib/cart";
 import { OI } from "@/lib/oi-data";
 import { btnR, ease } from "@/lib/site-tokens";
+import { createPageHead } from "@/lib/site-seo";
 
 export const Route = createFileRoute("/afrekenen")({
-  head: () => ({
-    meta: [
-      { title: "Afrekenen, Office Image" },
-      { name: "description", content: "Rond uw bestelling veilig af. Premium checkout met bezorging, betaling en orderbevestiging." },
-    ],
-  }),
+  head: () =>
+    createPageHead({
+      title: "Afrekenen | Office Image",
+      description:
+        "Rond uw bestelling veilig af. Premium checkout met bezorging, betaling en orderbevestiging bij Office Image.",
+      path: "/afrekenen",
+    }),
   component: AfrekenenPage,
 });
 

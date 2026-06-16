@@ -1,12 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useScroll, useTransform } from "motion/react";
 import { OI, SHOP_PATH } from "@/lib/oi-data";
@@ -15,8 +7,11 @@ import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { FloatingNav } from "@/components/site/FloatingNav";
 import { MegaMenuPanel, NavChevron } from "@/components/site/MegaMenu";
 import { MainFooter } from "@/components/site/MainFooter";
+import { PageSection } from "@/components/site/PageSection";
+import { HeroExperienceCard } from "@/components/site/HeroExperienceCard";
 import { MEGA_MENUS } from "@/lib/mega-menu-data";
 import { btnR, ease, sectionH2 } from "@/lib/site-tokens";
+import { createPageHead } from "@/lib/site-seo";
 
 import hero from "@/assets/hero.jpg";
 import cExec from "@/assets/concept-executive.jpg";
@@ -32,14 +27,13 @@ import empty from "@/assets/process-empty.jpg";
 import ctaImg from "@/assets/cta-dark.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Office Image, Premium Kantoormeubelen & Werkplekinrichting" },
-      { name: "description", content: "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering, grote voorraad, fysieke showroom in Rotterdam, 6 dagen per week open." },
-      { property: "og:title", content: "Office Image, Premium Kantoormeubelen" },
-      { property: "og:description", content: "Exclusieve kantoorinrichting voor ambitieuze bedrijven. Showroom Rotterdam, 6 dagen per week open." },
-    ],
-  }),
+  head: () =>
+    createPageHead({
+      title: "Office Image | Premium Kantoormeubelen & Werkplekinrichting",
+      description:
+        "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering, grote voorraad en showroom in Rotterdam — 6 dagen per week open.",
+      path: "/",
+    }),
   component: Home,
 });
 
@@ -634,7 +628,6 @@ function Hero() {
 
   const [idx, setIdx] = useState(0);
   const total = HERO_SLIDES.length;
-  const nextIdx = (idx + 1) % total;
 
   useEffect(() => {
     const t = setTimeout(() => setIdx(i => (i + 1) % total), SLIDE_DURATION);
@@ -642,7 +635,6 @@ function Hero() {
   }, [idx, total]);
 
   const slide = HERO_SLIDES[idx];
-  const nextSlide = HERO_SLIDES[nextIdx];
 
   return (
     <section
@@ -688,9 +680,10 @@ function Hero() {
       </motion.div>
 
       {/* hero content */}
-      <motion.div style={{ y: contentY }} className="relative z-10 flex h-full flex-col pt-[96px] md:pt-[100px] lg:pt-[138px]">
+      <motion.div style={{ y: contentY }} className="relative z-10 flex h-full flex-col pt-[112px] sm:pt-[120px] md:pt-[136px] lg:pt-[172px] xl:pt-[180px]">
         <div className="flex-1 px-4 md:px-8 lg:px-12">
-          <div className="h-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_300px] xl:grid-cols-[1fr_320px] gap-6 lg:gap-10 items-end pb-32 md:pb-36">
+          <div className="h-full max-w-[1600px] mx-auto flex flex-col gap-6 lg:gap-8 pb-32 md:pb-36 pt-4 md:pt-6 lg:pt-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-6 lg:gap-8 lg:items-center">
             {/* main copy */}
             <div className="min-w-0 max-w-3xl">
               <AnimatePresence mode="wait">
@@ -751,78 +744,17 @@ function Hero() {
               </div>
             </div>
 
-            {/* next-slide preview card — right column, shows upcoming slide */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.6, ease }}
-              className="hidden lg:block self-start mt-4"
-            >
-              <button
-                type="button"
-                onClick={() => setIdx(nextIdx)}
-                className="group glass-dark rounded-2xl p-2 w-full text-[var(--bone)] text-left hover:border-[var(--ochre)]/30 transition-colors duration-300"
-                aria-label={`Volgende slide: ${nextSlide.tag}`}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`next-${nextIdx}`}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.55, ease }}
-                  >
-                    <div className="relative h-[148px] rounded-xl overflow-hidden">
-                      <img src={nextSlide.img} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/85 via-[var(--ink)]/20 to-transparent" />
-                      <div className="absolute top-3 left-3 text-[9px] tracking-[0.22em] uppercase glass rounded-full px-2.5 py-1 text-[var(--ink)]">
-                        Volgende {String(nextIdx + 1).padStart(2, "0")}
-                      </div>
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <div className="text-[10px] tracking-[0.2em] uppercase text-[var(--bone)]/65">{nextSlide.tag}</div>
-                        <div className="font-display text-lg leading-tight mt-0.5 text-[var(--bone)]">{nextSlide.meta}</div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-                <div className="px-3 pt-3 pb-2 flex items-center justify-between text-[10px] tracking-[0.16em] uppercase text-[var(--bone)]/55">
-                  <span>Showroom open</span>
-                  <span className="num group-hover:text-[var(--ochre)] transition-colors">NL 3044 →</span>
-                </div>
-              </button>
-            </motion.div>
+            <HeroExperienceCard className="lg:self-center" />
+            </div>
           </div>
         </div>
-
-        {/* slide indicators — bottom right */}
-        <div className="absolute right-4 md:right-8 lg:right-12 bottom-[88px] md:bottom-[92px] z-20 flex flex-col gap-4 items-end">
-          {HERO_SLIDES.map((s, i) => (
-            <button
-              key={i}
-              onClick={() => setIdx(i)}
-              className="group flex flex-row-reverse items-center gap-3 text-right"
-              aria-label={`Slide ${i + 1}: ${s.tag}`}
-              aria-current={i === idx ? "true" : undefined}
-            >
-              <div className="relative h-11 w-px bg-[var(--bone)]/15 overflow-hidden">
-                {i === idx && (
-                  <motion.div
-                    key={`prog-${idx}`}
-                    initial={{ height: "0%" }}
-                    animate={{ height: "100%" }}
-                    transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}
-                    className="absolute inset-x-0 top-0 bg-[var(--ochre)]"
-                  />
-                )}
-              </div>
-              <div className={`transition-colors duration-300 ${i === idx ? "text-[var(--bone)]" : "text-[var(--bone)]/30 group-hover:text-[var(--bone)]/60"}`}>
-                <div className="num text-[11px] tracking-[0.22em] font-medium">{String(i + 1).padStart(2, "0")}</div>
-                <div className="text-[9px] uppercase tracking-[0.2em] mt-0.5 leading-snug">{s.tag}</div>
-              </div>
-            </button>
-          ))}
-        </div>
       </motion.div>
+
+      {/* fade hero imagery into the light chapter below */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-[52px] md:bottom-[56px] z-[8] h-48 md:h-64 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--bone)_35%,transparent)] to-[var(--bone)]"
+      />
 
       {/* slide progress bar */}
       <div className="absolute inset-x-0 bottom-[60px] md:bottom-[64px] z-10 h-px bg-[var(--bone)]/10">
@@ -876,25 +808,11 @@ function Trust() {
     { k: "40%", v: "Tot korting op bestsellers", note: "30% over hele site", icon: "03" },
     { k: "NL", v: "Grote voorraad", note: "Snelle levering", icon: "04" },
   ];
-  const categories = [
-    { label: "Directie", href: SHOP_PATH },
-    { label: "Bureaustoelen", href: SHOP_PATH },
-    { label: "Tafels", href: SHOP_PATH },
-    { label: "Archiefkasten", href: SHOP_PATH },
-    { label: "Lockers", href: SHOP_PATH },
-    { label: "Werkplekken", href: SHOP_PATH },
-    { label: "Foxline", href: SHOP_PATH },
-    { label: "T-line", href: SHOP_PATH },
-  ];
   return (
-    <section className="relative bg-[var(--bone)] py-24 md:py-32 overflow-hidden">
+    <PageSection tone="bone" prevTone="hero" nextTone="ink">
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-60"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 50% 0%, color-mix(in oklab, var(--clay) 8%, transparent), transparent 70%)",
-        }}
+        className="pointer-events-none absolute inset-0 section-ambient-clay opacity-60"
       />
 
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
@@ -963,41 +881,8 @@ function Trust() {
             </div>
           </div>
         </Reveal>
-
-        <Reveal delay={0.2}>
-          <div className="mt-14 md:mt-16 relative">
-            <div className="absolute inset-y-0 left-0 w-16 md:w-24 z-10 bg-gradient-to-r from-[var(--bone)] to-transparent pointer-events-none" />
-            <div className="absolute inset-y-0 right-0 w-16 md:w-24 z-10 bg-gradient-to-l from-[var(--bone)] to-transparent pointer-events-none" />
-            <div className="overflow-hidden mask-marquee py-2">
-              <motion.div
-                className="flex items-center gap-3 md:gap-4 w-max"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 42, ease: "linear", repeat: Infinity }}
-              >
-                {[...categories, ...categories, ...categories, ...categories].map((c, i) => (
-                  <a
-                    key={`${c.label}-${i}`}
-                    href={c.href}
-                    className={`group inline-flex items-center gap-3 ${btnR} border border-[var(--ink)]/8 bg-[var(--card)] px-5 py-3 text-[14px] md:text-[15px] font-display text-[var(--graphite)] hover:border-[var(--clay)]/40 hover:text-[var(--ink)] hover:shadow-[0_8px_24px_-8px_rgba(184,138,90,0.25)] transition-all duration-300 whitespace-nowrap`}
-                  >
-                    <span>{c.label}</span>
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                      className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-[var(--clay)]"
-                    >
-                      <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.3" />
-                    </svg>
-                  </a>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </Reveal>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1066,10 +951,14 @@ function Configurator() {
   const c = CONCEPTS[i];
 
   return (
-    <section id="concepts" className="relative bg-[var(--ink)] text-[var(--bone)] py-24 md:py-36 overflow-hidden">
+    <PageSection id="concepts" tone="ink" prevTone="ink" nextTone="bone">
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none opacity-50"
+        className="pointer-events-none absolute inset-0 section-ambient-ochre-dark opacity-40"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-50"
         style={{
           background:
             "radial-gradient(ellipse 60% 45% at 80% 20%, color-mix(in oklab, var(--ochre) 12%, transparent), transparent 55%)",
@@ -1238,7 +1127,7 @@ function Configurator() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1356,14 +1245,10 @@ function Process() {
   };
 
   return (
-    <section id="process" className="bg-[var(--bone)] py-24 md:py-36 overflow-hidden relative">
+    <PageSection id="process" tone="bone" prevTone="bone" nextTone="sand">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.035]"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, var(--ink) 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
+        className="pointer-events-none absolute inset-0 section-grain opacity-[0.035]"
       />
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
@@ -1430,7 +1315,7 @@ function Process() {
           </div>
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1440,7 +1325,7 @@ function Visualization() {
   const tabs = ["Plattegrond", "Concept", "Render", "Opgeleverd"];
   const [t, setT] = useState(2);
   return (
-    <section id="visualization" className="bg-[var(--sand)] py-24 md:py-36">
+    <PageSection id="visualization" tone="sand" prevTone="bone" nextTone="bone">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
           <Reveal>
@@ -1519,7 +1404,7 @@ function Visualization() {
           </Reveal>
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1658,13 +1543,10 @@ function ServiceCard({
 
 function Services() {
   return (
-    <section id="services" className="relative bg-[var(--bone)] py-24 md:py-36 overflow-hidden">
+    <PageSection id="services" tone="bone" prevTone="sand" nextTone="bone">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 h-[480px] opacity-40"
-        style={{
-          background: "radial-gradient(ellipse 55% 60% at 15% 40%, color-mix(in oklab, var(--clay) 14%, transparent), transparent 65%)",
-        }}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[min(55vh,480px)] section-ambient-clay opacity-40"
       />
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-end">
@@ -1692,7 +1574,7 @@ function Services() {
           })}
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1706,7 +1588,7 @@ const PROJECTS = [
 
 function Projects() {
   return (
-    <section id="projects" className="bg-[var(--bone)] py-24 md:py-36">
+    <PageSection id="projects" tone="bone" prevTone="bone" nextTone="sand">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
           <Reveal>
@@ -1757,7 +1639,7 @@ function Projects() {
           ))}
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1765,7 +1647,7 @@ function Projects() {
 
 function CTA() {
   return (
-    <section id="contact" className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
+    <PageSection id="contact" tone="ink" prevTone="ink" className="!pt-0 !pb-0">
       <div className="absolute inset-0">
         <img src={OI.categories[0].img} alt="" className="h-full w-full object-cover opacity-70" />
         <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)] via-[var(--ink)]/70 to-[var(--ink)]/30" />
@@ -1809,7 +1691,7 @@ function CTA() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -1986,14 +1868,14 @@ function Testimonials() {
   };
 
   return (
-    <section id="about" className="relative bg-[var(--sand)] py-24 md:py-36 overflow-hidden">
+    <PageSection id="about" tone="sand" prevTone="bone" nextTone="ink">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          background:
-            "radial-gradient(ellipse 50% 45% at 85% 20%, color-mix(in oklab, var(--ochre) 16%, transparent), transparent 60%), radial-gradient(ellipse 40% 35% at 10% 80%, color-mix(in oklab, var(--clay) 12%, transparent), transparent 55%)",
-        }}
+        className="pointer-events-none absolute inset-0 section-ambient-clay opacity-50"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 section-ambient-ochre-dark opacity-50"
       />
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
@@ -2187,60 +2069,167 @@ function Testimonials() {
           </div>
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
 /* ──────────────────────────── product category carousel (official homepage) ──────────────────────────── */
 
-function ProductCarousel() {
-  const [api, setApi] = useState<CarouselApi>();
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const total = OI.productCarousel.length;
-  const duration = 5000;
+type ProductCarouselItem = (typeof OI.productCarousel)[number];
 
-  useEffect(() => {
-    if (!api) return;
-    const onSelect = () => setActive(api.selectedScrollSnap());
-    onSelect();
-    api.on("select", onSelect);
-    return () => { api.off("select", onSelect); };
-  }, [api]);
-
-  useEffect(() => {
-    if (!api || paused) return;
-    setProgress(0);
-    const start = Date.now();
-    const tick = setInterval(() => {
-      const pct = Math.min((Date.now() - start) / duration, 1);
-      setProgress(pct);
-      if (pct >= 1) api.scrollNext();
-    }, 40);
-    return () => clearInterval(tick);
-  }, [api, paused, active]);
+function ProductCategoryCard({
+  item,
+  index,
+}: {
+  item: ProductCarouselItem;
+  index: number;
+}) {
+  const n = (index % OI.productCarousel.length) + 1;
 
   return (
-    <section
-      id="categories"
-      className="relative overflow-hidden bg-[var(--ink)] text-[var(--bone)] py-20 md:py-28"
+    <a
+      href={item.href}
+      className="group block h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[320px] lg:w-[340px]"
     >
+      <div className="relative h-full rounded-2xl overflow-hidden border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+        <div className="relative aspect-[4/5] overflow-hidden">
+          <div className="absolute inset-0 category-card-glow opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/20 via-transparent to-[var(--ink)]/90" />
+
+          <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+            <span className="num glass-dark rounded-lg px-2.5 py-1 text-[10px] tracking-[0.2em] text-[var(--bone)]/80">
+              {String(n).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="absolute top-4 right-4 z-10">
+            <span className="glass-dark rounded-lg px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-[var(--ochre)]">
+              {item.tag}
+            </span>
+          </div>
+
+          <div className="absolute inset-0 flex items-center justify-center p-6 md:p-7">
+            <img
+              src={item.img}
+              alt={item.name}
+              loading="lazy"
+              draggable={false}
+              className="relative z-[1] max-h-[72%] max-w-[88%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition-transform duration-[1.1s] ease-out group-hover:scale-[1.08] group-hover:-translate-y-1"
+            />
+          </div>
+
+          <motion.div
+            aria-hidden
+            className="absolute inset-0 category-shine opacity-0 group-hover:opacity-100 pointer-events-none"
+            initial={false}
+            animate={{ x: ["-120%", "120%"] }}
+            transition={{ duration: 1.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 2.5 }}
+          />
+        </div>
+
+        <div className="relative p-5 md:p-6 border-t border-[var(--bone)]/8">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <h3 className="font-display text-lg md:text-xl leading-tight text-[var(--bone)] group-hover:text-[var(--ochre)] transition-colors duration-500">
+                {item.name}
+              </h3>
+              <p className="mt-2 text-[12px] md:text-[13px] leading-relaxed text-[var(--bone)]/55 line-clamp-2 group-hover:text-[var(--bone)]/72 transition-colors duration-500">
+                {item.line}
+              </p>
+            </div>
+            <span className="shrink-0 mt-1 text-[var(--bone)]/40 group-hover:text-[var(--ochre)] group-hover:translate-x-0.5 transition-all duration-500 text-lg">
+              →
+            </span>
+          </div>
+          <div className="mt-4 flex items-center justify-between gap-2">
+            <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--ochre)]/90 font-medium">
+              {item.stat}
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--bone)]/35 group-hover:text-[var(--bone)]/55 transition-colors">
+              Ontdek →
+            </span>
+          </div>
+          <div className="mt-3 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
+        </div>
+      </div>
+    </a>
+  );
+}
+
+function ProductCarousel() {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const loopWidthRef = useRef(0);
+  const x = useMotionValue(0);
+  const [hovered, setHovered] = useState(false);
+  const [dragging, setDragging] = useState(false);
+  const [pressing, setPressing] = useState(false);
+  const items = OI.productCarousel;
+  const marqueeItems = [...items, ...items];
+  const marqueeSpeed = 42;
+  const paused = hovered || dragging || pressing;
+
+  const measureLoop = useCallback(() => {
+    if (trackRef.current) loopWidthRef.current = trackRef.current.scrollWidth / 2;
+  }, []);
+
+  const wrapX = useCallback((value: number) => {
+    const loop = loopWidthRef.current;
+    if (!loop) return value;
+    let v = value;
+    while (v <= -loop) v += loop;
+    while (v > 0) v -= loop;
+    return v;
+  }, []);
+
+  useEffect(() => {
+    measureLoop();
+    const ro = new ResizeObserver(measureLoop);
+    if (trackRef.current) ro.observe(trackRef.current);
+    window.addEventListener("resize", measureLoop);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measureLoop);
+    };
+  }, [measureLoop]);
+
+  useEffect(() => {
+    if (paused) return;
+    let raf = 0;
+    let last = performance.now();
+
+    const tick = (now: number) => {
+      const loop = loopWidthRef.current;
+      if (loop > 0) {
+        const dt = (now - last) / 1000;
+        last = now;
+        x.set(wrapX(x.get() - marqueeSpeed * dt));
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [paused, x, wrapX]);
+
+  const handleDrag = () => {
+    x.set(wrapX(x.get()));
+  };
+
+  const handleDragEnd = () => {
+    setDragging(false);
+    x.set(wrapX(x.get()));
+  };
+
+  return (
+    <PageSection id="categories" tone="ink" prevTone="bone" nextTone="ink">
       <div
         aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 70% 55% at 15% 0%, color-mix(in oklab, var(--clay) 14%, transparent), transparent 55%), radial-gradient(ellipse 50% 40% at 90% 100%, color-mix(in oklab, var(--ochre) 10%, transparent), transparent 50%)",
-        }}
+        className="pointer-events-none absolute inset-0 section-ambient-clay opacity-100"
       />
       <div
         aria-hidden
-        className="absolute inset-0 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle at 1px 1px, var(--bone) 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
+        className="pointer-events-none absolute inset-0 section-grain-light opacity-[0.04]"
       />
 
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
@@ -2270,32 +2259,13 @@ function ProductCarousel() {
         </div>
 
         <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--bone)]/10 pt-6">
-          <div className="flex items-center gap-6 text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/45">
-            <span className="num">{String(active + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}</span>
-            <span className="hidden sm:inline text-[var(--bone)]/70">{OI.productCarousel[active]?.name}</span>
+          <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/45">
+            <span className="size-1.5 rounded-full bg-[var(--ochre)] animate-pulse" />
+            <span>Loopt automatisch · hover &amp; sleep om te verschuiven</span>
           </div>
-          <div className="flex items-center gap-2">
-            {OI.productCarousel.map((item, i) => (
-              <button
-                key={item.name}
-                type="button"
-                onClick={() => api?.scrollTo(i)}
-                className="group relative h-1.5 w-8 md:w-10 rounded-full bg-[var(--bone)]/10 overflow-hidden"
-                aria-label={`Ga naar ${item.name}`}
-              >
-                {i === active && (
-                  <motion.span
-                    key={`prog-${active}-${paused}`}
-                    className="absolute inset-y-0 left-0 bg-[var(--ochre)] rounded-full"
-                    initial={{ width: "0%" }}
-                    animate={{ width: paused ? `${progress * 100}%` : `${progress * 100}%` }}
-                    transition={{ duration: 0.04, ease: "linear" }}
-                  />
-                )}
-                {i < active && <span className="absolute inset-0 bg-[var(--ochre)]/40 rounded-full" />}
-              </button>
-            ))}
-          </div>
+          <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/45 num">
+            {String(items.length).padStart(2, "0")} categorieën
+          </span>
         </div>
 
         <Reveal delay={0.15} className="mt-8 md:mt-10 relative">
@@ -2307,106 +2277,31 @@ function ProductCarousel() {
             aria-hidden
           />
 
-          <Carousel
-            setApi={setApi}
-            opts={{ loop: true, align: "start", dragFree: true }}
-            className="w-full"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
+          <div
+            className={`overflow-hidden py-2 ${hovered && !dragging ? "cursor-grab" : ""} ${dragging ? "cursor-grabbing" : ""}`}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => { setHovered(false); setDragging(false); setPressing(false); }}
           >
-            <CarouselContent className="-ml-4 md:-ml-6 py-2">
-              {OI.productCarousel.map((item, i) => (
-                <CarouselItem
-                  key={item.name}
-                  className="pl-4 md:pl-6 basis-[78%] sm:basis-[48%] md:basis-[38%] lg:basis-[28%] xl:basis-[22%]"
-                >
-                  <motion.a
-                    href={item.href}
-                    className="group block h-full"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.65, delay: i * 0.06, ease }}
-                    animate={{
-                      scale: active === i ? 1 : 0.97,
-                      opacity: active === i ? 1 : 0.82,
-                    }}
-                  >
-                    <div className="relative h-full rounded-2xl overflow-hidden border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5">
-                      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                      <div className="relative aspect-[4/5] overflow-hidden">
-                        <div className="absolute inset-0 category-card-glow opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
-                        <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/20 via-transparent to-[var(--ink)]/90" />
-
-                        <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                          <span className="num glass-dark rounded-lg px-2.5 py-1 text-[10px] tracking-[0.2em] text-[var(--bone)]/80">
-                            {String(i + 1).padStart(2, "0")}
-                          </span>
-                        </div>
-                        <div className="absolute top-4 right-4 z-10">
-                          <span className="glass-dark rounded-lg px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-[var(--ochre)]">
-                            {item.tag}
-                          </span>
-                        </div>
-
-                        <div className="absolute inset-0 flex items-center justify-center p-6 md:p-7">
-                          <img
-                            src={item.img}
-                            alt={item.name}
-                            loading="lazy"
-                            className="relative z-[1] max-h-[72%] max-w-[88%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition-transform duration-[1.1s] ease-out group-hover:scale-[1.08] group-hover:-translate-y-1"
-                          />
-                        </div>
-
-                        <motion.div
-                          aria-hidden
-                          className="absolute inset-0 category-shine opacity-0 group-hover:opacity-100 pointer-events-none"
-                          initial={false}
-                          animate={{ x: ["-120%", "120%"] }}
-                          transition={{ duration: 1.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 2.5 }}
-                        />
-                      </div>
-
-                      <div className="relative p-5 md:p-6 border-t border-[var(--bone)]/8">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <h3 className="font-display text-lg md:text-xl leading-tight text-[var(--bone)] group-hover:text-[var(--ochre)] transition-colors duration-500">
-                              {item.name}
-                            </h3>
-                            <p className="mt-2 text-[12px] md:text-[13px] leading-relaxed text-[var(--bone)]/55 line-clamp-2 group-hover:text-[var(--bone)]/72 transition-colors duration-500">
-                              {item.line}
-                            </p>
-                          </div>
-                          <span className="shrink-0 mt-1 text-[var(--bone)]/40 group-hover:text-[var(--ochre)] group-hover:translate-x-0.5 transition-all duration-500 text-lg">
-                            →
-                          </span>
-                        </div>
-                        <div className="mt-4 flex items-center justify-between gap-2">
-                          <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--ochre)]/90 font-medium">
-                            {item.stat}
-                          </span>
-                          <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--bone)]/35 group-hover:text-[var(--bone)]/55 transition-colors">
-                            Ontdek →
-                          </span>
-                        </div>
-                        <div className="mt-3 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
-                      </div>
-                    </div>
-                  </motion.a>
-                </CarouselItem>
+            <motion.div
+              ref={trackRef}
+              style={{ x }}
+              drag="x"
+              dragElastic={0.06}
+              dragMomentum
+              dragTransition={{ power: 0.25, timeConstant: 280 }}
+              onDragStart={() => setDragging(true)}
+              onDrag={handleDrag}
+              onDragEnd={handleDragEnd}
+              onPointerDown={() => setPressing(true)}
+              onPointerUp={() => setPressing(false)}
+              onPointerCancel={() => setPressing(false)}
+              className="flex items-stretch gap-4 md:gap-6 w-max pl-4 md:pl-6 select-none touch-pan-y"
+            >
+              {marqueeItems.map((item, i) => (
+                <ProductCategoryCard key={`${item.name}-${i}`} item={item} index={i} />
               ))}
-            </CarouselContent>
-
-            <CarouselPrevious
-              variant="outline"
-              className="left-0 md:-left-2 top-[44%] size-11 rounded-lg border-[var(--bone)]/15 bg-[var(--ink)]/90 text-[var(--bone)] backdrop-blur-md shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5)] hover:bg-[var(--ochre)] hover:text-[var(--ink)] hover:border-[var(--ochre)] disabled:opacity-20"
-            />
-            <CarouselNext
-              variant="outline"
-              className="right-0 md:-right-2 top-[44%] size-11 rounded-lg border-[var(--bone)]/15 bg-[var(--ink)]/90 text-[var(--bone)] backdrop-blur-md shadow-[0_12px_40px_-12px_rgba(0,0,0,0.5)] hover:bg-[var(--ochre)] hover:text-[var(--ink)] hover:border-[var(--ochre)] disabled:opacity-20"
-            />
-          </Carousel>
+            </motion.div>
+          </div>
         </Reveal>
 
         <Reveal delay={0.2}>
@@ -2425,7 +2320,7 @@ function ProductCarousel() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -2473,7 +2368,7 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
 
 function Bestsellers() {
   return (
-    <section id="bestsellers" className="bg-[var(--bone)] py-24 md:py-36">
+    <PageSection id="bestsellers" tone="bone" prevTone="ink" nextTone="bone">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
           <Reveal>
@@ -2495,7 +2390,7 @@ function Bestsellers() {
           ))}
         </div>
       </div>
-    </section>
+    </PageSection>
   );
 }
 
@@ -2503,8 +2398,12 @@ function Bestsellers() {
 
 function Showroom() {
   return (
-    <section id="showroom" className="bg-[var(--ink)] text-[var(--bone)] py-24 md:py-36 overflow-hidden">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
+    <PageSection id="showroom" tone="ink" prevTone="sand" nextTone="ink">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 section-ambient-ochre-dark opacity-80"
+      />
+      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden border border-[var(--bone)]/12">
             <img src={OI.categories[0].img} alt="Office Image showroom" className="w-full aspect-[4/3] object-cover" />
@@ -2561,6 +2460,6 @@ function Showroom() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </PageSection>
   );
 }

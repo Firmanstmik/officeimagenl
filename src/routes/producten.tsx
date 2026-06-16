@@ -7,14 +7,16 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { ProductCard } from "@/components/product/ProductCard";
 import { useCart } from "@/lib/cart";
 import { btnR, ease, sectionH2 } from "@/lib/site-tokens";
+import { createPageHead } from "@/lib/site-seo";
 
 export const Route = createFileRoute("/producten")({
-  head: () => ({
-    meta: [
-      { title: "Producten, Office Image Premium Kantoormeubelen" },
-      { name: "description", content: "Ontdek bestsellers, directiemeubelen, werkplekken en bureaustoelen. Premium kantoorinrichting uit eigen voorraad." },
-    ],
-  }),
+  head: () =>
+    createPageHead({
+      title: "Producten | Office Image Premium Kantoormeubelen",
+      description:
+        "Ontdek bestsellers, directiemeubelen, werkplekken en bureaustoelen. Premium kantoorinrichting uit eigen voorraad met snelle levering.",
+      path: "/producten",
+    }),
   component: ProductenPage,
 });
 
