@@ -127,7 +127,7 @@ export function FloatingNav() {
     {
       id: "showroom",
       label: "Bezoek showroom",
-      mobileLabel: "Showroom",
+      mobileLabel: "Toonzaal",
       href: "/#showroom",
       icon: <IconShowroom />,
       accent: true,

@@ -46,14 +46,14 @@
 :root {
   --radius: 0.5rem;
 
-  /* Premium architectural palette — charcoal + soft stone + warm bronze */
-  --bone: #F8F7F4;          /* Soft Stone */
-  --sand: #EFEDE6;          /* warmer stone tone */
-  --ink: #111827;           /* Deep Charcoal */
-  --graphite: #1F2937;      /* charcoal-2 */
-  --slate: #64748B;         /* Slate Gray */
-  --clay: #B88A5A;          /* Warm Bronze accent */
-  --ochre: #D4A574;         /* light bronze highlight */
+  /* Premium architectural palette — charcoal + soft stone + subtle orange */
+  --bone: #F8F7F4;
+  --sand: #EFEDE6;
+  --ink: #111827;
+  --graphite: #1F2937;
+  --slate: #64748B;
+  --clay: #E07A32;
+  --ochre: #F0A060;
 
   --background: var(--bone);
   --foreground: var(--ink);

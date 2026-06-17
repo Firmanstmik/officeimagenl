@@ -12,9 +12,9 @@ import { createPageHead } from "@/lib/site-seo";
 export const Route = createFileRoute("/producten")({
   head: () =>
     createPageHead({
-      title: "Producten | Office Image Premium Kantoormeubelen",
+      title: "Producten | Office Image hoogwaardige kantoormeubelen",
       description:
-        "Ontdek bestsellers, directiemeubelen, werkplekken en bureaustoelen. Premium kantoorinrichting uit eigen voorraad met snelle levering.",
+        "Ontdek bestsellers, directiemeubelen, werkplekken en bureaustoelen. Hoogwaardige kantoorinrichting uit eigen voorraad met snelle levering.",
       path: "/producten",
     }),
   component: ProductenPage,
@@ -47,13 +47,13 @@ function ProductenPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
             <div className="eyebrow inline-flex items-center gap-2.5 text-[var(--muted-foreground)]">
               <span className="inline-block size-1.5 rounded-full bg-[var(--clay)]" />
-              Premium catalogus
+              Hoogwaardige catalogus
             </div>
             <h1 className={`mt-5 ${sectionH2} max-w-[16ch]`}>
               Ontdek meubelen die uw <span className="italic text-[var(--clay)]">werkplek verheffen.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-[var(--muted-foreground)] leading-relaxed">
-              Bestsellers uit eigen voorraad, direct leverbaar. Filter op categorie, voeg toe aan uw winkelwagen en rond af in een naadloze checkout.
+              Bestsellers uit eigen voorraad, direct leverbaar. Filter op categorie, voeg toe aan uw winkelwagen en rond af in een naadloos afrekenproces.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               {totalCount > 0 && (
@@ -84,7 +84,7 @@ function ProductenPage() {
               <div className="eyebrow text-[var(--bone)]/55">Categorieën</div>
               <h2 className="mt-2 font-display text-2xl md:text-3xl tracking-tight">Verken het assortiment</h2>
             </div>
-            <span className="hidden md:block text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/40">8 premium lijnen</span>
+            <span className="hidden md:block text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/40">8 productlijnen</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {OI.productCarousel.map((cat, i) => (
@@ -125,7 +125,7 @@ function ProductenPage() {
             <div>
               <div className="eyebrow text-[var(--muted-foreground)]">Beschikbare artikelen</div>
               <h2 className="mt-3 font-display text-3xl md:text-4xl tracking-tight text-[var(--ink)]">
-                {filter === "Alles" ? "Alle highlights" : filter}
+                {filter === "Alles" ? "Alle uitgelichte producten" : filter}
               </h2>
             </div>
             <div className="flex flex-wrap gap-2">

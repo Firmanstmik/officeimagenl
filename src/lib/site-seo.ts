@@ -4,10 +4,10 @@ export const SITE_URL =
 export const SITE_NAME = "Office Image";
 
 export const DEFAULT_TITLE =
-  "Office Image | Premium Kantoormeubelen & Werkplekinrichting";
+  "Office Image | Hoogwaardige kantoormeubelen en werkplekinrichting";
 
 export const DEFAULT_DESCRIPTION =
-  "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Grote voorraad, snelle levering en persoonlijk advies in onze showroom in Rotterdam — 6 dagen per week open.";
+  "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Grote voorraad, snelle levering en persoonlijk advies in onze showroom in Rotterdam, 6 dagen per week open.";
 
 export const OG_IMAGE_PATH = "/og-image.jpg";
 export const OG_IMAGE_WIDTH = "1200";
@@ -51,7 +51,7 @@ export function createPageHead({
       { property: "og:image:secure_url", content: image },
       { property: "og:image:width", content: OG_IMAGE_WIDTH },
       { property: "og:image:height", content: OG_IMAGE_HEIGHT },
-      { property: "og:image:alt", content: `${SITE_NAME} — premium kantoorinrichting` },
+      { property: "og:image:alt", content: `${SITE_NAME}, hoogwaardige kantoorinrichting` },
 
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },

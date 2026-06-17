@@ -6,6 +6,7 @@ import { cartProductFromBestseller, HeaderCartButton } from "@/lib/cart";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { FloatingNav } from "@/components/site/FloatingNav";
 import { MegaMenuPanel, NavChevron } from "@/components/site/MegaMenu";
+import { TopUtilityBar } from "@/components/site/TopUtilityBar";
 import { MainFooter } from "@/components/site/MainFooter";
 import { PageSection } from "@/components/site/PageSection";
 import { HeroExperienceCard } from "@/components/site/HeroExperienceCard";
@@ -29,9 +30,9 @@ import ctaImg from "@/assets/cta-dark.jpg";
 export const Route = createFileRoute("/")({
   head: () =>
     createPageHead({
-      title: "Office Image | Premium Kantoormeubelen & Werkplekinrichting",
+      title: "Office Image | Hoogwaardige kantoormeubelen en werkplekinrichting",
       description:
-        "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering, grote voorraad en showroom in Rotterdam — 6 dagen per week open.",
+        "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering, grote voorraad en showroom in Rotterdam, 6 dagen per week open.",
       path: "/",
     }),
   component: Home,
@@ -172,115 +173,16 @@ function UtilityIcon({ type }: { type: "shield" | "home" | "truck" | "mail" | "p
 }
 
 const MAIN_NAV = [
-  { label: "Home", href: "/", mega: false as const },
+  { label: "Start", href: "/", mega: false as const },
   ...MEGA_MENUS.map(m => ({ label: m.label, href: m.href, mega: true as const, megaId: m.id })),
 ];
-
-const SHOP_CATEGORIES = MEGA_MENUS.flatMap(m => m.items.map(i => ({ label: i.label, href: m.href })));
 
 function ChevronDown({ open }: { open?: boolean }) {
   return <NavChevron open={open} className="size-2.5" />;
 }
 
-function SearchOverlay({ open, onClose }: { open: boolean; onClose: () => void }) {
-  const [query, setQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (open) {
-      setQuery("");
-      requestAnimationFrame(() => inputRef.current?.focus());
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  const submit = (e?: React.FormEvent) => {
-    e?.preventDefault();
-    onClose();
-    window.location.assign(SHOP_PATH);
-  };
-
-  return (
-    <AnimatePresence>
-      {open && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.35, ease }}
-          className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[12vh] md:pt-[14vh]"
-        >
-          <button
-            type="button"
-            aria-label="Sluiten"
-            onClick={onClose}
-            className="absolute inset-0 bg-[var(--ink)]/75 backdrop-blur-xl"
-          />
-          <motion.div
-            initial={{ opacity: 0, y: -16, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.98 }}
-            transition={{ duration: 0.4, ease }}
-            className="relative w-full max-w-2xl glass-dark rounded-2xl p-5 md:p-7 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.65)]"
-          >
-            <form onSubmit={submit} className="flex items-center gap-3">
-              <svg className="size-5 shrink-0 text-[var(--ochre)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3-3" strokeLinecap="round" />
-              </svg>
-              <input
-                ref={inputRef}
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                placeholder="Waar ben je naar op zoek?"
-                className="flex-1 bg-transparent text-[var(--bone)] placeholder:text-[var(--bone)]/40 text-base md:text-lg outline-none"
-              />
-              <button
-                type="submit"
-                className={`shrink-0 grid size-10 place-items-center ${btnR} bg-[var(--clay)] text-[var(--bone)] hover:bg-[var(--ochre)] transition-colors`}
-                aria-label="Zoeken"
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </form>
-
-            <div className="mt-6 pt-5 border-t border-[var(--bone)]/10">
-              <div className="eyebrow text-[var(--bone)]/45 mb-4">Populaire categorieën</div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {SHOP_CATEGORIES.map(c => (
-                  <a
-                    key={c.label}
-                    href={c.href}
-                    onClick={onClose}
-                    className="rounded-xl px-3 py-2.5 text-[13px] text-[var(--bone)]/75 hover:text-[var(--bone)] hover:bg-[var(--bone)]/8 transition-colors"
-                  >
-                    {c.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-4 flex items-center justify-between text-[10px] tracking-widest uppercase text-[var(--bone)]/35">
-              <span>Druk op Enter om producten te bekijken</span>
-              <span className="num hidden sm:inline">Esc, sluiten</span>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
 function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const [mobileMega, setMobileMega] = useState<string | null>(null);
@@ -310,23 +212,13 @@ function Header() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setSearchOpen(o => !o);
-      }
       if (e.key === "Escape") {
-        setSearchOpen(false);
         setActiveMega(null);
         setMobileOpen(false);
       }
     };
-    const openSearch = () => setSearchOpen(true);
     window.addEventListener("keydown", onKey);
-    window.addEventListener("oi:search", openSearch);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      window.removeEventListener("oi:search", openSearch);
-    };
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   useEffect(() => () => clearMegaClose(), []);
@@ -364,70 +256,83 @@ function Header() {
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-4 md:px-8">
-          {/* row 1 — utility (original: Snelle levering | Contact) */}
+          {/* row 1 — utility bar (rechtsboven) */}
           <motion.div
             animate={{ height: scrolled ? 0 : 28, opacity: scrolled ? 0 : 1 }}
             transition={{ duration: 0.4, ease }}
             className="overflow-hidden"
           >
-            <div className="h-7 flex items-center justify-between text-[10px] text-[var(--bone)]/65">
-              <span className="flex items-center gap-1.5">
-                <UtilityIcon type="check" />
-                Snelle levering
-              </span>
-              <a href="#contact" className="inline-flex items-center gap-1.5 hover:text-[var(--bone)] transition-colors">
-                <UtilityIcon type="mail" />
-                Contact
-              </a>
-            </div>
+            <TopUtilityBar />
           </motion.div>
 
-          {/* row 2 — logo | search | winkelwagen (original layout) */}
-          <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 md:gap-6 py-2.5 md:py-3">
+          {/* row 2 — logo + nav + winkelwagen (satu baris) */}
+          <div
+            ref={navZoneRef}
+            className={`relative hidden lg:block ${scrolled ? "" : ""}`}
+            onMouseEnter={clearMegaClose}
+            onMouseLeave={scheduleMegaClose}
+          >
+            <div className="flex items-center justify-between gap-5 xl:gap-8 py-2">
+              <a href="/" className="shrink-0">
+                <img src={OI.logo} alt="Office Image" className="h-10 md:h-11 w-auto" />
+              </a>
+
+              <nav className="flex items-center justify-end gap-0.5 shrink-0 ml-auto">
+                {MAIN_NAV.map(n => {
+                  const isStart = n.label === "Start";
+                  const megaId = "megaId" in n ? n.megaId : null;
+                  const megaActive = megaId != null && activeMega === megaId;
+                  return (
+                    <div
+                      key={n.label}
+                      className="relative"
+                      onMouseEnter={() => megaId && setActiveMega(megaId)}
+                    >
+                      <a
+                        href={n.href}
+                        className={`group inline-flex items-center gap-1 ${linkCls(isStart, megaActive)}`}
+                      >
+                        {n.label}
+                        {!isStart && <ChevronDown open={megaActive} />}
+                        <span
+                          className={`absolute left-3 right-3 bottom-1 h-0.5 origin-left bg-[var(--ochre)] transition-transform duration-300 ${
+                            isStart || megaActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                          }`}
+                        />
+                      </a>
+                    </div>
+                  );
+                })}
+
+                <div className="ml-3 pl-3 border-l border-[var(--bone)]/12 shrink-0">
+                  <HeaderCartButton />
+                </div>
+              </nav>
+            </div>
+
+            <AnimatePresence>
+              {activeMenu && (
+                <MegaMenuPanel
+                  menu={activeMenu}
+                  menus={MEGA_MENUS}
+                  onSelectMenu={setActiveMega}
+                />
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* mobile — logo + cart + hamburger */}
+          <div className="flex lg:hidden items-center justify-between gap-4 py-2.5">
             <a href="/" className="shrink-0">
-              <img src={OI.logo} alt="Office Image" className="h-10 md:h-11 w-auto" />
+              <img src={OI.logo} alt="Office Image" className="h-10 w-auto" />
             </a>
-
-            <button
-              type="button"
-              onClick={() => setSearchOpen(true)}
-              className={`hidden md:flex items-center w-full max-w-xl mx-auto ${btnR} border px-4 py-2 transition-all duration-300 ${
-                scrolled
-                  ? "border-[var(--bone)]/12 bg-[var(--bone)]/5 hover:border-[var(--bone)]/22"
-                  : "border-[var(--bone)]/10 bg-[var(--bone)]/6 hover:border-[var(--bone)]/20 hover:bg-[var(--bone)]/8"
-              }`}
-            >
-              <svg className="size-4 shrink-0 text-[var(--bone)]/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3-3" strokeLinecap="round" />
-              </svg>
-              <span className="flex-1 text-left pl-3 text-[13px] text-[var(--bone)]/40">Waar ben je naar op zoek?</span>
-              <span className={`grid size-8 shrink-0 place-items-center ${btnR} bg-[var(--clay)] text-[var(--bone)]`}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="M20 20l-3-3" strokeLinecap="round" />
-                </svg>
-              </span>
-            </button>
-
-            <div className="flex items-center justify-end gap-2">
-              <button
-                type="button"
-                onClick={() => setSearchOpen(true)}
-                aria-label="Zoeken"
-                className={`md:hidden grid size-9 place-items-center ${btnR} text-[var(--bone)]/70 hover:bg-[var(--bone)]/10`}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="M20 20l-3-3" strokeLinecap="round" />
-                </svg>
-              </button>
+            <div className="flex items-center gap-2">
               <HeaderCartButton />
               <button
                 type="button"
                 onClick={() => setMobileOpen(o => !o)}
                 aria-label="Menu"
-                className="lg:hidden grid size-9 place-items-center rounded-lg text-[var(--bone)]/80 hover:bg-[var(--bone)]/10"
+                className="grid size-9 place-items-center rounded-lg text-[var(--bone)]/80 hover:bg-[var(--bone)]/10"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                   {mobileOpen ? (
@@ -438,46 +343,6 @@ function Header() {
                 </svg>
               </button>
             </div>
-          </div>
-
-          {/* row 3 — category menu + premium mega menu */}
-          <div
-            ref={navZoneRef}
-            className={`hidden lg:block relative border-t ${scrolled ? "border-[var(--bone)]/6" : "border-[var(--bone)]/10"}`}
-            onMouseEnter={clearMegaClose}
-            onMouseLeave={scheduleMegaClose}
-          >
-            <nav className="flex items-center justify-center gap-0.5 py-1">
-              {MAIN_NAV.map(n => {
-                const isHome = n.label === "Home";
-                const megaId = "megaId" in n ? n.megaId : null;
-                const megaActive = megaId != null && activeMega === megaId;
-                return (
-                  <div
-                    key={n.label}
-                    className="relative"
-                    onMouseEnter={() => megaId && setActiveMega(megaId)}
-                  >
-                    <a
-                      href={n.href}
-                      className={`group inline-flex items-center gap-1 ${linkCls(isHome, megaActive)}`}
-                    >
-                      {n.label}
-                      {!isHome && <ChevronDown open={megaActive} />}
-                      <span
-                        className={`absolute left-3 right-3 bottom-1 h-0.5 origin-left bg-[var(--ochre)] transition-transform duration-300 ${
-                          isHome || megaActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                        }`}
-                      />
-                    </a>
-                  </div>
-                );
-              })}
-            </nav>
-
-            <AnimatePresence>
-              {activeMenu && <MegaMenuPanel menu={activeMenu} />}
-            </AnimatePresence>
           </div>
         </div>
       </div>
@@ -505,7 +370,7 @@ function Header() {
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-semibold text-[var(--bone)]/90 hover:bg-[var(--bone)]/8"
                 >
-                  Home
+                  Start
                 </a>
                 {MEGA_MENUS.map(menu => {
                   const open = mobileMega === menu.id;
@@ -575,8 +440,6 @@ function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </motion.header>
   );
 }
@@ -612,7 +475,7 @@ const HERO_SLIDES = [
     alt: "Kantoorkasten en archiefkasten, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Opslag",
-    title: ["Kantoorkasten &", "archiefkasten", "voor elk archief."],
+    title: ["Kantoorkasten en", "archiefkasten", "voor elk archief."],
     italicIndex: 1,
     sub: "Roldeurkasten, brandwerende kasten en veilige opslag, exclusief bij Office Image. Groot aantal op voorraad, de juiste prijs.",
     tag: "Archief en opslag",
@@ -832,25 +695,24 @@ function Trust() {
 
         <Reveal delay={0.2}>
           <div className="mt-10 md:mt-12">
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new Event("oi:search"))}
-              className={`group w-full max-w-2xl flex items-center gap-4 ${btnR} bg-[var(--card)] border border-[var(--ink)]/8 px-5 py-3.5 text-left shadow-[0_8px_30px_-12px_rgba(17,24,39,0.12)] hover:border-[var(--clay)]/35 hover:shadow-[0_12px_40px_-12px_rgba(184,138,90,0.2)] transition-all duration-300`}
+            <a
+              href={SHOP_PATH}
+              className={`group w-full max-w-2xl flex items-center gap-4 ${btnR} bg-[var(--card)] border border-[var(--ink)]/8 px-5 py-3.5 text-left shadow-[0_8px_30px_-12px_rgba(17,24,39,0.12)] hover:border-[var(--clay)]/35 hover:shadow-[0_12px_40px_-12px_rgba(224,122,50,0.2)] transition-all duration-300`}
             >
               <svg className="size-5 shrink-0 text-[var(--clay)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3-3" strokeLinecap="round" />
+                <rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" />
+                <rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" />
               </svg>
               <span className="flex-1 text-[var(--muted-foreground)] group-hover:text-[var(--ink)]/60 transition-colors">
-                Waar ben je naar op zoek?
+                Ontdek ons volledige assortiment
               </span>
               <span className={`hidden sm:inline-flex items-center gap-1.5 ${btnR} bg-[var(--clay)] text-[var(--bone)] px-4 py-2 text-[12px] font-medium group-hover:bg-[var(--ochre)] transition-colors`}>
-                Zoeken
+                Naar producten
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
                   <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
               </span>
-            </button>
+            </a>
           </div>
         </Reveal>
 
@@ -898,7 +760,7 @@ const CONCEPTS = [
     mood: "Luxe, representatief, tijdloos",
     body: "Onze exclusieve directiemeubelen brengen rust en autoriteit in elke directiekamer. Hoogwaardige materialen, perfecte afwerking, alleen bij Office Image.",
     metrics: [["100%", "exclusief"], ["NL", "voorraad"], ["A+", "afwerking"]],
-    benefits: ["Luxe directiebureaus", "Conferentietafels", "Vergaderkasten", "Premium materialen"],
+    benefits: ["Luxe directiebureaus", "Conferentietafels", "Vergaderkasten", "Hoogwaardige materialen"],
   },
   {
     id: "werkplekken",
@@ -929,8 +791,8 @@ const CONCEPTS = [
     sub: "Roldeur, ladenkasten, rolblokken",
     img: OI.categories[4].img,
     mood: "Strak, functioneel, veilig",
-    body: "Exclusieve roldeurkasten, ladenkasten en rolblokken in diverse afmetingen. Duurzaam staal, soft close lades en strakke afwerking.",
-    metrics: [["5", "afmetingen"], ["Soft", "close"], ["10jr", "garantie"]],
+    body: "Exclusieve roldeurkasten, ladenkasten en rolblokken in diverse afmetingen. Duurzaam staal, zacht sluitende lades en strakke afwerking.",
+    metrics: [["5", "afmetingen"], ["Zacht", "sluitend"], ["10jr", "garantie"]],
     benefits: ["Roldeurkasten", "Tekeningladekasten", "Rolblokken", "Veilig afsluitbaar"],
   },
   {
@@ -941,8 +803,8 @@ const CONCEPTS = [
     img: OI.categories[6].img,
     mood: "Robuust, geperforeerd, hybride",
     body: "Geperforeerde lockers voor moderne hybride kantoren. Persoonlijke opbergruimte met elektronische sloten, perfect voor flexplekken.",
-    metrics: [["1-6", "deurs"], ["RAL", "kleur vrij"], ["IP", "slot opties"]],
-    benefits: ["1 t/m 6 deurs", "Perforatie design", "Elektronisch slot", "RAL naar keuze"],
+    metrics: [["1 t/m 6", "deuren"], ["RAL", "kleur vrij"], ["Diverse", "slotopties"]],
+    benefits: ["1 t/m 6 deuren", "Geperforeerd ontwerp", "Elektronisch slot", "RAL naar keuze"],
   },
 ];
 
@@ -968,14 +830,14 @@ function Configurator() {
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-10 items-end">
           <Reveal>
-            <Eyebrow>The workspace experience</Eyebrow>
+            <Eyebrow>De werkplekervaring</Eyebrow>
             <h2 className={`mt-5 ${sectionH2} text-[var(--bone)] max-w-[16ch]`}>
-              Five environments. <span className="italic text-[var(--ochre)]">One studio.</span>
+              Vijf werkomgevingen. <span className="italic text-[var(--ochre)]">Eén partner.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-[var(--bone)]/65 max-w-md text-base leading-relaxed">
-              Explore the spatial concepts at the heart of every Office Image transformation. Switch between modes to feel the shift.
+              Ontdek de ruimtelijke concepten die centraal staan in elke Office Image transformatie. Wissel tussen categorieën en ervaar het verschil.
             </p>
           </Reveal>
         </div>
@@ -1000,7 +862,7 @@ function Configurator() {
                   <motion.img
                     key={c.id}
                     src={c.img}
-                    alt={`${c.name} workspace concept`}
+                    alt={`${c.name} werkplekconcept`}
                     initial={{ opacity: 0, scale: 1.12, filter: "blur(8px)" }}
                     animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                     exit={{ opacity: 0, scale: 1.04, filter: "blur(4px)" }}
@@ -1136,9 +998,9 @@ function Configurator() {
 const STEPS = [
   { n: "01", t: "Adviesgesprek", d: "Bezoek de showroom of bel ons. We denken vrijblijvend mee over uw kantoorinrichting." },
   { n: "02", t: "Ruimteplan", d: "Een passend voorstel met indeling, materialen en budget binnen 48 uur." },
-  { n: "03", t: "3D Visualisatie", d: "Fotorealistische renderings tonen het eindresultaat voordat er één product wordt geleverd." },
+  { n: "03", t: "3D Visualisatie", d: "Fotorealistische beelden tonen het eindresultaat voordat er één product wordt geleverd." },
   { n: "04", t: "Productselectie", d: "Bestsellers uit eigen voorraad of op maat geconfigureerd: directiemeubelen tot werkplekken." },
-  { n: "05", t: "Levering & Montage", d: "Snelle landelijke levering met professionele montage door ons eigen team." },
+  { n: "05", t: "Levering en montage", d: "Snelle landelijke levering met professionele montage door ons eigen team." },
   { n: "06", t: "Klanttevredenheid", d: "Ingericht, klaar om te gebruiken. 100% klanttevredenheid is ons uitgangspunt." },
 ];
 
@@ -1338,7 +1200,7 @@ function Visualization() {
                     <span className="size-2.5 rounded-full bg-[var(--clay)]/60" />
                   </div>
                   <div className="ml-3 text-[11px] tracking-[0.22em] uppercase text-[var(--muted-foreground)] num">
-                    Office Image, Studio Viewport
+                    Office Image, studio weergave
                   </div>
                   <div className="ml-auto text-[11px] num text-[var(--muted-foreground)]">v2.4</div>
                 </div>
@@ -1387,7 +1249,7 @@ function Visualization() {
             <ul className="mt-8 space-y-4 text-[15px]">
               {[
                 ["Plattegrond", "Looplijnen, indeling en akoestiek eerst op papier opgelost."],
-                ["3D walkthrough", "Loop door uw toekomstige kantoor in een interactief 3D-model."],
+                ["3D rondleiding", "Loop door uw toekomstige kantoor in een interactief 3D model."],
                 ["Materiaalstalen", "Voel hout, textiel en metaal in onze showroom in Rotterdam."],
                 ["Snelle revisies", "Iedere aanpassing binnen 48 uur terug bij alle betrokkenen."],
               ].map(([t2, d]) => (
@@ -1412,10 +1274,10 @@ function Visualization() {
 
 const SERVICES = [
   { n: "01", t: "Inrichtingsadvies", tag: "Advies", d: "Vrijblijvend adviesgesprek in onze showroom of bij u op locatie. Wij denken mee over indeling en stijl.", img: OI.categories[0].img },
-  { n: "02", t: "3D Visualisatie", tag: "Visualisatie", d: "Foto-realistische renderings van uw nieuwe kantoor. Zien is geloven, kiezen wordt eenvoudig.", img: OI.categories[1].img },
+  { n: "02", t: "3D Visualisatie", tag: "Visualisatie", d: "Fotorealistische beelden van uw nieuwe kantoor. Zien is geloven, kiezen wordt eenvoudig.", img: OI.categories[1].img },
   { n: "03", t: "Ergonomisch Advies", tag: "Ergonomie", d: "24uurs stoelen, elektrisch verstelbare bureaus en akoestiek. Gezondheid en productiviteit voorop.", img: OI.categories[3].img },
-  { n: "04", t: "Levering & Montage", tag: "Logistiek", d: "Landelijke levering met eigen montageteam. Uw kantoor staat klaar wanneer u het nodig heeft.", img: OI.categories[2].img },
-  { n: "05", t: "Onderhoud & Service", tag: "Service", d: "Reparatie, uitbreiding en herinrichting. Eén partner voor de hele levensduur van uw kantoor.", img: OI.categories[6].img },
+  { n: "04", t: "Levering en montage", tag: "Logistiek", d: "Landelijke levering met eigen montageteam. Uw kantoor staat klaar wanneer u het nodig heeft.", img: OI.categories[2].img },
+  { n: "05", t: "Onderhoud en service", tag: "Service", d: "Reparatie, uitbreiding en herinrichting. Eén partner voor de hele levensduur van uw kantoor.", img: OI.categories[6].img },
 ] as const;
 
 const SERVICE_LAYOUT = [
@@ -1581,9 +1443,9 @@ function Services() {
 /* ──────────────────────────── 7. featured projects ──────────────────────────── */
 
 const PROJECTS = [
-  { img: OI.categories[0].img, t: "Directie Suite",    type: "Directiemeubelen", scope: "Exclusief, op maat", city: "Rotterdam", year: "2025" },
-  { img: OI.categories[1].img, t: "Foxline Werkplek",  type: "Werkplekken",       scope: "Elektrisch verstelbaar", city: "Showroom", year: "2025" },
-  { img: OI.categories[3].img, t: "Raptor Bureaustoel",type: "Bureaustoelen",     scope: "24uurs, vanaf €669",  city: "Bestseller", year: "2026" },
+  { img: OI.categories[0].img, t: "Directiesuite", type: "Directiemeubelen", scope: "Exclusief, op maat", city: "Rotterdam", year: "2025" },
+  { img: OI.categories[1].img, t: "Foxline werkplek", type: "Werkplekken", scope: "Elektrisch verstelbaar", city: "Showroom Rotterdam", year: "2025" },
+  { img: OI.categories[3].img, t: "Raptor bureaustoel", type: "Bureaustoelen", scope: "24 uurs, vanaf €669", city: "Bestseller", year: "2026" },
 ];
 
 function Projects() {
@@ -1749,7 +1611,7 @@ const TESTIMONIALS = [
   {
     type: "Archiefkasten, 12 stuks",
     quote:
-      "Exclusieve roldeurkasten tegen scherpe prijzen, uit voorraad geleverd. De showroom in Rotterdam is een aanrader voordat je beslist.",
+      "Exclusieve roldeurkasten tegen scherpe prijzen, uit voorraad geleverd. De showroom in Rotterdam is een aanrader voordat u beslist.",
     highlight: "uit voorraad geleverd",
     name: "Erik de Wit",
     role: "Facility Manager",
@@ -2307,7 +2169,7 @@ function ProductCarousel() {
         <Reveal delay={0.2}>
           <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-[var(--bone)]/10 bg-[var(--bone)]/10">
             {[
-              { k: "8", v: "Premium categorieën" },
+              { k: "8", v: "Hoogwaardige categorieën" },
               { k: "NL", v: "Grote voorraad" },
               { k: "6", v: "Dagen showroom open" },
               { k: "100%", v: "Klanttevredenheid" },
@@ -2406,7 +2268,7 @@ function Showroom() {
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden border border-[var(--bone)]/12">
-            <img src={OI.categories[0].img} alt="Office Image showroom" className="w-full aspect-[4/3] object-cover" />
+            <img src={OI.categories[0].img} alt="Office Image toonzaal" className="w-full aspect-[4/3] object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/70 to-transparent" />
             <div className="absolute left-6 bottom-6 right-6 flex items-end justify-between gap-4">
               <div>

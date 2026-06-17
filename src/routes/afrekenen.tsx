@@ -13,7 +13,7 @@ export const Route = createFileRoute("/afrekenen")({
     createPageHead({
       title: "Afrekenen | Office Image",
       description:
-        "Rond uw bestelling veilig af. Premium checkout met bezorging, betaling en orderbevestiging bij Office Image.",
+        "Rond uw bestelling veilig af. Afrekenen met bezorging, betaling en orderbevestiging bij Office Image.",
       path: "/afrekenen",
     }),
   component: AfrekenenPage,
@@ -403,7 +403,7 @@ function SuccessView({ orderId }: { orderId: string }) {
           Verder winkelen
         </Link>
         <Link to="/" className={`${btnR} border border-[var(--ink)]/12 px-6 py-3 text-sm font-medium text-[var(--ink)] hover:bg-[var(--sand)] transition-colors`}>
-          Terug naar home
+          Terug naar startpagina
         </Link>
       </div>
     </motion.section>

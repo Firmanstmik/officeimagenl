@@ -12,28 +12,28 @@ const MEDIA_TILES = [
     id: "01",
     type: "video" as const,
     src: vidHero1,
-    label: "Inspiring Workspaces",
+    label: "Inspirerende werkplekken",
     span: "col-span-1 row-span-1 lg:col-span-2 lg:row-span-2",
   },
   {
     id: "02",
     type: "image" as const,
     src: imgHero,
-    label: "Officeimage Standard",
+    label: "Office Image standaard",
     span: "col-span-1 row-span-1 lg:col-span-2 lg:row-span-1",
   },
   {
     id: "03",
     type: "video" as const,
     src: vidHero3,
-    label: "People & Performance",
+    label: "Mensen en prestaties",
     span: "col-span-1 row-span-1",
   },
   {
     id: "04",
     type: "video" as const,
     src: vidHero2,
-    label: "Premium Environments",
+    label: "Hoogwaardige omgevingen",
     span: "col-span-1 row-span-1",
   },
 ];
@@ -76,7 +76,7 @@ function MediaTile({
       ) : (
         <motion.img
           src={tile.src}
-          alt="Premium Office Image workspace"
+          alt="Hoogwaardige werkplek van Office Image"
           draggable={false}
           animate={{ scale: hovered ? 1.08 : 1.03 }}
           transition={{ duration: 8, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
@@ -85,7 +85,7 @@ function MediaTile({
       )}
 
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#111827]/75 via-[#111827]/10 to-[#111827]/20" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent to-[#B88A5A]/12 opacity-0 transition-opacity duration-500 group-hover/tile:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent to-[var(--clay)]/12 opacity-0 transition-opacity duration-500 group-hover/tile:opacity-100" />
 
       <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-2 p-2.5">
         <span className="num text-[9px] tracking-[0.2em] text-white/90">{tile.id}</span>
@@ -132,12 +132,11 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
           className="relative rounded-[24px] p-px shadow-[0_28px_70px_-24px_rgba(0,0,0,0.7)]"
           style={{
             background:
-              "linear-gradient(145deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 40%, rgba(184,138,90,0.24) 100%)",
+              "linear-gradient(145deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.04) 40%, rgba(224,122,50,0.24) 100%)",
           }}
         >
           <div className="rounded-[23px] bg-[#0a0e14] p-1">
             <div className="rounded-[19px] bg-[#111827] p-0.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-              {/* landscape bento mosaic */}
               <div className="relative overflow-hidden rounded-[16px] bg-[#0c1018]">
                 <div className="grid aspect-[4/3] min-h-[180px] grid-cols-2 grid-rows-2 gap-1 p-1.5 sm:min-h-[200px] lg:aspect-[16/10] lg:grid-cols-4 lg:min-h-[210px]">
                   {MEDIA_TILES.map((tile, i) => (
@@ -145,16 +144,15 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
                   ))}
                 </div>
 
-                {/* glass brand strip */}
                 <div className="border-t border-white/8 bg-[rgba(17,24,39,0.58)] px-3 py-2.5 backdrop-blur-xl">
                   <div className="flex items-center justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="text-[7px] font-medium tracking-[0.24em] text-[#B88A5A] uppercase sm:text-[8px]">
-                        Officeimage Experience
+                      <p className="text-[7px] font-medium tracking-[0.24em] text-[var(--ochre)] uppercase sm:text-[8px]">
+                        Office Image Experience
                       </p>
                       <p className="mt-0.5 font-display text-[11px] leading-tight tracking-[-0.02em] text-white sm:text-[13px]">
-                        Designing inspiring workspaces{" "}
-                        <em className="text-[#B88A5A]">where vision meets productivity</em>
+                        Inspirerende werkplekken ontwerpen{" "}
+                        <em className="text-[var(--ochre)]">waar visie en productiviteit samenkomen</em>
                       </p>
                     </div>
                     <div className="hidden shrink-0 sm:flex items-center gap-1">
@@ -179,7 +177,7 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
           className="pointer-events-none absolute -inset-3 -z-10 rounded-[36px] blur-2xl transition-opacity duration-700"
           style={{
             background:
-              "radial-gradient(ellipse 85% 65% at 50% 45%, rgba(184,138,90,0.2), transparent 68%)",
+              "radial-gradient(ellipse 85% 65% at 50% 45%, rgba(224,122,50,0.2), transparent 68%)",
             opacity: hovered ? 0.9 : 0.5,
           }}
         />

@@ -3,11 +3,12 @@ import { motion } from "motion/react";
 import { OI } from "@/lib/oi-data";
 import { CartBadge, useCart } from "@/lib/cart";
 import { btnR } from "@/lib/site-tokens";
+import { TopUtilityBar } from "@/components/site/TopUtilityBar";
 
 const NAV = [
-  { label: "Home", to: "/" as const },
+  { label: "Start", to: "/" as const },
   { label: "Producten", to: "/producten" as const },
-  { label: "Showroom", to: "/#showroom" as const, hash: true },
+  { label: "Toonzaal", to: "/#showroom" as const, hash: true },
 ];
 
 export function SiteHeader() {
@@ -20,6 +21,11 @@ export function SiteHeader() {
       transition={{ duration: 0.6 }}
       className="sticky top-0 z-50 border-b border-[var(--bone)]/8 bg-[var(--ink)]/96 backdrop-blur-xl shadow-[0_8px_32px_-12px_rgba(0,0,0,0.35)]"
     >
+      <div className="border-b border-[var(--bone)]/6">
+        <div className="max-w-[1500px] mx-auto px-4 md:px-8 flex justify-end">
+          <TopUtilityBar />
+        </div>
+      </div>
       <div className="max-w-[1500px] mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between gap-4 py-3 md:py-3.5">
           <Link to="/" className="shrink-0">

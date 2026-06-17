@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import type { MegaMenuSection } from "@/lib/mega-menu-data";
 import { btnR, ease } from "@/lib/site-tokens";
 
@@ -15,158 +15,267 @@ export function NavChevron({ open, className = "size-2.5" }: { open?: boolean; c
   );
 }
 
-function gridCols(count: number) {
-  if (count <= 4) return "grid-cols-2 sm:grid-cols-4";
-  if (count <= 5) return "grid-cols-3 sm:grid-cols-5";
-  if (count <= 6) return "grid-cols-3 sm:grid-cols-3 lg:grid-cols-6";
-  return "grid-cols-3 sm:grid-cols-4 lg:grid-cols-4";
+function CategoryIcon({ id }: { id: string }) {
+  const paths: Record<string, string> = {
+    directie: "M4 18V6h6v12H4Zm10 0V4h6v14h-6Z",
+    werkplekken: "M3 8h8v10H3V8Zm10 5h8v5h-8v-5Z",
+    archiefkasten: "M5 4h14v16H5V4Zm2 3v10h10V7H7Z",
+    ladenkasten: "M4 6h16v12H4V6Zm2 3v2h12V9H6Zm0 4v2h12v-2H6Z",
+    tafels: "M3 10h18v2H3v-2Zm2 4h14v4H5v-4Z",
+    meer: "M4 4h7v7H4V4Zm9 0h7v7h-7V4ZM4 13h7v7H4v-7Zm9 0h7v7h-7v-7Z",
+  };
+  return (
+    <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d={paths[id] ?? paths.meer} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
-function MegaMenuCard({ item, index, href }: { item: MegaMenuSection["items"][number]; index: number; href: string }) {
+type CardSize = "lg" | "md" | "sm" | "xs";
+
+const CARD_SIZE: Record<
+  CardSize,
+  {
+    img: string;
+    title: string;
+    link: string;
+    pad: string;
+    rounded: string;
+    tag: string;
+    showLink: boolean;
+  }
+> = {
+  lg: {
+    img: "aspect-[4/5] min-h-[228px] max-h-[268px]",
+    title: "text-[14px]",
+    link: "text-[11px]",
+    pad: "px-3.5 py-3.5",
+    rounded: "rounded-2xl",
+    tag: "top-3 left-3 text-[9px] px-2 py-1",
+    showLink: true,
+  },
+  md: {
+    img: "aspect-[4/5] min-h-[178px] max-h-[205px]",
+    title: "text-[13px]",
+    link: "text-[10px]",
+    pad: "px-3 py-3",
+    rounded: "rounded-xl",
+    tag: "top-2.5 left-2.5 text-[8px] px-1.5 py-0.5",
+    showLink: true,
+  },
+  sm: {
+    img: "aspect-[4/5] min-h-[142px] max-h-[168px]",
+    title: "text-[12px]",
+    link: "text-[10px]",
+    pad: "px-2.5 py-2.5",
+    rounded: "rounded-xl",
+    tag: "top-2 left-2 text-[8px] px-1.5 py-0.5",
+    showLink: true,
+  },
+  xs: {
+    img: "aspect-[4/5] min-h-[118px] max-h-[142px]",
+    title: "text-[11px]",
+    link: "text-[9px]",
+    pad: "px-2 py-2",
+    rounded: "rounded-lg",
+    tag: "top-1.5 left-1.5 text-[7px] px-1.5 py-0.5",
+    showLink: true,
+  },
+};
+
+function layoutForCount(count: number) {
+  if (count <= 3) return { grid: "grid-cols-3", size: "lg" as CardSize, gap: "gap-4 xl:gap-5" };
+  if (count === 4) return { grid: "grid-cols-4", size: "md" as CardSize, gap: "gap-3" };
+  if (count === 5) return { grid: "grid-cols-5", size: "sm" as CardSize, gap: "gap-2.5" };
+  if (count === 6) return { grid: "grid-cols-6", size: "sm" as CardSize, gap: "gap-2.5" };
+  return { grid: "grid-cols-8", size: "xs" as CardSize, gap: "gap-2" };
+}
+
+function FeaturedCard({
+  item,
+  index,
+  href,
+  size,
+}: {
+  item: MegaMenuSection["items"][number];
+  index: number;
+  href: string;
+  size: CardSize;
+}) {
+  const s = CARD_SIZE[size];
+
   return (
     <motion.a
       href={href}
-      initial={{ opacity: 0, y: 6, scale: 0.97 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.28, delay: index * 0.025, ease }}
-      className="group block"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.32, delay: index * 0.025, ease }}
+      className="group block min-w-0"
     >
-      <div className="relative overflow-hidden rounded-xl border border-[var(--ink)]/[0.07] bg-[var(--card)] transition-all duration-500 group-hover:border-[var(--clay)]/40 group-hover:shadow-[0_12px_32px_-14px_rgba(184,138,90,0.35)] group-hover:-translate-y-0.5">
-        <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10 ring-1 ring-inset ring-[var(--ochre)]/25" />
-
-        <div className="relative aspect-square overflow-hidden bg-[color-mix(in_oklab,var(--sand)_70%,var(--bone))]">
+      <div
+        className={`relative overflow-hidden ${s.rounded} border border-[var(--ink)]/[0.06] bg-[var(--card)] shadow-[0_8px_28px_-16px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_20px_48px_-18px_rgba(224,122,50,0.28)] group-hover:border-[var(--clay)]/30`}
+      >
+        <div className={`relative ${s.img} overflow-hidden bg-[color-mix(in_oklab,var(--sand)_65%,var(--bone))]`}>
           <img
             src={item.img}
             alt={item.label}
             loading="lazy"
-            className="h-full w-full object-contain p-2 transition-transform duration-[0.9s] ease-out group-hover:scale-[1.06]"
+            className="h-full w-full object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.05]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/[0.08] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/50 via-[var(--ink)]/5 to-transparent" />
           {item.tag && (
-            <span className="absolute top-1.5 left-1.5 z-10 rounded-md bg-[var(--ink)]/75 backdrop-blur-sm px-1.5 py-0.5 text-[8px] uppercase tracking-[0.16em] text-[var(--ochre)]">
+            <span
+              className={`absolute z-10 rounded-lg bg-[var(--ink)]/80 backdrop-blur-sm uppercase tracking-[0.14em] text-[var(--ochre)] ${s.tag}`}
+            >
               {item.tag}
             </span>
           )}
-          <span className="absolute top-1.5 right-1.5 z-10 num text-[9px] tracking-widest text-[var(--ink)]/25 group-hover:text-[var(--clay)]/60 transition-colors">
-            {String(index + 1).padStart(2, "0")}
-          </span>
         </div>
-
-        <div className="px-2 py-2 border-t border-[var(--ink)]/[0.05] bg-[var(--bone)]">
-          <span className="block text-center text-[10px] sm:text-[11px] leading-snug font-medium tracking-tight text-[var(--ink)]/75 group-hover:text-[var(--clay)] transition-colors duration-300 line-clamp-2">
+        <div className={`${s.pad} border-t border-[var(--ink)]/[0.05]`}>
+          <span
+            className={`block font-display ${s.title} leading-snug tracking-tight text-[var(--ink)] group-hover:text-[var(--clay)] transition-colors line-clamp-2`}
+          >
             {item.label}
           </span>
+          {s.showLink && (
+            <span className={`mt-1.5 block ${s.link} text-[var(--clay)] font-medium`}>Bekijk collectie</span>
+          )}
         </div>
       </div>
     </motion.a>
   );
 }
 
-export function MegaMenuPanel({ menu }: { menu: MegaMenuSection }) {
-  const gridCls = gridCols(menu.items.length);
+function MegaMenuContent({ menu }: { menu: MegaMenuSection }) {
+  const pillItems = menu.extras?.length
+    ? [...menu.items.map(i => i.label), ...menu.extras.map(e => e.label)]
+    : menu.items.map(i => i.label);
+  const { grid, size, gap } = layoutForCount(menu.items.length);
+  const compact = menu.items.length > 5;
 
   return (
     <motion.div
-      key={menu.id}
-      initial={{ opacity: 0, y: -6 }}
+      initial={{ opacity: 0, x: 8 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -6 }}
+      transition={{ duration: 0.26, ease }}
+      className="min-w-0"
+    >
+      <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+        <div>
+          <div className="text-[10px] uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{menu.eyebrow}</div>
+          <h3 className="mt-1 font-display text-xl xl:text-2xl tracking-tight text-[var(--ink)] uppercase">
+            {menu.title}
+          </h3>
+        </div>
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <span className="text-[11px] text-[var(--muted-foreground)] num whitespace-nowrap">
+            {menu.items.length} subcategorieën
+          </span>
+          <a
+            href={menu.href}
+            className={`inline-flex items-center gap-1.5 ${btnR} bg-[var(--clay)] text-[var(--bone)] px-4 py-2 text-[11px] font-semibold hover:bg-[var(--ochre)] hover:text-[var(--ink)] transition-colors`}
+          >
+            Bekijk alles
+            <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M1 7h12M8 2l5 5-5 5" strokeLinecap="round" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div className={`flex flex-wrap gap-1.5 ${compact ? "mb-3.5" : "mb-5"}`}>
+        {pillItems.map(label => (
+          <a
+            key={label}
+            href={menu.href}
+            className={`inline-flex items-center rounded-full border border-[var(--ink)]/[0.08] bg-[var(--card)] text-[var(--ink)]/70 hover:border-[var(--clay)]/35 hover:text-[var(--ink)] transition-colors ${
+              compact ? "px-2.5 py-1 text-[10px]" : "px-3 py-1.5 text-[11px]"
+            }`}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+
+      <div className={`grid ${grid} ${gap}`}>
+        {menu.items.map((item, i) => (
+          <FeaturedCard key={item.label} item={item} index={i} href={menu.href} size={size} />
+        ))}
+      </div>
+
+      <p
+        className={`border-t border-[var(--ink)]/[0.06] text-[var(--muted-foreground)] max-w-2xl ${
+          compact ? "mt-3.5 pt-3 text-[11px] leading-relaxed line-clamp-2" : "mt-5 pt-4 text-[12px] leading-relaxed"
+        }`}
+      >
+        {menu.description}
+      </p>
+    </motion.div>
+  );
+}
+
+export function MegaMenuPanel({
+  menu,
+  menus,
+  onSelectMenu,
+}: {
+  menu: MegaMenuSection;
+  menus: MegaMenuSection[];
+  onSelectMenu: (id: string) => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -8 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -4 }}
-      transition={{ duration: 0.22, ease }}
-      className="absolute left-0 right-0 top-full z-[60] pt-1.5"
+      exit={{ opacity: 0, y: -6 }}
+      transition={{ duration: 0.24, ease }}
+      className="absolute left-0 right-0 top-full z-[60] pt-2"
     >
       <div className="mx-auto max-w-[1280px] px-4 md:px-6">
-        <div className={`relative overflow-hidden ${btnR} border border-[var(--bone)]/15 bg-[var(--bone)]/98 backdrop-blur-2xl shadow-[0_24px_80px_-20px_rgba(0,0,0,0.55)]`}>
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/60 to-transparent" />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.025]"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px, var(--ink) 1px, transparent 0)",
-              backgroundSize: "20px 20px",
-            }}
-          />
+        <div className="relative overflow-hidden rounded-2xl border border-[var(--ink)]/[0.06] bg-[var(--bone)] shadow-[0_28px_90px_-24px_rgba(0,0,0,0.35)]">
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--clay)]/50 to-transparent" />
 
-          <div className="relative grid lg:grid-cols-[200px_1fr] xl:grid-cols-[220px_1fr]">
-            {/* Compact sidebar */}
-            <div className="hidden lg:flex flex-col justify-between border-r border-[var(--ink)]/[0.06] bg-[color-mix(in_oklab,var(--sand)_40%,var(--bone))] p-4 xl:p-5">
-              <div>
-                <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">{menu.eyebrow}</div>
-                <h3 className="mt-2 font-display text-lg xl:text-xl leading-[1.15] tracking-tight text-[var(--ink)]">
-                  {menu.title}
-                </h3>
-                <p className="mt-2.5 text-[11px] leading-relaxed text-[var(--muted-foreground)] line-clamp-4">
-                  {menu.description}
-                </p>
+          <div className="relative grid lg:grid-cols-[248px_1fr]">
+            <div className="hidden lg:flex flex-col border-r border-[var(--ink)]/[0.06] bg-[color-mix(in_oklab,var(--sand)_35%,var(--bone))] p-4 xl:p-5">
+              <div className="text-[9px] uppercase tracking-[0.22em] text-[var(--muted-foreground)] mb-3">
+                Hoofdcategorieën
               </div>
-
-              <div className="mt-4 space-y-3">
-                <div className="overflow-hidden rounded-lg border border-[var(--ink)]/[0.08] shadow-sm">
-                  <img
-                    src={menu.featuredImg}
-                    alt=""
-                    className="aspect-[16/9] w-full object-cover"
-                  />
-                </div>
-                <a
-                  href={menu.href}
-                  className="group/link inline-flex items-center gap-1.5 text-[11px] font-semibold text-[var(--clay)] hover:text-[var(--ochre)] transition-colors"
-                >
-                  <span className="h-px w-4 bg-[var(--clay)] group-hover/link:w-6 group-hover/link:bg-[var(--ochre)] transition-all duration-400" />
-                  Volledige collectie
-                  <svg width="10" height="10" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" className="transition-transform group-hover/link:translate-x-0.5">
-                    <path d="M1 7h12M8 2l5 5-5 5" strokeLinecap="round" />
-                  </svg>
-                </a>
-              </div>
+              <nav className="space-y-1">
+                {menus.map(m => {
+                  const active = m.id === menu.id;
+                  return (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onMouseEnter={() => onSelectMenu(m.id)}
+                      className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-300 ${
+                        active
+                          ? "bg-[var(--ink)] text-[var(--bone)] shadow-[0_8px_24px_-12px_rgba(17,24,39,0.45)]"
+                          : "text-[var(--ink)]/70 hover:bg-[var(--card)] hover:text-[var(--ink)]"
+                      }`}
+                    >
+                      <span
+                        className={`grid size-9 shrink-0 place-items-center rounded-lg border transition-colors ${
+                          active
+                            ? "border-[var(--clay)]/40 bg-[var(--clay)]/15 text-[var(--ochre)]"
+                            : "border-[var(--ink)]/[0.08] bg-[var(--card)] text-[var(--ink)]/45 group-hover:border-[var(--clay)]/25 group-hover:text-[var(--clay)]"
+                        }`}
+                      >
+                        <CategoryIcon id={m.id} />
+                      </span>
+                      <span className="flex-1 min-w-0 text-[12px] font-semibold leading-snug">{m.label}</span>
+                      <NavChevron className={`size-2 -rotate-90 ${active ? "text-[var(--ochre)]" : "text-[var(--ink)]/25"}`} />
+                    </button>
+                  );
+                })}
+              </nav>
             </div>
 
-            {/* Card grid */}
-            <div className="p-3.5 sm:p-4 xl:p-5">
-              <div className="flex items-center justify-between gap-3 mb-3 lg:mb-3.5 lg:hidden">
-                <div>
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--muted-foreground)]">{menu.eyebrow}</div>
-                  <h3 className="mt-0.5 font-display text-base text-[var(--ink)]">{menu.title}</h3>
-                </div>
-                <a href={menu.href} className="text-[11px] font-semibold text-[var(--clay)] whitespace-nowrap">
-                  Alles →
-                </a>
-              </div>
-
-              <div className="hidden lg:flex items-center justify-between gap-3 mb-3.5 pb-3 border-b border-[var(--ink)]/[0.06]">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--muted-foreground)] num">
-                  {String(menu.items.length).padStart(2, "0")} collecties
-                </span>
-                <a
-                  href={menu.href}
-                  className="text-[10px] uppercase tracking-[0.18em] font-semibold text-[var(--clay)] hover:text-[var(--ochre)] transition-colors"
-                >
-                  Bekijk alles →
-                </a>
-              </div>
-
-              <div className={`grid gap-2 sm:gap-2.5 ${gridCls}`}>
-                {menu.items.map((item, i) => (
-                  <MegaMenuCard key={item.label} item={item} index={i} href={menu.href} />
-                ))}
-              </div>
-
-              {menu.extras && menu.extras.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-[var(--ink)]/[0.06]">
-                  <div className="text-[9px] uppercase tracking-[0.2em] text-[var(--muted-foreground)] mb-2">Ook populair</div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {menu.extras.map(extra => (
-                      <a
-                        key={extra.label}
-                        href={menu.href}
-                        className="inline-flex items-center gap-1 rounded-md border border-[var(--ink)]/[0.07] bg-[var(--card)] px-2 py-1 text-[10px] text-[var(--ink)]/70 hover:border-[var(--clay)]/30 hover:text-[var(--ink)] transition-colors"
-                      >
-                        <span className="size-1 rounded-full bg-[var(--ochre)]/70" />
-                        {extra.label}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              )}
+            <div className="p-4 sm:p-5 xl:p-6">
+              <AnimatePresence mode="wait">
+                <MegaMenuContent key={menu.id} menu={menu} />
+              </AnimatePresence>
             </div>
           </div>
         </div>

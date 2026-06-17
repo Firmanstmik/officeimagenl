@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
 import type { Bestseller } from "@/lib/oi-data";
+import { btnR } from "@/lib/site-tokens";
 
 export type CartProduct = {
   id: string;
@@ -278,21 +279,27 @@ export function CartBadge({ className = "" }: { className?: string }) {
   );
 }
 
-export function HeaderCartButton() {
-  const { setOpen } = useCart();
+export function HeaderCartButton({ className = "" }: { className?: string }) {
+  const { setOpen, totalCount } = useCart();
   return (
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className="relative inline-flex items-center gap-2 text-[12px] md:text-[13px] font-semibold text-[var(--bone)]/85 hover:text-[var(--bone)] transition-colors px-2 py-1.5"
+      className={`relative inline-flex items-center gap-2 ${btnR} bg-[var(--clay)] text-[var(--bone)] px-3.5 py-2 text-[12px] font-semibold shadow-[0_4px_18px_-6px_rgba(224,122,50,0.5)] hover:bg-[var(--ochre)] hover:text-[var(--ink)] transition-all duration-300 ${className}`}
     >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
         <path d="M6 6h15l-1.5 9h-12L5 6H3" strokeLinecap="round" strokeLinejoin="round" />
         <circle cx="9" cy="20" r="1" />
         <circle cx="18" cy="20" r="1" />
       </svg>
       <span className="hidden sm:inline">Winkelwagen</span>
-      <CartBadge />
+      {totalCount > 0 ? (
+        <span className="grid min-w-[18px] h-[18px] place-items-center rounded-md bg-[var(--ink)] text-[var(--bone)] text-[9px] font-bold num px-1">
+          {totalCount > 9 ? "9+" : totalCount}
+        </span>
+      ) : (
+        <CartBadge />
+      )}
     </button>
   );
 }

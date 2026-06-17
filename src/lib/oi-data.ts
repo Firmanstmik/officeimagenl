@@ -8,8 +8,8 @@ export const OI = {
       name: "Directie meubelen",
       img: "https://officeimage.nl/wp-content/uploads/2025/03/Luxe-kantoorinrichting.jpg",
       href: SHOP_PATH,
-      tag: "Signature",
-      line: "Representatieve directiekamers met premium materialen en tijdloze uitstraling.",
+      tag: "Signatuur",
+      line: "Representatieve directiekamers met hoogwaardige materialen en tijdloze uitstraling.",
       stat: "Exclusief bij OI",
     },
     {
@@ -45,7 +45,7 @@ export const OI = {
       stat: "Op maat mogelijk",
     },
     {
-      name: "Bureaustoelen & stoelen",
+      name: "Bureaustoelen en stoelen",
       img: "https://officeimage.nl/wp-content/uploads/2024/12/fede7c3c-3427-4597-80b1-9a169a5fd6a4.jpg",
       href: SHOP_PATH,
       tag: "Ergonomie",
@@ -73,7 +73,7 @@ export const OI = {
     { name: "Directie meubelen", img: "https://officeimage.nl/wp-content/uploads/2025/03/Luxe-kantoorinrichting.jpg", href: SHOP_PATH },
     { name: "Werkplekken", img: "https://officeimage.nl/wp-content/uploads/2020/07/HR_ZF3ZHFlaag_ret-scaled.jpg", href: SHOP_PATH },
     { name: "Tafels", img: "https://officeimage.nl/wp-content/uploads/2025/03/HR_20230806_16-scaled.jpg", href: SHOP_PATH },
-    { name: "Bureaustoelen & stoelen", img: "https://officeimage.nl/wp-content/uploads/2024/12/fede7c3c-3427-4597-80b1-9a169a5fd6a4.jpg", href: SHOP_PATH },
+    { name: "Bureaustoelen en stoelen", img: "https://officeimage.nl/wp-content/uploads/2024/12/fede7c3c-3427-4597-80b1-9a169a5fd6a4.jpg", href: SHOP_PATH },
     { name: "Archiefkasten", img: "https://officeimage.nl/wp-content/uploads/2024/10/roldeurkast-ch-1.jpg", href: SHOP_PATH },
     { name: "Ladenkasten", img: "https://officeimage.nl/wp-content/uploads/2024/12/tekeningladekast-A3-8L-300x300-1.jpg", href: SHOP_PATH },
     { name: "Lockers", img: "https://officeimage.nl/wp-content/uploads/2025/01/wrc.2.perfo_.bl-min_1.jpg", href: SHOP_PATH },

@@ -101,7 +101,7 @@ const INFO_LINKS = [
   "Betaalmethoden",
   "Retourneren",
   "Algemene voorwaarden",
-  "Privacy policy",
+  "Privacybeleid",
 ] as const;
 
 const SOCIAL = [
