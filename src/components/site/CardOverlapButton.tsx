@@ -66,43 +66,48 @@ function Shell({
 
   const shell = [
     "group/btn relative inline-flex w-full max-w-[min(100%,280px)] items-center rounded-full",
-    "transition-[background-color,box-shadow,ring-color] duration-500 ease-out",
-    "shadow-[0_14px_40px_-12px_rgba(0,0,0,0.45)]",
-    "hover:shadow-[0_18px_50px_-10px_rgba(224,122,50,0.45)]",
+    "transition-[background-color,box-shadow,ring-color,border-color] duration-500 ease-out",
+    isDark
+      ? "shadow-[0_12px_32px_-14px_rgba(0,0,0,0.5)] hover:shadow-[0_12px_32px_-14px_rgba(0,0,0,0.5)]"
+      : "shadow-[0_14px_40px_-12px_rgba(0,0,0,0.45)] hover:shadow-[0_18px_50px_-10px_rgba(224,122,50,0.45)]",
     "disabled:opacity-70 disabled:pointer-events-none",
     isDark
-      ? "bg-[var(--bone)] text-[var(--ink)] ring-1 ring-white/40 hover:bg-white"
+      ? "bg-[var(--bone)] text-[var(--ink)] ring-1 ring-[var(--ochre)]/50 border border-[var(--ochre)]/45 hover:bg-[var(--bone)] hover:ring-[var(--ochre)]/70 hover:border-[var(--ochre)]/65"
       : "bg-[var(--clay)] text-[var(--bone)] ring-1 ring-[var(--clay)]/30 hover:bg-[var(--ink)] hover:ring-[var(--ink)]/20",
     className,
   ].join(" ");
 
   const circle = [
-    "grid size-9 shrink-0 place-items-center rounded-full m-1 transition-all duration-500",
+    "grid size-9 shrink-0 place-items-center rounded-full m-1 transition-[background-color,color,transform] duration-500",
     isDark
-      ? "bg-[var(--clay)] text-[var(--bone)] group-hover/btn:bg-[var(--ink)] group-hover/btn:scale-110"
+      ? "bg-[var(--clay)] text-[var(--bone)] group-hover/btn:bg-[var(--ink)]"
       : "bg-[var(--bone)]/20 text-[var(--bone)] group-hover/btn:bg-[var(--ochre)] group-hover/btn:text-[var(--ink)] group-hover/btn:scale-110",
   ].join(" ");
 
   const inner = (
     <>
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -inset-[3px] rounded-full opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(255,255,255,0.55), rgba(240,160,96,0.35), rgba(255,255,255,0.45))",
-          padding: "1px",
-          WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-          WebkitMaskComposite: "xor",
-          maskComposite: "exclude",
-        }}
-      />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
-      >
-        <span className="absolute inset-y-0 -left-full w-1/2 bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-[-18deg] transition-transform duration-700 group-hover/btn:translate-x-[280%]" />
-      </span>
+      {!isDark && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute -inset-[3px] rounded-full opacity-0 transition-opacity duration-500 group-hover/btn:opacity-100"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.55), rgba(240,160,96,0.35), rgba(255,255,255,0.45))",
+            padding: "1px",
+            WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
+            WebkitMaskComposite: "xor",
+            maskComposite: "exclude",
+          }}
+        />
+      )}
+      {!isDark && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 overflow-hidden rounded-full"
+        >
+          <span className="absolute inset-y-0 -left-full w-1/2 bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-[-18deg] transition-transform duration-700 group-hover/btn:translate-x-[280%]" />
+        </span>
+      )}
       <span className="relative flex-1 pl-5 pr-1 py-2.5 text-[12px] sm:text-[13px] font-semibold tracking-tight text-center">
         {children}
       </span>

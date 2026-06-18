@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { OI } from "@/lib/oi-data";
+import { LogoMark } from "@/components/site/LogoMark";
 
 function IconTruck({ className = "size-3.5" }: { className?: string }) {
   return (
@@ -28,30 +28,27 @@ export function HeroEyebrow({ children }: { children: React.ReactNode }) {
         />
       </div>
 
+      <span className="eyebrow text-[var(--bone)]/70 min-w-0">{children}</span>
+
       <motion.div
-        initial={{ opacity: 0, scale: 0.92 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative shrink-0"
+        initial={{ opacity: 0, x: 6 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        className="hidden sm:flex items-center gap-2.5 shrink-0 ml-auto lg:ml-2"
         aria-hidden
       >
-        <span className="pointer-events-none absolute -inset-2 rounded-full bg-[var(--ochre)]/20 blur-md" />
-        <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-[var(--ochre)]/35" />
-        <motion.span
-          animate={{ y: [0, -2, 0] }}
-          transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
-          className="relative grid size-9 sm:size-10 place-items-center rounded-full border border-[var(--bone)]/15 bg-[color-mix(in_oklab,var(--ink)_72%,transparent)] backdrop-blur-sm shadow-[0_8px_24px_-8px_rgba(0,0,0,0.55)]"
-        >
-          <img
-            src={OI.logo}
-            alt=""
-            className="h-5 w-auto max-w-none object-contain"
-            draggable={false}
-          />
-        </motion.span>
+        <span className="h-px w-5 md:w-7 border-t border-dashed border-[var(--ochre)]/40" />
+        <div className="relative">
+          <span className="pointer-events-none absolute -inset-1.5 rounded-full bg-[var(--ochre)]/15 blur-[6px]" />
+          <motion.div
+            animate={{ y: [0, -2, 0] }}
+            transition={{ duration: 3.4, repeat: Infinity, ease: "easeInOut" }}
+            className="relative grid place-items-center rounded-full border border-[var(--ochre)]/35 bg-[color-mix(in_oklab,var(--ink)_68%,transparent)] p-1.5 backdrop-blur-sm shadow-[0_6px_20px_-8px_rgba(0,0,0,0.5)]"
+          >
+            <LogoMark height={26} width={22} />
+          </motion.div>
+        </div>
       </motion.div>
-
-      <span className="eyebrow text-[var(--bone)]/70 min-w-0">{children}</span>
     </div>
   );
 }
