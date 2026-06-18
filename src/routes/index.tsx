@@ -10,9 +10,9 @@ import { MainFooter } from "@/components/site/MainFooter";
 import { PageSection } from "@/components/site/PageSection";
 import { HeroExperienceCard } from "@/components/site/HeroExperienceCard";
 import { HeroEyebrow } from "@/components/site/HeroEyebrow";
-import { LogoMark } from "@/components/site/LogoMark";
 import { CardOverlapButton } from "@/components/site/CardOverlapButton";
 import { HeroScrollCue } from "@/components/site/HeroScrollCue";
+import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
 import { MEGA_MENUS } from "@/lib/mega-menu-data";
 import { btnR, ease, sectionH2 } from "@/lib/site-tokens";
 import { createPageHead } from "@/lib/site-seo";
@@ -23,7 +23,6 @@ import cCollab from "@/assets/concept-collaborative.jpg";
 import cHybrid from "@/assets/concept-hybrid.jpg";
 import cFocus from "@/assets/concept-focus.jpg";
 import cCreative from "@/assets/concept-creative.jpg";
-import viz from "@/assets/visualization.jpg";
 import p1 from "@/assets/project-1.jpg";
 import p2 from "@/assets/project-2.jpg";
 import p3 from "@/assets/project-3.jpg";
@@ -552,25 +551,6 @@ function Hero() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-6 lg:gap-8 lg:items-center">
             {/* main copy */}
             <div className="min-w-0 max-w-3xl relative">
-              <motion.div
-                aria-hidden
-                initial={{ opacity: 0, y: -6, rotate: -12 }}
-                animate={{ opacity: 1, y: 0, rotate: -8 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="pointer-events-none absolute -top-1 left-0 hidden sm:block z-[1]"
-              >
-                <div className="relative">
-                  <span className="pointer-events-none absolute -inset-2 rounded-xl bg-[var(--ochre)]/12 blur-md" />
-                  <motion.div
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="relative rounded-xl border border-[var(--ochre)]/30 bg-[color-mix(in_oklab,var(--ink)_62%,transparent)] p-2 backdrop-blur-sm shadow-[0_10px_28px_-12px_rgba(0,0,0,0.55)] -rotate-2"
-                  >
-                    <LogoMark height={34} width={26} />
-                  </motion.div>
-                </div>
-              </motion.div>
-
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`eyebrow-${idx}`}
@@ -1197,7 +1177,7 @@ function Visualization() {
                   </div>
                   <div className="ml-auto text-[11px] num text-[var(--muted-foreground)]">v2.4</div>
                 </div>
-                <img src={OI.categories[2].img} alt="3D weergave kantoorinrichting" className="w-full aspect-[4/3] object-cover" />
+                <VisualizationStudio3D activeTab={t} />
                 <div className="absolute bottom-4 left-4 right-4 glass rounded-xl p-3 flex items-center gap-2 flex-wrap">
                   {tabs.map((tt, idx) => (
                     <button

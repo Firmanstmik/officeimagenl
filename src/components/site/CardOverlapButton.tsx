@@ -73,7 +73,7 @@ function Shell({
     "disabled:opacity-70 disabled:pointer-events-none",
     isDark
       ? "bg-[var(--bone)] text-[var(--ink)] ring-1 ring-[var(--ochre)]/50 border border-[var(--ochre)]/45 hover:bg-[var(--bone)] hover:ring-[var(--ochre)]/70 hover:border-[var(--ochre)]/65"
-      : "bg-[var(--clay)] text-[var(--bone)] ring-1 ring-[var(--clay)]/30 hover:bg-[var(--ink)] hover:ring-[var(--ink)]/20",
+      : "bg-[var(--clay)] text-[var(--bone)] ring-2 ring-white border-2 border-white hover:bg-[var(--ink)] hover:ring-white hover:border-white",
     className,
   ].join(" ");
 
