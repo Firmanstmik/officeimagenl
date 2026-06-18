@@ -44,7 +44,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
     initials: "RV",
     accent: "expertadvies en snelle levering",
     quote:
-      "Expertadvies van Altan in de showroom. Direct gekocht en woensdag al thuisbezorgd — uitstekende service.",
+      "Expertadvies van Altan in de showroom. Direct gekocht en woensdag al thuisbezorgd. Uitstekende service.",
     tone: "light",
   },
   {
@@ -54,7 +54,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
     initials: "KI",
     accent: "enorme variatie aan modellen",
     quote:
-      "Hele mooie kantoormeubels en een grote variatie. Zeker aanrader om ideeën op te doen — de koffie is ook erg lekker.",
+      "Hele mooie kantoormeubels en een grote variatie. Zeker aanrader om ideeën op te doen. De koffie is ook erg lekker.",
     tone: "warm",
   },
   {

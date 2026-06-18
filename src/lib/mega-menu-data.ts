@@ -30,7 +30,7 @@ export const MEGA_MENUS: MegaMenuSection[] = [
       "Exclusieve directiemeubelen voor representatieve ruimtes. Groot op voorraad, persoonlijk advies in onze showroom Rotterdam.",
     featuredImg: "https://officeimage.nl/wp-content/uploads/2024/10/ARMA-1.jpg",
     items: [
-      { label: "A-Simena Hoekbureau", img: "https://officeimage.nl/wp-content/uploads/2024/10/546-product_yHFOVOII-600x399.jpg" },
+      { label: "A Simena Hoekbureau", img: "https://officeimage.nl/wp-content/uploads/2024/10/546-product_yHFOVOII-600x399.jpg" },
       { label: "Arma Directie meubelen", img: "https://officeimage.nl/wp-content/uploads/2024/10/ARMA-500x500-1.jpg", tag: "Signatuur" },
       { label: "Capuan Directiemeubelen", img: "https://officeimage.nl/wp-content/uploads/2024/10/capua5-250x250-1.jpg" },
       { label: "Mercure Directieset", img: "https://officeimage.nl/wp-content/uploads/2024/10/mercure-wit-250x250-1.jpg" },
@@ -45,14 +45,14 @@ export const MEGA_MENUS: MegaMenuSection[] = [
     eyebrow: "Werkplekinrichting",
     title: "Modulaire Werkplekken",
     description:
-      "Ergonomische werkplekken van Foxline, T-Line, Slinger en elektrisch verstelbaar. Snel configureerbaar, direct uit voorraad.",
+      "Ergonomische werkplekken van Foxline, T Line, Slinger en elektrisch verstelbaar. Snel configureerbaar, direct uit voorraad.",
     featuredImg: "https://officeimage.nl/wp-content/uploads/2024/10/fox-320x160-tafel-1-1.jpg",
     items: [
       { label: "Werkplekken Elektrisch", img: "https://officeimage.nl/wp-content/uploads/2024/10/verstelbaar-100x100-1.jpg" },
       { label: "Werkplekken Nieuw Line", img: "https://officeimage.nl/wp-content/uploads/2024/10/120x60-500x500-300x300-1.png" },
       { label: "Werkplekken Foxline", img: "https://officeimage.nl/wp-content/uploads/2024/10/fox-bureau-500x500-300x300-1.jpg", tag: "Foxline" },
       { label: "Werkplekken Slinger", img: "https://officeimage.nl/wp-content/uploads/2024/10/T-poot-slinger-1-250x250-1.jpg" },
-      { label: "Werkplekken T-Line", img: "https://officeimage.nl/wp-content/uploads/2024/10/bt181-250x250-1.jpg" },
+      { label: "Werkplekken T Line", img: "https://officeimage.nl/wp-content/uploads/2024/10/bt181-250x250-1.jpg" },
     ],
   },
   {

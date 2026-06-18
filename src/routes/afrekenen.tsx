@@ -158,7 +158,7 @@ function AfrekenenPage() {
                   <div className="mt-8 grid sm:grid-cols-2 gap-4">
                     <Field label="Voornaam" value={form.voornaam} onChange={update("voornaam")} required />
                     <Field label="Achternaam" value={form.achternaam} onChange={update("achternaam")} required />
-                    <Field label="E-mailadres" type="email" value={form.email} onChange={update("email")} required className="sm:col-span-2" />
+                    <Field label="Emailadres" type="email" value={form.email} onChange={update("email")} required className="sm:col-span-2" />
                     <Field label="Telefoon" type="tel" value={form.telefoon} onChange={update("telefoon")} required />
                     <Field label="Bedrijf (optioneel)" value={form.bedrijf} onChange={update("bedrijf")} />
                   </div>
@@ -231,7 +231,7 @@ function AfrekenenPage() {
                   <p className="mt-2 text-sm text-[var(--muted-foreground)]">Nog één keer alles nalopen voordat u plaatst.</p>
                   <dl className="mt-8 space-y-4 text-sm">
                     <SummaryRow label="Naam" value={`${form.voornaam} ${form.achternaam}`} />
-                    <SummaryRow label="E-mail" value={form.email} />
+                    <SummaryRow label="Email" value={form.email} />
                     <SummaryRow label="Telefoon" value={form.telefoon} />
                     <SummaryRow label="Bezorging" value={`${form.straat} ${form.huisnummer}, ${form.postcode} ${form.plaats}`} />
                     <SummaryRow label="Betaling" value={PAYMENTS.find(p => p.id === payment)?.label ?? ""} />
@@ -391,7 +391,7 @@ function SuccessView({ orderId }: { orderId: string }) {
       </motion.div>
       <h2 className="font-display text-3xl md:text-4xl text-[var(--ink)] tracking-tight">Bedankt voor uw bestelling</h2>
       <p className="mt-4 text-[var(--muted-foreground)] leading-relaxed">
-        Uw order is succesvol ontvangen. U ontvangt binnen enkele minuten een bevestiging per e-mail.
+        Uw order is succesvol ontvangen. U ontvangt binnen enkele minuten een bevestiging per email.
       </p>
       {orderId && (
         <div className={`mt-6 inline-flex ${btnR} bg-[var(--sand)] px-5 py-3 text-sm`}>

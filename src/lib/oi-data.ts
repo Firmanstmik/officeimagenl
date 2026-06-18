@@ -80,8 +80,8 @@ export const OI = {
     { name: "Kapstokken", img: "https://officeimage.nl/wp-content/uploads/2024/10/127.jpg", href: SHOP_PATH },
   ],
   bestsellers: [
-    { id: "bartafel-manage-it-halifax", name: "Bartafel Manage-it 220×80cm, Halifax", price: "€529", was: null, img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: SHOP_PATH },
-    { id: "bartafel-manage-it-220", name: "Bartafel Manage-it 220×80cm", price: "€429", was: null, img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: SHOP_PATH },
+    { id: "bartafel-manage-it-halifax", name: "Bartafel Manage it 220×80cm, Halifax", price: "€529", was: null, img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: SHOP_PATH },
+    { id: "bartafel-manage-it-220", name: "Bartafel Manage it 220×80cm", price: "€429", was: null, img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: SHOP_PATH },
     { id: "raptor-24uurs-stof", name: "Raptor 24uurs Bureaustoel, stof", price: "€669", was: "€749", img: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_4A-scaled.jpg", href: SHOP_PATH },
     { id: "raptor-24uurs-leder", name: "Raptor 24uurs Bureaustoel, leder", price: "€729", was: "€799", img: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_3A-scaled.jpg", href: SHOP_PATH },
   ],

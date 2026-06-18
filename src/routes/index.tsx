@@ -754,12 +754,12 @@ const CONCEPTS = [
     id: "werkplekken",
     n: "02",
     name: "Werkplekken",
-    sub: "Elektrisch verstelbaar, Foxline, T-line",
+    sub: "Elektrisch verstelbaar, Foxline, T line",
     img: OI.categories[1].img,
     mood: "Ergonomisch, modern, modulair",
-    body: "Elektrisch zit sta werkplekken in meerdere stijlen: Foxline, Nieuw Line, Slinger en T-line. Ergonomisch, duurzaam en modulair uitbreidbaar.",
+    body: "Elektrisch zit sta werkplekken in meerdere stijlen: Foxline, Nieuw Line, Slinger en T line. Ergonomisch, duurzaam en modulair uitbreidbaar.",
     metrics: [["4", "series"], ["120cm", "max hoogte"], ["10jr", "garantie"]],
-    benefits: ["Elektrisch verstelbaar", "Foxline serie", "T-line serie", "Slinger werkplek"],
+    benefits: ["Elektrisch verstelbaar", "Foxline serie", "T line serie", "Slinger werkplek"],
   },
   {
     id: "stoelen",
@@ -1604,7 +1604,7 @@ function GoogleReviewsSection() {
           <span className="text-[var(--clay)]">heel Nederland</span>
         </>
       }
-      subtitle="Echte Google Reviews van tevreden klanten. Van maatwerk vergadertafels tot complete kantoorinrichting — kwaliteit, service en snelheid die u voelt."
+      subtitle="Echte Google Reviews van tevreden klanten. Van maatwerk vergadertafels tot complete kantoorinrichting, met kwaliteit, service en snelheid die u voelt."
     />
   );
 }
