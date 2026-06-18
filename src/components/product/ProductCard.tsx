@@ -12,10 +12,10 @@ export function ProductCard({ product, index = 0 }: { product: Bestseller; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.7, delay: index * 0.06 }}
-      className="group relative flex h-full flex-col overflow-visible pb-8"
+      className="group relative flex h-full flex-col pb-5"
     >
-      <div className="flex h-full flex-col rounded-2xl overflow-hidden bg-[var(--card)] border border-[var(--ink)]/8 shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
-        <div className="relative aspect-square overflow-hidden bg-[var(--sand)]">
+      <div className="relative flex h-full flex-col rounded-2xl border border-[var(--ink)]/8 bg-[var(--card)] shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
+        <div className="relative aspect-square overflow-hidden rounded-t-2xl bg-[var(--sand)]">
           <img
             src={product.img}
             alt={product.name}
@@ -41,15 +41,15 @@ export function ProductCard({ product, index = 0 }: { product: Bestseller; index
             <span className="font-display text-2xl num text-[var(--ink)]">{product.price}</span>
           </div>
         </div>
-      </div>
 
-      <CardOverlapButton
-        product={cartProduct}
-        variant="light"
-        className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
-      >
-        In winkelwagen
-      </CardOverlapButton>
+        <CardOverlapButton
+          product={cartProduct}
+          variant="light"
+          className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
+        >
+          In winkelwagen
+        </CardOverlapButton>
+      </div>
     </motion.article>
   );
 }

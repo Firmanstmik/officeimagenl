@@ -66,10 +66,9 @@ function Shell({
 
   const shell = [
     "group/btn relative inline-flex w-full max-w-[min(100%,280px)] items-center rounded-full",
-    "transition-all duration-500 ease-out",
+    "transition-[background-color,box-shadow,ring-color] duration-500 ease-out",
     "shadow-[0_14px_40px_-12px_rgba(0,0,0,0.45)]",
     "hover:shadow-[0_18px_50px_-10px_rgba(224,122,50,0.45)]",
-    "hover:-translate-y-0.5",
     "disabled:opacity-70 disabled:pointer-events-none",
     isDark
       ? "bg-[var(--bone)] text-[var(--ink)] ring-1 ring-white/40 hover:bg-white"

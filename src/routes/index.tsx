@@ -551,13 +551,6 @@ function Hero() {
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-6 lg:gap-8 lg:items-center">
             {/* main copy */}
             <div className="min-w-0 max-w-3xl relative">
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -top-6 -left-4 hidden lg:block w-9 h-11 overflow-hidden opacity-35 rotate-[-10deg]"
-              >
-                <img src={OI.logo} alt="" className="h-11 w-auto max-w-none object-left" draggable={false} />
-              </div>
-
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`eyebrow-${idx}`}
@@ -1945,11 +1938,11 @@ function ProductCategoryCard({
   const n = (index % OI.productCarousel.length) + 1;
 
   return (
-    <div className="group relative h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[320px] lg:w-[340px] pb-8">
-      <div className="relative h-full rounded-2xl border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5 overflow-hidden">
+    <div className="group relative h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[320px] lg:w-[340px] pb-5">
+      <div className="relative h-full rounded-2xl border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        <a href={item.href} className="block relative aspect-[4/5] overflow-hidden">
+        <a href={item.href} className="block relative aspect-[4/5] overflow-hidden rounded-t-2xl">
           <div className="absolute inset-0 category-card-glow opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/20 via-transparent to-[var(--ink)]/90" />
 
@@ -2003,15 +1996,15 @@ function ProductCategoryCard({
           </div>
           <div className="mt-3 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
         </div>
-      </div>
 
-      <CardOverlapButton
-        href={item.href}
-        variant="dark"
-        className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
-      >
-        Ontdek collectie
-      </CardOverlapButton>
+        <CardOverlapButton
+          href={item.href}
+          variant="dark"
+          className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
+        >
+          Ontdek collectie
+        </CardOverlapButton>
+      </div>
     </div>
   );
 }
@@ -2186,9 +2179,9 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
 
   return (
     <Reveal delay={i * 0.06}>
-      <article className="group relative flex h-full flex-col overflow-visible pb-8">
-        <div className="flex h-full flex-col rounded-2xl overflow-hidden bg-[var(--card)] border border-[var(--ink)]/8 shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
-          <div className="relative aspect-square overflow-hidden bg-[var(--sand)]">
+      <article className="group relative flex h-full flex-col pb-5">
+        <div className="relative flex h-full flex-col rounded-2xl border border-[var(--ink)]/8 bg-[var(--card)] shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
+          <div className="relative aspect-square overflow-hidden rounded-t-2xl bg-[var(--sand)]">
             <img
               src={b.img}
               alt={b.name}
@@ -2214,15 +2207,15 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
               <span className="font-display text-2xl num text-[var(--ink)]">{b.price}</span>
             </div>
           </div>
-        </div>
 
-        <CardOverlapButton
-          product={product}
-          variant="light"
-          className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
-        >
-          In winkelwagen
-        </CardOverlapButton>
+          <CardOverlapButton
+            product={product}
+            variant="light"
+            className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
+          >
+            In winkelwagen
+          </CardOverlapButton>
+        </div>
       </article>
     </Reveal>
   );
