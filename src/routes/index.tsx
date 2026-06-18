@@ -583,7 +583,7 @@ function Hero() {
                 </AnimatePresence>
               </h1>
 
-              <div className="mt-8 md:mt-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-end">
+              <div className="mt-8 md:mt-10">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={`sub-${idx}`}
@@ -596,7 +596,7 @@ function Hero() {
                     {slide.sub}
                   </motion.p>
                 </AnimatePresence>
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="mt-6 flex flex-wrap items-center gap-3">
                   <ArrowLink variant="clay" href={slide.href}>
                     Bekijk collectie
                   </ArrowLink>
@@ -1241,7 +1241,7 @@ function Visualization() {
           <Reveal delay={0.15}>
             <Eyebrow>3D Visualisatie</Eyebrow>
             <h2 className={`mt-5 ${sectionH2} max-w-[12ch]`}>
-              Plan met <span className="italic text-[var(--clay)]">zekerheid</span> voordat de eerste bestelling vertrekt.
+              Ervaar uw kantoor voordat het <span className="italic text-[var(--clay)]">werkelijkheid wordt.</span>
             </h2>
             <p className="mt-7 text-[var(--muted-foreground)] text-lg leading-relaxed max-w-lg">
               Vrijblijvend laten wij u zien hoe uw nieuwe kantoor eruit komt te zien. Van plattegrond en materiaalstalen tot een fotorealistische render, zodat u kiest op basis van beleving, niet alleen op productcode.
@@ -1456,7 +1456,7 @@ function Projects() {
           <Reveal>
             <Eyebrow>Uitgelichte collecties</Eyebrow>
             <h2 className={`mt-5 ${sectionH2} max-w-[14ch]`}>
-              Onze meest <span className="italic text-[var(--clay)]">gevraagde stukken.</span>
+              Onze best <span className="italic text-[var(--clay)]">verkochte producten.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
@@ -2236,7 +2236,7 @@ function Bestsellers() {
           <Reveal>
             <Eyebrow>Bestsellers, tot 40% korting</Eyebrow>
             <h2 className={`mt-5 ${sectionH2} max-w-[14ch]`}>
-              De meest <span className="italic text-[var(--clay)]">gevraagde stukken.</span>
+              De best <span className="italic text-[var(--clay)]">verkochte producten.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
@@ -2248,7 +2248,7 @@ function Bestsellers() {
 
         <div className="mt-14 md:mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {OI.bestsellers.map((b, i) => (
-            <BestsellerCard key={b.href} b={b} i={i} />
+            <BestsellerCard key={b.id} b={b} i={i} />
           ))}
         </div>
       </div>

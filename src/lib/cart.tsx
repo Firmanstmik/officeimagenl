@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { motion } from "motion/react";
 import type { Bestseller } from "@/lib/oi-data";
+import { OI } from "@/lib/oi-data";
 import { btnR } from "@/lib/site-tokens";
 
 export type CartProduct = {
@@ -50,7 +51,7 @@ export function formatEuro(amount: number) {
 
 export function cartProductFromBestseller(b: Bestseller): CartProduct {
   return {
-    id: b.href,
+    id: b.id,
     name: b.name,
     price: b.price,
     priceValue: parseEuro(b.price),
@@ -58,6 +59,35 @@ export function cartProductFromBestseller(b: Bestseller): CartProduct {
     img: b.img,
     href: b.href,
   };
+}
+
+function repairCartLine(line: CartLine): CartLine {
+  if (line.id === "/producten") {
+    const match = OI.bestsellers.find(b => b.name === line.name);
+    if (match) {
+      return {
+        ...line,
+        id: match.id,
+        price: match.price,
+        priceValue: parseEuro(match.price),
+        was: match.was,
+        img: match.img,
+        href: match.href,
+      };
+    }
+  }
+  return line;
+}
+
+function loadCart(): CartLine[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem("oi-cart");
+    const parsed = raw ? (JSON.parse(raw) as CartLine[]) : [];
+    return parsed.map(repairCartLine);
+  } catch {
+    return [];
+  }
 }
 
 function loadSelectedIds(itemIds: string[]): string[] {
@@ -73,22 +103,14 @@ function loadSelectedIds(itemIds: string[]): string[] {
 }
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartLine[]>(() => {
-    if (typeof window === "undefined") return [];
-    try {
-      const raw = localStorage.getItem("oi-cart");
-      return raw ? (JSON.parse(raw) as CartLine[]) : [];
-    } catch {
-      return [];
-    }
-  });
+  const [items, setItems] = useState<CartLine[]>(loadCart);
   const [selectedIds, setSelectedIds] = useState<string[]>(() =>
     loadSelectedIds(
       (() => {
         if (typeof window === "undefined") return [];
         try {
           const raw = localStorage.getItem("oi-cart");
-          const parsed = raw ? (JSON.parse(raw) as CartLine[]) : [];
+          const parsed = raw ? (JSON.parse(raw) as CartLine[]).map(repairCartLine) : [];
           return parsed.map(i => i.id);
         } catch {
           return [];

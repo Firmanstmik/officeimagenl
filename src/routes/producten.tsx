@@ -156,7 +156,7 @@ function ProductenPage() {
               className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
             >
               {products.map((p, i) => (
-                <ProductCard key={p.href} product={p} index={i} />
+                <ProductCard key={p.id} product={p} index={i} />
               ))}
             </motion.div>
           </AnimatePresence>

@@ -46,7 +46,7 @@ const CARD_SIZE: Record<
   }
 > = {
   lg: {
-    img: "aspect-[4/5] min-h-[228px] max-h-[268px]",
+    img: "aspect-[4/3] w-full",
     title: "text-[14px]",
     link: "text-[11px]",
     pad: "px-3.5 py-3.5",
@@ -55,7 +55,7 @@ const CARD_SIZE: Record<
     showLink: true,
   },
   md: {
-    img: "aspect-[4/5] min-h-[178px] max-h-[205px]",
+    img: "aspect-[4/3] w-full",
     title: "text-[13px]",
     link: "text-[10px]",
     pad: "px-3 py-3",
@@ -64,7 +64,7 @@ const CARD_SIZE: Record<
     showLink: true,
   },
   sm: {
-    img: "aspect-[4/5] min-h-[142px] max-h-[168px]",
+    img: "aspect-[4/3] w-full",
     title: "text-[12px]",
     link: "text-[10px]",
     pad: "px-2.5 py-2.5",
@@ -73,7 +73,7 @@ const CARD_SIZE: Record<
     showLink: true,
   },
   xs: {
-    img: "aspect-[4/5] min-h-[118px] max-h-[142px]",
+    img: "aspect-[4/3] w-full",
     title: "text-[11px]",
     link: "text-[9px]",
     pad: "px-2 py-2",
@@ -115,14 +115,14 @@ function FeaturedCard({
       <div
         className={`relative overflow-hidden ${s.rounded} border border-[var(--ink)]/[0.06] bg-[var(--card)] shadow-[0_8px_28px_-16px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_20px_48px_-18px_rgba(224,122,50,0.28)] group-hover:border-[var(--clay)]/30`}
       >
-        <div className={`relative ${s.img} overflow-hidden bg-[color-mix(in_oklab,var(--sand)_65%,var(--bone))]`}>
+        <div className={`relative ${s.img} overflow-hidden bg-[color-mix(in_oklab,var(--sand)_45%,var(--bone))]`}>
           <img
             src={item.img}
             alt={item.label}
             loading="lazy"
-            className="h-full w-full object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.05]"
+            className="block h-full w-full object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.04]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/50 via-[var(--ink)]/5 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/35 via-transparent to-transparent pointer-events-none" />
           {item.tag && (
             <span
               className={`absolute z-10 rounded-lg bg-[var(--ink)]/80 backdrop-blur-sm uppercase tracking-[0.14em] text-[var(--ochre)] ${s.tag}`}
