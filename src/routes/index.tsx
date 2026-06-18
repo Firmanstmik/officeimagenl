@@ -1535,9 +1535,10 @@ function CTA() {
           <Reveal delay={0.12}>
             <div className="relative overflow-hidden rounded-2xl border border-[var(--ink)]/[0.08] bg-[var(--card)] shadow-[0_28px_80px_-40px_rgba(17,24,39,0.22)]">
               <img
-                src={OI.categories[0].img}
+                src={OI.showroom.img}
                 alt="Office Image showroom Rotterdam"
                 className="aspect-[4/3] w-full object-cover"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/55 via-[var(--ink)]/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">

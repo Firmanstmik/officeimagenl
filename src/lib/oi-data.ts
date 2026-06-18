@@ -89,6 +89,7 @@ export const OI = {
     name: "Office Image Kantoormeubelen",
     address: "Industrieweg 167",
     zip: "3044 AS Rotterdam",
+    img: "https://officeimage.nl/wp-content/uploads/2024/10/546-product_yHFOVOII.jpg",
     tel: "010 230 99 44",
     telHref: "tel:0102309944",
     mobile: "+31 6 22778481",
