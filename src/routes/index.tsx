@@ -13,6 +13,7 @@ import { HeroEyebrow } from "@/components/site/HeroEyebrow";
 import { CardOverlapButton } from "@/components/site/CardOverlapButton";
 import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
+import { ProjectRevealButton } from "@/components/site/ProjectRevealButton";
 import { MEGA_MENUS } from "@/lib/mega-menu-data";
 import { btnR, ease, sectionH2 } from "@/lib/site-tokens";
 import { createPageHead } from "@/lib/site-seo";
@@ -1436,29 +1437,37 @@ function Projects() {
         <div className="mt-16 md:mt-20 grid md:grid-cols-3 gap-6 md:gap-8">
           {PROJECTS.map((p, i) => (
             <Reveal key={p.t} delay={i * 0.08}>
-              <a className="group block">
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[var(--graphite)]">
+              <a href={SHOP_PATH} className="group block">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[var(--graphite)] ring-1 ring-[var(--ink)]/8 transition-[box-shadow,ring-color] duration-700 group-hover:ring-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-28px_rgba(224,122,50,0.28)]">
                   <img
                     src={p.img}
                     alt={p.t}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.07]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/70 via-[var(--ink)]/0 to-transparent opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/82 via-[var(--ink)]/25 to-transparent transition-opacity duration-700 group-hover:from-[var(--ink)]/88" />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    style={{
+                      background:
+                        "linear-gradient(105deg, transparent 40%, color-mix(in oklab, var(--ochre) 12%, transparent) 55%, transparent 70%)",
+                    }}
+                  />
                   <div className="absolute inset-x-0 bottom-0 p-6 text-[var(--bone)]">
                     <div className="flex items-center gap-3 text-[11px] tracking-[0.22em] uppercase text-[var(--bone)]/70">
                       <span>{p.type}</span>
                       <span className="text-[var(--bone)]/30">/</span>
                       <span className="num">{p.year}</span>
                     </div>
-                    <div className="mt-2 font-display text-3xl md:text-4xl leading-tight">{p.t}</div>
-                    <div
-                      className="mt-3 overflow-hidden text-[var(--bone)]/80 text-sm max-h-0 group-hover:max-h-32 transition-all duration-700 ease-out"
-                    >
-                      <p>{p.scope}. Direct uit voorraad leverbaar, met snelle landelijke levering vanuit Rotterdam.</p>
-                      <div className="mt-3 inline-flex items-center gap-2 text-[var(--ochre)] text-xs uppercase tracking-widest">
-                        Bekijk collectie →
-                      </div>
+                    <div className="mt-2 font-display text-3xl md:text-4xl leading-tight transition-transform duration-700 group-hover:-translate-y-0.5">
+                      {p.t}
+                    </div>
+                    <div className="project-card-copy overflow-hidden text-[var(--bone)]/80 text-sm">
+                      <p className="pt-3 leading-relaxed">
+                        {p.scope}. Direct uit voorraad leverbaar, met snelle landelijke levering vanuit Rotterdam.
+                      </p>
+                      <ProjectRevealButton />
                     </div>
                   </div>
                   <div className="absolute top-5 left-5 glass-dark rounded-full px-3 py-1.5 text-[11px] uppercase tracking-widest text-[var(--bone)]">
