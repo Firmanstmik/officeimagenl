@@ -100,6 +100,7 @@ export const OI = {
     facebook: "https://www.facebook.com/officeimage.kantoormeubelen",
     instagram: "https://www.instagram.com/officeimage.kantoormeubelen/",
     linkedin: "https://www.linkedin.com/company/office-image-kantoormeubelen/",
+    googleReviews: "https://maps.app.goo.gl/nVgsEevAfbq73bKu5u",
   },
   hours: [
     ["Maandag", "09:00 tot 17:30"],

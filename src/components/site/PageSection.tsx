@@ -15,16 +15,17 @@ const toneVar: Record<SectionTone, string> = {
 };
 
 function topBlend(from: SectionTone | "hero", to: SectionTone): string {
-  const fromVar = from === "hero" ? toneVar.ink : toneVar[from];
   const toVar = toneVar[to];
-  const mix = from === "hero" ? 22 : 16;
-  return `linear-gradient(to bottom, color-mix(in oklab, ${fromVar} ${mix}%, ${toVar}) 0%, ${toVar} min(32vh, 260px))`;
+  const fromVar = from === "hero" ? toneVar.ink : toneVar[from];
+  if (from === to) return toVar;
+  return `linear-gradient(to bottom, color-mix(in oklab, ${fromVar} 8%, ${toVar}) 0%, ${toVar} min(12vh, 120px))`;
 }
 
 function bottomBlend(from: SectionTone, to: SectionTone): string {
   const fromVar = toneVar[from];
   const toVar = toneVar[to];
-  return `linear-gradient(to top, color-mix(in oklab, ${toVar} 16%, ${fromVar}) 0%, ${fromVar} min(28vh, 220px))`;
+  if (from === to) return fromVar;
+  return `linear-gradient(to top, color-mix(in oklab, ${toVar} 8%, ${fromVar}) 0%, ${fromVar} min(10vh, 100px))`;
 }
 
 type PageSectionProps = {
@@ -69,7 +70,7 @@ export function PageSection({
       {showTopBlend && prevTone && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[min(32vh,260px)]"
+          className="pointer-events-none absolute inset-x-0 top-0 z-0 h-[min(12vh,120px)]"
           style={{ background: topBlend(prevTone, tone) }}
         />
       )}
@@ -77,7 +78,7 @@ export function PageSection({
       {showBottomBlend && nextTone && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[min(28vh,220px)]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[min(10vh,100px)]"
           style={{ background: bottomBlend(tone, nextTone) }}
         />
       )}

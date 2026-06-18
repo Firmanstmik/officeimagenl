@@ -193,8 +193,14 @@ export function FloatingNav() {
                 {items.map(item => {
                   const inner = (
                     <>
-                      <span className={`relative grid place-items-center rounded-xl transition-colors ${item.accent ? "text-[var(--ochre)]" : "text-[var(--bone)]/75"}`}>
-                        <span className="scale-110">{item.icon}</span>
+                      <span
+                        className={`relative grid place-items-center rounded-xl transition-colors ${
+                          item.accent
+                            ? "text-[var(--bone)]"
+                            : "text-[var(--bone)]/75"
+                        }`}
+                      >
+                        <span className={`scale-110 ${item.accent ? "[&_svg]:text-[var(--bone)]" : ""}`}>{item.icon}</span>
                         {item.badge ? (
                           <motion.span
                             key={item.badge}
@@ -206,13 +212,19 @@ export function FloatingNav() {
                           </motion.span>
                         ) : null}
                       </span>
-                      <span className={`text-[10px] font-medium leading-none mt-1 ${item.accent ? "text-[var(--ochre)]" : "text-[var(--bone)]/65"}`}>
+                      <span
+                        className={`text-[10px] font-medium leading-none mt-1 ${
+                          item.accent ? "text-[var(--bone)]" : "text-[var(--bone)]/65"
+                        }`}
+                      >
                         {item.mobileLabel}
                       </span>
                     </>
                   );
 
-                  const cls = "flex flex-col items-center justify-center py-2.5 px-1 min-h-[58px] active:bg-[var(--bone)]/6 transition-colors";
+                  const cls = `flex flex-col items-center justify-center py-2.5 px-1 min-h-[58px] active:bg-[var(--bone)]/6 transition-colors ${
+                    item.accent ? "bg-[var(--clay)]" : ""
+                  }`;
 
                   if (item.onClick) {
                     return (
@@ -238,13 +250,13 @@ export function FloatingNav() {
             </div>
 
             {/* Desktop: full-width equal grid */}
-            <div className="hidden md:block rounded-2xl p-px bg-gradient-to-r from-[var(--ochre)]/60 via-[var(--bone)]/20 to-[var(--clay)]/55 shadow-[0_24px_80px_-20px_rgba(0,0,0,0.65)]">
-              <div className="grid grid-cols-4 gap-px rounded-2xl overflow-hidden bg-[var(--bone)]/8 backdrop-blur-2xl">
+            <div className="hidden md:block rounded-2xl border border-[var(--bone)]/12 bg-[color-mix(in_oklab,var(--ink)_92%,transparent)] backdrop-blur-2xl shadow-[0_24px_80px_-24px_rgba(0,0,0,0.55)] overflow-hidden">
+              <div className="grid grid-cols-4">
                 {items.map(item => {
                   const content = (
-                    <span className="flex items-center justify-center gap-2.5 w-full">
-                      <span className={`relative shrink-0 ${item.accent ? "text-[var(--ochre)]" : "text-[var(--bone)]/80"}`}>
-                        {item.icon}
+                    <span className="relative z-[1] flex items-center justify-center gap-2.5 w-full">
+                      <span className={`relative shrink-0 ${item.accent ? "text-[var(--bone)]" : "text-[var(--bone)]/80"}`}>
+                        <span className={item.accent ? "[&_svg]:text-[var(--bone)]" : ""}>{item.icon}</span>
                         {item.badge ? (
                           <span className="absolute -top-2 -right-3 grid min-w-[18px] h-[18px] place-items-center rounded-full bg-[var(--ochre)] text-[var(--ink)] text-[9px] font-bold num px-1">
                             {item.badge > 9 ? "9+" : item.badge}
@@ -257,15 +269,27 @@ export function FloatingNav() {
                     </span>
                   );
 
-                  const base = `flex items-center justify-center px-3 py-3.5 transition-all duration-300 ${
-                    item.accent
-                      ? "bg-[var(--clay)] hover:bg-[var(--ochre)] text-[var(--bone)]"
-                      : "bg-[color-mix(in_oklab,var(--ink)_88%,transparent)] hover:bg-[color-mix(in_oklab,var(--ink)_78%,transparent)]"
-                  }`;
+                  const base = item.accent
+                    ? "group relative overflow-hidden flex items-center justify-center px-3 py-3.5 bg-[var(--clay)] text-[var(--bone)] transition-all duration-500 hover:bg-[var(--ink)] hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-14px_rgba(224,122,50,0.5)]"
+                    : "flex items-center justify-center px-3 py-3.5 bg-transparent text-[var(--bone)]/85 transition-all duration-300 hover:bg-[var(--bone)]/8";
+
+                  const accentFx = item.accent ? (
+                    <>
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-[radial-gradient(circle_at_30%_0%,rgba(255,255,255,0.28),transparent_55%)]"
+                      />
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-y-0 -left-full w-1/2 skew-x-[-18deg] bg-white/20 opacity-0 transition-all duration-700 group-hover:left-[120%] group-hover:opacity-100"
+                      />
+                    </>
+                  ) : null;
 
                   if (item.onClick) {
                     return (
                       <button key={item.id} type="button" onClick={item.onClick} className={base}>
+                        {accentFx}
                         {content}
                       </button>
                     );
@@ -273,12 +297,14 @@ export function FloatingNav() {
                   if (item.href?.startsWith("/") && !item.href.includes("#")) {
                     return (
                       <Link key={item.id} to={item.href} className={base}>
+                        {accentFx}
                         {content}
                       </Link>
                     );
                   }
                   return (
                     <a key={item.id} href={item.href} className={base}>
+                      {accentFx}
                       {content}
                     </a>
                   );

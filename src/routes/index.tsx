@@ -673,11 +673,6 @@ function Trust() {
   ];
   return (
     <PageSection tone="bone" prevTone="hero" nextTone="ink">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 section-ambient-clay opacity-60"
-      />
-
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-end">
           <Reveal>
@@ -814,19 +809,6 @@ function Configurator() {
 
   return (
     <PageSection id="concepts" tone="ink" prevTone="ink" nextTone="bone">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 section-ambient-ochre-dark opacity-40"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-50"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 45% at 80% 20%, color-mix(in oklab, var(--ochre) 12%, transparent), transparent 55%)",
-        }}
-      />
-
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-10 items-end">
           <Reveal>
@@ -1406,10 +1388,6 @@ function ServiceCard({
 function Services() {
   return (
     <PageSection id="services" tone="bone" prevTone="sand" nextTone="bone">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[min(55vh,480px)] section-ambient-clay opacity-40"
-      />
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-end">
           <Reveal>
@@ -1508,52 +1486,84 @@ function Projects() {
 /* ──────────────────────────── 8. CTA + footer ──────────────────────────── */
 
 function CTA() {
+  const infoCards = [
+    ["Showroom", `${OI.showroom.address}\n${OI.showroom.zip}`],
+    ["Telefoon", `${OI.showroom.tel}\n${OI.showroom.mobile}`],
+    ["Openingstijden", "Ma t/m Vr, 09:00 tot 17:30\nZa, 11:00 tot 16:00"],
+    ["KvK", `${OI.showroom.kvk}\n${OI.showroom.email}`],
+  ] as const;
+
   return (
-    <PageSection id="contact" tone="ink" prevTone="ink" className="!pt-0 !pb-0">
-      <div className="absolute inset-0">
-        <img src={OI.categories[0].img} alt="" className="h-full w-full object-cover opacity-70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[var(--ink)] via-[var(--ink)]/70 to-[var(--ink)]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-transparent to-[var(--ink)]/40" />
-      </div>
+    <section id="contact" className="relative overflow-hidden border-t border-[var(--ink)]/[0.06] bg-[var(--bone)]">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_12%_-10%,color-mix(in_oklab,var(--sand)_85%,transparent),transparent_58%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 section-grain opacity-[0.35]"
+      />
 
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 py-28 md:py-44">
-        <Reveal>
-          <Eyebrow>Begin een gesprek</Eyebrow>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <h2 className={`mt-6 ${sectionH2} text-[var(--bone)] max-w-[14ch]`}>
-            Laten we samen uw <span className="italic text-[var(--ochre)]">kantoor inrichten.</span>
-          </h2>
-        </Reveal>
-        <Reveal delay={0.2}>
-          <div className="mt-10 grid md:grid-cols-[1fr_auto] gap-10 items-end">
-            <p className="max-w-xl text-[var(--bone)]/70 text-lg leading-relaxed">
-              Bezoek onze showroom in Rotterdam, bel ons direct of stuur een bericht. We helpen u snel en deskundig op weg, zes dagen per week.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <a href={OI.showroom.telHref}><ArrowLink variant="clay">Bel {OI.showroom.tel}</ArrowLink></a>
-              <a href="#showroom"><ArrowLink variant="bone">Plan showroombezoek</ArrowLink></a>
-            </div>
+      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 py-20 md:py-28 lg:py-32">
+        <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
+          <div>
+            <Reveal>
+              <Eyebrow>Begin een gesprek</Eyebrow>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <h2 className={`mt-5 ${sectionH2} max-w-[14ch]`}>
+                Laten we samen uw <span className="italic text-[var(--clay)]">kantoor inrichten.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.14}>
+              <p className="mt-6 max-w-xl text-[var(--muted-foreground)] text-lg leading-relaxed">
+                Bezoek onze showroom in Rotterdam, bel ons direct of stuur een bericht. We helpen u snel en deskundig op weg, zes dagen per week.
+              </p>
+            </Reveal>
+            <Reveal delay={0.2}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href={OI.showroom.telHref}>
+                  <ArrowLink variant="clay">Bel {OI.showroom.tel}</ArrowLink>
+                </a>
+                <a href="#showroom">
+                  <ArrowLink variant="ink">Plan showroombezoek</ArrowLink>
+                </a>
+              </div>
+            </Reveal>
           </div>
-        </Reveal>
 
-        <Reveal delay={0.3}>
-          <div className="mt-20 pt-10 border-t border-[var(--bone)]/15 grid md:grid-cols-4 gap-8 text-sm text-[var(--bone)]/65">
-            {[
-              ["Showroom", `${OI.showroom.address}\n${OI.showroom.zip}`],
-              ["Telefoon", `${OI.showroom.tel}\n${OI.showroom.mobile}`],
-              ["Openingstijden", "Ma t/m Vr, 09:00 tot 17:30\nZa, 11:00 tot 16:00"],
-              ["KvK", `${OI.showroom.kvk}\n${OI.showroom.email}`],
-            ].map(([h, b]) => (
-              <div key={h}>
-                <div className="eyebrow text-[var(--bone)]/55 mb-3">{h}</div>
-                <div className="whitespace-pre-line text-[var(--bone)]/85">{b}</div>
+          <Reveal delay={0.12}>
+            <div className="relative overflow-hidden rounded-2xl border border-[var(--ink)]/[0.08] bg-[var(--card)] shadow-[0_28px_80px_-40px_rgba(17,24,39,0.22)]">
+              <img
+                src={OI.categories[0].img}
+                alt="Office Image showroom Rotterdam"
+                className="aspect-[4/3] w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/55 via-[var(--ink)]/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <div className="eyebrow text-[var(--bone)]/70">Showroom Rotterdam</div>
+                <p className="mt-2 font-display text-2xl text-[var(--bone)]">{OI.showroom.address}</p>
+                <p className="text-[var(--bone)]/75">{OI.showroom.zip}</p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
+        <Reveal delay={0.22}>
+          <div className="mt-14 md:mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {infoCards.map(([title, body]) => (
+              <div
+                key={title}
+                className="rounded-xl border border-[var(--ink)]/[0.07] bg-[var(--card)] px-5 py-5 shadow-[0_10px_36px_-24px_rgba(17,24,39,0.14)]"
+              >
+                <div className="eyebrow text-[var(--muted-foreground)] mb-3">{title}</div>
+                <div className="whitespace-pre-line text-sm leading-relaxed text-[var(--ink)]/85">{body}</div>
               </div>
             ))}
           </div>
         </Reveal>
       </div>
-    </PageSection>
+    </section>
   );
 }
 
@@ -1731,14 +1741,6 @@ function Testimonials() {
 
   return (
     <PageSection id="about" tone="sand" prevTone="bone" nextTone="ink">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 section-ambient-clay opacity-50"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 section-ambient-ochre-dark opacity-50"
-      />
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
           <Reveal>
@@ -1906,21 +1908,16 @@ function Testimonials() {
               className="col-span-2 relative rounded-2xl p-px overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-[var(--clay)]/25 via-[var(--ochre)]/15 to-[var(--clay)]/25 opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative rounded-[0.95rem] border border-[var(--ink)]/8 bg-[var(--bone)] p-6 md:p-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="relative rounded-[0.95rem] border border-[var(--ink)]/8 bg-[var(--bone)] p-6 md:p-7 flex flex-col gap-5">
                 <div>
-                  <div className="eyebrow">Veilig betalen via</div>
-                  <div className="mt-3 flex flex-wrap items-center gap-3">
-                    {["iDEAL", "Creditcard", "Bancontact", "Op rekening"].map(method => (
-                      <span
-                        key={method}
-                        className="inline-flex items-center rounded-lg border border-[var(--ink)]/8 bg-[var(--sand)]/60 px-3 py-1.5 text-sm font-medium text-[var(--graphite)] group-hover:border-[var(--clay)]/25 transition-colors"
-                      >
-                        {method}
-                      </span>
-                    ))}
+                  <div className="eyebrow text-[var(--graphite)]">Veilig betalen dankzij</div>
+                  <div className="mt-4 flex flex-wrap items-center gap-3">
+                    <img src="/payments/ideal.png" alt="iDEAL" className="h-7 w-auto object-contain" loading="lazy" />
+                    <img src="/payments/creditcard.png" alt="Visa, Mastercard en Maestro" className="h-5 w-auto object-contain" loading="lazy" />
+                    <img src="/payments/bancontact.png" alt="Bancontact" className="h-7 w-auto object-contain" loading="lazy" />
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-[var(--muted-foreground)]">
+                <div className="flex items-center gap-2 text-[var(--graphite)]/75">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                     <path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7l7-4Z" strokeLinejoin="round" />
                   </svg>
@@ -2085,10 +2082,6 @@ function ProductCarousel() {
 
   return (
     <PageSection id="categories" tone="ink" prevTone="bone" nextTone="ink">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 section-ambient-clay opacity-100"
-      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 section-grain-light opacity-[0.04]"
@@ -2261,10 +2254,6 @@ function Bestsellers() {
 function Showroom() {
   return (
     <PageSection id="showroom" tone="ink" prevTone="sand" nextTone="ink">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 section-ambient-ochre-dark opacity-80"
-      />
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
         <Reveal>
           <div className="relative rounded-2xl overflow-hidden border border-[var(--bone)]/12">

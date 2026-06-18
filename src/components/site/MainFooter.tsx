@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
+import { PaymentTrustBar } from "@/components/site/PaymentTrustBar";
 import { OI } from "@/lib/oi-data";
 import { btnR } from "@/lib/site-tokens";
 
@@ -55,16 +56,16 @@ function IconLinkedIn({ className = "size-4" }: { className?: string }) {
 function FooterHeading({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 mb-4 md:mb-5">
-      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-[var(--bone)]/8 border border-[var(--bone)]/10 text-[var(--ochre)]">
+      <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-[var(--sand)] border border-[var(--ink)]/[0.08] text-[var(--clay)]">
         {icon}
       </span>
-      <div className="eyebrow text-[var(--bone)]/75">{children}</div>
+      <div className="eyebrow text-[var(--graphite)]">{children}</div>
     </div>
   );
 }
 
 function FooterLink({ href, children, external }: { href: string; children: React.ReactNode; external?: boolean }) {
-  const cls = "group inline-flex items-center gap-2 text-[var(--bone)]/70 hover:text-[var(--bone)] transition-colors py-1";
+  const cls = "group inline-flex items-center gap-2 text-[var(--graphite)]/80 hover:text-[var(--ink)] transition-colors py-1";
   const arrow = (
     <svg className="size-3 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4">
       <path d="M1 7h12M8 2l5 5-5 5" strokeLinecap="round" />
@@ -92,7 +93,7 @@ function FooterLink({ href, children, external }: { href: string; children: Reac
 }
 
 function FooterText({ children }: { children: React.ReactNode }) {
-  return <span className="inline-flex items-center gap-2 text-[var(--bone)]/70 py-1">{children}</span>;
+  return <span className="inline-flex items-center gap-2 text-[var(--graphite)]/80 py-1">{children}</span>;
 }
 
 const INFO_LINKS = [
@@ -112,20 +113,9 @@ const SOCIAL = [
 
 export function MainFooter() {
   return (
-    <footer className="relative bg-[var(--ink)] text-[var(--bone)] overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-40"
-        style={{
-          background:
-            "radial-gradient(ellipse 45% 50% at 10% 0%, color-mix(in oklab, var(--clay) 18%, transparent), transparent 55%), radial-gradient(ellipse 40% 40% at 90% 100%, color-mix(in oklab, var(--ochre) 12%, transparent), transparent 50%)",
-        }}
-      />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/40 to-transparent" />
-
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 pt-14 md:pt-16 pb-10">
+    <footer className="relative bg-[color-mix(in_oklab,var(--sand)_42%,var(--bone))] text-[var(--ink)] overflow-hidden border-t border-[var(--ink)]/[0.06]">
+      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 pt-12 md:pt-14 pb-10">
         <div className="grid gap-10 lg:gap-12 lg:grid-cols-12">
-          {/* Brand */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -133,10 +123,10 @@ export function MainFooter() {
             transition={{ duration: 0.7 }}
             className="lg:col-span-4"
           >
-            <Link to="/" className="inline-block rounded-xl bg-[var(--bone)]/95 px-3.5 py-2.5 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.5)]">
+            <Link to="/" className="inline-block rounded-xl bg-white px-3.5 py-2.5 shadow-[0_12px_40px_-22px_rgba(17,24,39,0.18)] border border-[var(--ink)]/[0.06]">
               <img src={OI.logo} alt="Office Image" className="h-8 w-auto" />
             </Link>
-            <p className="mt-5 text-[var(--bone)]/60 leading-relaxed text-sm md:text-[15px] max-w-md">
+            <p className="mt-5 text-[var(--graphite)]/85 leading-relaxed text-sm md:text-[15px] max-w-md">
               Office Image Kantoormeubelen. Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Snelle levering uit eigen voorraad.
             </p>
             <div className="mt-6 flex flex-wrap gap-2.5">
@@ -149,7 +139,7 @@ export function MainFooter() {
                     target="_blank"
                     rel="noreferrer"
                     aria-label={s.label}
-                    className={`group grid size-11 place-items-center ${btnR} border border-[var(--bone)]/12 bg-[var(--bone)]/6 text-[var(--bone)]/80 hover:text-[var(--bone)] hover:border-[var(--ochre)]/45 hover:bg-[var(--clay)]/20 transition-all duration-300`}
+                    className={`group grid size-11 place-items-center ${btnR} border border-[var(--ink)]/[0.08] bg-white text-[var(--ink)]/70 hover:text-[var(--ink)] hover:border-[var(--clay)]/35 hover:bg-[var(--bone)] transition-all duration-300 shadow-[0_8px_24px_-18px_rgba(17,24,39,0.12)]`}
                   >
                     <Icon className="size-[18px] group-hover:scale-110 transition-transform" />
                   </a>
@@ -158,7 +148,6 @@ export function MainFooter() {
             </div>
           </motion.div>
 
-          {/* Links grid */}
           <div className="lg:col-span-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.05 }}>
               <FooterHeading icon={<IconGrid />}>Catalogus</FooterHeading>
@@ -190,57 +179,36 @@ export function MainFooter() {
               className="sm:col-span-2 lg:col-span-1"
             >
               <FooterHeading icon={<IconPin />}>Showroom</FooterHeading>
-              <div className={`${btnR} border border-[var(--bone)]/10 bg-[var(--bone)]/5 p-4 md:p-5 space-y-3 text-sm`}>
-                <p className="font-medium text-[var(--bone)]/90">{OI.showroom.name}</p>
-                <div className="flex items-start gap-2.5 text-[var(--bone)]/70">
-                  <IconPin className="size-4 shrink-0 mt-0.5 text-[var(--ochre)]" />
+              <div className={`${btnR} border border-[var(--ink)]/[0.08] bg-white p-4 md:p-5 space-y-3 text-sm shadow-[0_12px_40px_-24px_rgba(17,24,39,0.14)]`}>
+                <p className="font-medium text-[var(--ink)]">{OI.showroom.name}</p>
+                <div className="flex items-start gap-2.5 text-[var(--graphite)]/85">
+                  <IconPin className="size-4 shrink-0 mt-0.5 text-[var(--clay)]" />
                   <span>{OI.showroom.address}<br />{OI.showroom.zip}</span>
                 </div>
-                <a href={OI.showroom.telHref} className="flex items-center gap-2.5 text-[var(--bone)]/70 hover:text-[var(--bone)] transition-colors num">
-                  <svg className="size-4 shrink-0 text-[var(--ochre)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6.5 3h3l1.5 5-2 1.5a11 11 0 0 0 5 5L13.5 13l5 1.5v3A1.5 1.5 0 0 1 17 19C9.5 19 5 14.5 5 7A1.5 1.5 0 0 1 6.5 3Z" /></svg>
+                <a href={OI.showroom.telHref} className="flex items-center gap-2.5 text-[var(--graphite)]/85 hover:text-[var(--ink)] transition-colors num">
+                  <svg className="size-4 shrink-0 text-[var(--clay)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M6.5 3h3l1.5 5-2 1.5a11 11 0 0 0 5 5L13.5 13l5 1.5v3A1.5 1.5 0 0 1 17 19C9.5 19 5 14.5 5 7A1.5 1.5 0 0 1 6.5 3Z" /></svg>
                   {OI.showroom.tel}
                 </a>
-                <a href={OI.showroom.mobileHref} className="flex items-center gap-2.5 text-[var(--bone)]/70 hover:text-[var(--bone)] transition-colors num">
-                  <svg className="size-4 shrink-0 text-[var(--ochre)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M11 18h2" /></svg>
+                <a href={OI.showroom.mobileHref} className="flex items-center gap-2.5 text-[var(--graphite)]/85 hover:text-[var(--ink)] transition-colors num">
+                  <svg className="size-4 shrink-0 text-[var(--clay)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="7" y="2" width="10" height="20" rx="2" /><path d="M11 18h2" /></svg>
                   {OI.showroom.mobile}
                 </a>
-                <p className="text-[11px] uppercase tracking-wider text-[var(--bone)]/45 num pt-1">KvK {OI.showroom.kvk}</p>
+                <p className="text-[11px] uppercase tracking-wider text-[var(--graphite)]/70 num pt-1">KvK {OI.showroom.kvk}</p>
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Payment strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-10 md:mt-12 rounded-2xl border border-[var(--bone)]/10 bg-[var(--bone)]/4 p-4 md:p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-        >
-          <div className="flex items-center gap-2.5 text-[var(--bone)]/70">
-            <svg className="size-5 text-[var(--ochre)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M12 3l7 4v5c0 4-3 7-7 9-4-2-7-5-7-9V7l7-4Z" strokeLinejoin="round" />
-            </svg>
-            <span className="text-sm font-medium">Veilig betalen via</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {["iDEAL", "Creditcard", "Bancontact", "Op rekening"].map(m => (
-              <span key={m} className={`inline-flex items-center ${btnR} border border-[var(--bone)]/12 bg-[var(--bone)]/6 px-3 py-1.5 text-xs font-medium text-[var(--bone)]/80`}>
-                {m}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        <PaymentTrustBar className="mt-10 md:mt-12" />
       </div>
 
-      <div className="relative border-t border-[var(--bone)]/10">
-        <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-5 md:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[11px] md:text-xs uppercase tracking-[0.18em] text-[var(--bone)]/45">
+      <div className="relative border-t border-[var(--ink)]/[0.08] bg-[color-mix(in_oklab,var(--sand)_30%,var(--bone))]">
+        <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-5 md:py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[11px] md:text-xs uppercase tracking-[0.18em] text-[var(--graphite)]/75">
           <span>© 2024 tot 2026, Office Image. Alle rechten voorbehouden</span>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <Link to="/producten" className="hover:text-[var(--bone)]/70 transition-colors">Producten</Link>
-            <a href="/#showroom" className="hover:text-[var(--bone)]/70 transition-colors">Showroom</a>
-            <Link to="/afrekenen" className="hover:text-[var(--bone)]/70 transition-colors">Afrekenen</Link>
+            <Link to="/producten" className="hover:text-[var(--ink)] transition-colors">Producten</Link>
+            <a href="/#showroom" className="hover:text-[var(--ink)] transition-colors">Showroom</a>
+            <Link to="/afrekenen" className="hover:text-[var(--ink)] transition-colors">Afrekenen</Link>
           </div>
         </div>
       </div>
