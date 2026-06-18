@@ -87,9 +87,12 @@ function MediaTile({
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#111827]/75 via-[#111827]/10 to-[#111827]/20" />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent to-[var(--clay)]/12 opacity-0 transition-opacity duration-500 group-hover/tile:opacity-100" />
 
-      <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-2 p-2.5">
-        <span className="num text-[9px] tracking-[0.2em] text-white/90">{tile.id}</span>
-        <span className="max-w-[10ch] text-right text-[8px] leading-tight tracking-[0.14em] text-white/55 uppercase opacity-0 transition-opacity duration-500 group-hover/tile:opacity-100">
+      <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-1.5 p-2 sm:p-2.5">
+        <span className="num shrink-0 text-[8px] tracking-[0.18em] text-white/85">{tile.id}</span>
+        <span
+          className="min-w-0 max-w-[74%] text-right text-[7px] leading-[1.45] tracking-[0.05em] text-white/70 opacity-0 transition-opacity duration-500 group-hover/tile:opacity-100 sm:max-w-[11rem] sm:text-[7.5px]"
+          style={{ textShadow: "0 1px 6px rgba(0,0,0,0.92), 0 0 1px rgba(0,0,0,0.8)" }}
+        >
           {tile.label}
         </span>
       </div>
@@ -144,15 +147,15 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
                   ))}
                 </div>
 
-                <div className="border-t border-white/8 bg-[rgba(17,24,39,0.58)] px-3 py-2.5 backdrop-blur-xl">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="text-[7px] font-medium tracking-[0.24em] text-[var(--ochre)] uppercase sm:text-[8px]">
-                        Office Image Experience
+                <div className="border-t border-white/8 bg-[rgba(17,24,39,0.58)] px-3 py-3 backdrop-blur-xl sm:px-3.5 sm:py-3.5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[8px] font-medium tracking-[0.22em] text-[var(--ochre)] uppercase sm:text-[9px]">
+                        Ervaring bij Office Image
                       </p>
-                      <p className="mt-0.5 font-display text-[11px] leading-tight tracking-[-0.02em] text-white sm:text-[13px]">
+                      <p className="mt-1 font-display text-[11px] leading-snug tracking-[-0.02em] text-white sm:text-[13px] sm:leading-snug">
                         Inspirerende werkplekken ontwerpen{" "}
-                        <em className="text-[var(--ochre)]">waar visie en productiviteit samenkomen</em>
+                        <em className="not-italic text-[var(--ochre)]">waar visie en productiviteit samenkomen</em>
                       </p>
                     </div>
                     <div className="hidden shrink-0 sm:flex items-center gap-1">
