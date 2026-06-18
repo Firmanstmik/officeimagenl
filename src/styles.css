@@ -138,6 +138,16 @@
   to { transform: translateX(-50%); }
 }
 
+@utility hero-marquee-track {
+  animation: hero-marquee 32s linear infinite;
+  will-change: transform;
+}
+
+@keyframes hero-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @utility process-marquee-track {
   animation: process-marquee 52s linear infinite;
   will-change: transform;

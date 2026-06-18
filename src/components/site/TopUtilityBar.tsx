@@ -1,16 +1,5 @@
 import { OI } from "@/lib/oi-data";
-
-function Divider() {
-  return <span className="hidden sm:inline text-[var(--bone)]/20 select-none" aria-hidden>|</span>;
-}
-
-function IconStar({ className = "size-3" }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M12 2l2.9 6.9L22 9.8l-5.2 4.5 1.6 6.9L12 17.8 5.6 21.2l1.6-6.9L2 9.8l7.1-.9L12 2z" />
-    </svg>
-  );
-}
+import { GoogleReviewsBadge } from "@/components/site/GoogleReviewsBadge";
 
 function IconTruck({ className = "size-3" }: { className?: string }) {
   return (
@@ -45,6 +34,10 @@ function IconMail({ className = "size-3" }: { className?: string }) {
   );
 }
 
+function Divider() {
+  return <span className="hidden sm:inline text-[var(--bone)]/20 select-none" aria-hidden>|</span>;
+}
+
 type ItemProps = {
   icon: React.ReactNode;
   children: React.ReactNode;
@@ -70,26 +63,6 @@ function Item({ icon, children, href, className = "" }: ItemProps) {
   return <span className={cls}>{inner}</span>;
 }
 
-function GoogleReviewsBadge({ className = "" }: { className?: string }) {
-  return (
-    <a
-      href={OI.social.googleReviews}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`hidden sm:inline-flex items-center gap-1.5 rounded-full border border-[var(--bone)]/14 bg-[var(--bone)]/6 px-2.5 py-1 hover:border-[var(--ochre)]/35 hover:bg-[var(--bone)]/10 transition-colors ${className}`}
-      aria-label="4,9 Google Reviews"
-    >
-      <span className="font-semibold text-[var(--ochre)] num leading-none">4,9</span>
-      <span className="flex items-center gap-px text-[var(--ochre)]" aria-hidden>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <IconStar key={i} className="size-2.5" />
-        ))}
-      </span>
-      <span className="text-[10px] font-medium leading-none">Google Reviews</span>
-    </a>
-  );
-}
-
 export function TopUtilityBar({ variant = "dark" }: { variant?: "dark" | "light" }) {
   const textCls =
     variant === "dark"
@@ -98,7 +71,7 @@ export function TopUtilityBar({ variant = "dark" }: { variant?: "dark" | "light"
 
   return (
     <div className={`h-7 flex items-center justify-end gap-2.5 sm:gap-3.5 ${textCls}`}>
-      <GoogleReviewsBadge />
+      <GoogleReviewsBadge variant={variant} className="inline-flex" />
       <Divider />
       <Item icon={<IconTruck />}>Snelle levering</Item>
       <Divider />

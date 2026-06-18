@@ -3,13 +3,15 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useMotionValue, useScroll, useTransform } from "motion/react";
 import { OI, SHOP_PATH } from "@/lib/oi-data";
 import { cartProductFromBestseller, HeaderCartButton } from "@/lib/cart";
-import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { FloatingNav } from "@/components/site/FloatingNav";
 import { MegaMenuPanel, NavChevron } from "@/components/site/MegaMenu";
 import { TopUtilityBar } from "@/components/site/TopUtilityBar";
 import { MainFooter } from "@/components/site/MainFooter";
 import { PageSection } from "@/components/site/PageSection";
 import { HeroExperienceCard } from "@/components/site/HeroExperienceCard";
+import { HeroEyebrow } from "@/components/site/HeroEyebrow";
+import { CardOverlapButton } from "@/components/site/CardOverlapButton";
+import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { MEGA_MENUS } from "@/lib/mega-menu-data";
 import { btnR, ease, sectionH2 } from "@/lib/site-tokens";
 import { createPageHead } from "@/lib/site-seo";
@@ -548,7 +550,14 @@ function Hero() {
           <div className="h-full max-w-[1600px] mx-auto flex flex-col gap-6 lg:gap-8 pb-32 md:pb-36 pt-4 md:pt-6 lg:pt-10">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-6 lg:gap-8 lg:items-center">
             {/* main copy */}
-            <div className="min-w-0 max-w-3xl">
+            <div className="min-w-0 max-w-3xl relative">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-6 -left-4 hidden lg:block w-9 h-11 overflow-hidden opacity-35 rotate-[-10deg]"
+              >
+                <img src={OI.logo} alt="" className="h-11 w-auto max-w-none object-left" draggable={false} />
+              </div>
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`eyebrow-${idx}`}
@@ -556,10 +565,8 @@ function Hero() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -6 }}
                   transition={{ duration: 0.45, ease }}
-                  className="text-[var(--bone)]/65 eyebrow mb-5 md:mb-6 flex items-center gap-2.5"
                 >
-                  <span className="inline-block size-1.5 rounded-full bg-[var(--ochre)]" />
-                  <span>{slide.eyebrow}</span>
+                  <HeroEyebrow>{slide.eyebrow}</HeroEyebrow>
                 </motion.div>
               </AnimatePresence>
 
@@ -613,29 +620,20 @@ function Hero() {
         </div>
       </motion.div>
 
+      <HeroScrollCue targetId="waarom" />
+
       {/* fade hero imagery into the light chapter below */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-[52px] md:bottom-[56px] z-[8] h-48 md:h-64 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--bone)_35%,transparent)] to-[var(--bone)]"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[8] h-40 md:h-52 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--bone)_35%,transparent)] to-[var(--bone)]"
       />
-
-      {/* slide progress bar */}
-      <div className="absolute inset-x-0 bottom-[60px] md:bottom-[64px] z-10 h-px bg-[var(--bone)]/10">
-        <motion.div
-          key={`bar-${idx}`}
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: SLIDE_DURATION / 1000, ease: "linear" }}
-          className="h-full origin-left bg-[var(--ochre)]/70"
-        />
-      </div>
 
       {/* bottom trust strip — matches officeimage.nl hero USPs */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.75, duration: 0.85, ease }}
-        className="absolute inset-x-0 bottom-0 z-10 border-t border-[var(--ink)]/[0.07] bg-[color-mix(in_oklab,var(--bone)_97%,white)] shadow-[0_-8px_32px_rgba(0,0,0,0.08)]"
+        className="absolute inset-x-0 bottom-0 z-10 bg-[color-mix(in_oklab,var(--bone)_97%,white)] shadow-[0_-8px_32px_rgba(0,0,0,0.08)]"
       >
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-3.5 md:py-4">
           <ul className="flex items-center justify-start md:justify-center gap-x-8 lg:gap-x-12 gap-y-3 overflow-x-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -672,7 +670,7 @@ function Trust() {
     { k: "NL", v: "Grote voorraad", note: "Snelle levering", icon: "04" },
   ];
   return (
-    <PageSection tone="bone" prevTone="hero" nextTone="ink">
+    <PageSection id="waarom" tone="bone" prevTone="hero" nextTone="ink">
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-end">
           <Reveal>
@@ -1947,14 +1945,11 @@ function ProductCategoryCard({
   const n = (index % OI.productCarousel.length) + 1;
 
   return (
-    <a
-      href={item.href}
-      className="group block h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[320px] lg:w-[340px]"
-    >
-      <div className="relative h-full rounded-2xl overflow-hidden border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5">
+    <div className="group relative h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[320px] lg:w-[340px] pb-8">
+      <div className="relative h-full rounded-2xl border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5 overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        <div className="relative aspect-[4/5] overflow-hidden">
+        <a href={item.href} className="block relative aspect-[4/5] overflow-hidden">
           <div className="absolute inset-0 category-card-glow opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
           <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/20 via-transparent to-[var(--ink)]/90" />
 
@@ -1986,34 +1981,38 @@ function ProductCategoryCard({
             animate={{ x: ["-120%", "120%"] }}
             transition={{ duration: 1.2, ease: "easeInOut", repeat: Infinity, repeatDelay: 2.5 }}
           />
-        </div>
+        </a>
 
-        <div className="relative p-5 md:p-6 border-t border-[var(--bone)]/8">
+        <div className="relative px-5 py-5 md:px-6 md:py-6 border-t border-[var(--bone)]/8">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h3 className="font-display text-lg md:text-xl leading-tight text-[var(--bone)] group-hover:text-[var(--ochre)] transition-colors duration-500">
-                {item.name}
-              </h3>
+              <a href={item.href}>
+                <h3 className="font-display text-lg md:text-xl leading-tight text-[var(--bone)] group-hover:text-[var(--ochre)] transition-colors duration-500">
+                  {item.name}
+                </h3>
+              </a>
               <p className="mt-2 text-[12px] md:text-[13px] leading-relaxed text-[var(--bone)]/55 line-clamp-2 group-hover:text-[var(--bone)]/72 transition-colors duration-500">
                 {item.line}
               </p>
             </div>
-            <span className="shrink-0 mt-1 text-[var(--bone)]/40 group-hover:text-[var(--ochre)] group-hover:translate-x-0.5 transition-all duration-500 text-lg">
-              →
-            </span>
           </div>
           <div className="mt-4 flex items-center justify-between gap-2">
             <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--ochre)]/90 font-medium">
               {item.stat}
             </span>
-            <span className="text-[10px] uppercase tracking-[0.16em] text-[var(--bone)]/35 group-hover:text-[var(--bone)]/55 transition-colors">
-              Ontdek →
-            </span>
           </div>
           <div className="mt-3 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
         </div>
       </div>
-    </a>
+
+      <CardOverlapButton
+        href={item.href}
+        variant="dark"
+        className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
+      >
+        Ontdek collectie
+      </CardOverlapButton>
+    </div>
   );
 }
 
@@ -2187,36 +2186,43 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
 
   return (
     <Reveal delay={i * 0.06}>
-      <article className="group flex h-full flex-col rounded-2xl overflow-hidden bg-[var(--card)] border border-[var(--ink)]/8 shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 hover:border-[var(--clay)]/25 hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] hover:-translate-y-1">
-        <div className="block relative aspect-square overflow-hidden bg-[var(--sand)]">
-          <img
-            src={b.img}
-            alt={b.name}
-            loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          {b.was && (
-            <div className="absolute top-4 left-4 rounded-lg bg-[var(--clay)] text-[var(--bone)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] font-medium">
-              Sale
+      <article className="group relative flex h-full flex-col overflow-visible pb-8">
+        <div className="flex h-full flex-col rounded-2xl overflow-hidden bg-[var(--card)] border border-[var(--ink)]/8 shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
+          <div className="relative aspect-square overflow-hidden bg-[var(--sand)]">
+            <img
+              src={b.img}
+              alt={b.name}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {b.was && (
+              <div className="absolute top-4 left-4 rounded-lg bg-[var(--clay)] text-[var(--bone)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] font-medium">
+                Sale
+              </div>
+            )}
+            <div className="absolute top-4 right-4 glass rounded-lg px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] num text-[var(--ink)]">
+              Op voorraad
             </div>
-          )}
-          <div className="absolute top-4 right-4 glass rounded-lg px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] num text-[var(--ink)]">
-            Op voorraad
+          </div>
+          <div className="relative flex flex-1 flex-col px-5 py-5 md:px-6 md:py-6 border-t border-[var(--ink)]/6">
+            <h3 className="font-display text-lg md:text-xl leading-snug tracking-tight text-[var(--ink)] min-h-[3em]">
+              {b.name}
+            </h3>
+            <div className="mt-3 flex items-baseline gap-2">
+              {b.was && <span className="text-sm text-[var(--muted-foreground)] line-through num">{b.was}</span>}
+              <span className="font-display text-2xl num text-[var(--ink)]">{b.price}</span>
+            </div>
           </div>
         </div>
-        <div className="flex flex-1 flex-col p-5 md:p-6">
-          <h3 className="font-display text-lg md:text-xl leading-snug tracking-tight text-[var(--ink)] min-h-[3em]">
-            {b.name}
-          </h3>
-          <div className="mt-3 flex items-baseline gap-2">
-            {b.was && <span className="text-sm text-[var(--muted-foreground)] line-through num">{b.was}</span>}
-            <span className="font-display text-2xl num text-[var(--ink)]">{b.price}</span>
-          </div>
-          <div className="mt-5 pt-4 border-t border-[var(--ink)]/6">
-            <AddToCartButton product={product} />
-          </div>
-        </div>
+
+        <CardOverlapButton
+          product={product}
+          variant="light"
+          className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
+        >
+          In winkelwagen
+        </CardOverlapButton>
       </article>
     </Reveal>
   );
@@ -2240,7 +2246,7 @@ function Bestsellers() {
           </Reveal>
         </div>
 
-        <div className="mt-14 md:mt-20 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 md:mt-20 grid gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-4">
           {OI.bestsellers.map((b, i) => (
             <BestsellerCard key={b.id} b={b} i={i} />
           ))}
