@@ -162,7 +162,7 @@ function UtilityIcon({ type }: { type: "shield" | "home" | "truck" | "mail" | "p
 }
 
 const MAIN_NAV = [
-  { label: "Start", href: "/", mega: false as const },
+  { label: "Home", href: "/", mega: false as const },
   ...MEGA_MENUS.map(m => ({ label: m.label, href: m.href, mega: true as const, megaId: m.id })),
 ];
 
@@ -270,7 +270,7 @@ function Header() {
 
               <nav className="flex items-center justify-end gap-0.5 shrink-0 ml-auto">
                 {MAIN_NAV.map(n => {
-                  const isStart = n.label === "Start";
+                  const isHome = n.label === "Home";
                   const megaId = "megaId" in n ? n.megaId : null;
                   const megaActive = megaId != null && activeMega === megaId;
                   return (
@@ -281,13 +281,13 @@ function Header() {
                     >
                       <a
                         href={n.href}
-                        className={`group inline-flex items-center gap-1 ${linkCls(isStart, megaActive)}`}
+                        className={`group inline-flex items-center gap-1 ${linkCls(isHome, megaActive)}`}
                       >
                         {n.label}
-                        {!isStart && <ChevronDown open={megaActive} />}
+                        {!isHome && <ChevronDown open={megaActive} />}
                         <span
                           className={`absolute left-3 right-3 bottom-1 h-0.5 origin-left bg-[var(--ochre)] transition-transform duration-300 ${
-                            isStart || megaActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                            isHome || megaActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
                           }`}
                         />
                       </a>
@@ -365,7 +365,7 @@ function Header() {
                   onClick={() => setMobileOpen(false)}
                   className="flex items-center justify-between rounded-lg px-4 py-3 text-[15px] font-semibold text-[var(--bone)]/90 hover:bg-[var(--bone)]/8"
                 >
-                  Start
+                  Home
                 </a>
                 {MEGA_MENUS.map(menu => {
                   const open = mobileMega === menu.id;

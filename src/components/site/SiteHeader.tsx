@@ -6,7 +6,7 @@ import { btnR } from "@/lib/site-tokens";
 import { TopUtilityBar } from "@/components/site/TopUtilityBar";
 
 const NAV = [
-  { label: "Start", to: "/" as const },
+  { label: "Home", to: "/" as const },
   { label: "Producten", to: "/producten" as const },
   { label: "Toonzaal", to: "/#showroom" as const, hash: true },
 ];
