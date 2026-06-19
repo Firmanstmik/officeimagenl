@@ -28,7 +28,7 @@ export function HeroScrollCue({ targetId = "waarom" }: { targetId?: string }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-      className="group/cue absolute bottom-[76px] md:bottom-[84px] left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3 text-center"
+      className="group/cue absolute bottom-8 md:bottom-10 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-3 text-center"
       aria-label="Scroll naar de volgende sectie"
     >
       <span className="text-[10px] font-medium uppercase tracking-[0.24em] text-[var(--bone)]/50 transition-colors duration-300 group-hover/cue:text-[var(--ochre)]">

@@ -10,6 +10,7 @@ import { MainFooter } from "@/components/site/MainFooter";
 import { PageSection } from "@/components/site/PageSection";
 import { HeroExperienceCard } from "@/components/site/HeroExperienceCard";
 import { HeroEyebrow } from "@/components/site/HeroEyebrow";
+import { CategoryCollectieButton } from "@/components/site/CategoryCollectieButton";
 import { CardOverlapButton } from "@/components/site/CardOverlapButton";
 import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
@@ -112,22 +113,6 @@ function ArrowLink({
 
 const SLIDE_DURATION = 3500;
 
-/** Official officeimage.nl circle-check icon (hero trust bar). */
-function OICheckCircleIcon({ className = "size-5" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 34 34" className={className} aria-hidden fill="currentColor">
-      <path d="M6.59773172,6.59752803 C12.8960652,0.300807016 23.1062973,0.300807016 29.4031201,6.59762987 L29.4031201,6.59762987 L27.8121299,8.18862013 C22.3939527,2.77044298 13.6081848,2.77044298 8.18862013,8.18862013 C2.77045996,13.6067803 2.77045996,22.3924697 8.18851828,27.810528 C13.6081848,33.228807 22.3939527,33.228807 27.8119669,27.8107929 C31.1113166,24.510091 32.4915047,19.846631 31.6220657,15.3481054 L31.6220657,15.3481054 L33.8311843,14.9211446 C34.8408933,20.1454354 33.236409,25.5667603 29.4031201,29.4016201 C23.1062973,35.698443 12.8960652,35.698443 6.59762987,29.4016201 C0.300790043,23.1047803 0.300790043,12.8944697 6.59773172,6.59752803 Z M33.2530774,5.91994857 L34.8368726,7.51810143 L17.6393726,24.5611014 C17.1973151,24.9991876 16.483561,24.9951211 16.0465238,24.5520264 L16.0465238,24.5520264 L9.44502381,17.8590264 L11.0469262,16.2790236 L16.8565501,22.1691717 L33.2530774,5.91994857 Z" />
-    </svg>
-  );
-}
-
-const HERO_TRUST_ITEMS = [
-  "De nieuwste producten, de juiste prijzen!",
-  "Grote aantal op voorraad",
-  "100% klanttevredenheid",
-  "Fysieke showroom. 6 dagen per week open!",
-] as const;
-
 function UtilityIcon({ type }: { type: "shield" | "home" | "truck" | "mail" | "phone" | "check" | "cart" }) {
   const cls = "size-3.5 shrink-0 text-[var(--ochre)]";
   if (type === "check")
@@ -182,7 +167,7 @@ const MAIN_NAV = [
 ];
 
 function ChevronDown({ open }: { open?: boolean }) {
-  return <NavChevron open={open} className="size-2.5" />;
+  return <NavChevron open={open} className="size-3" />;
 }
 
 function Header() {
@@ -235,13 +220,15 @@ function Header() {
   }, [mobileOpen]);
 
   const linkCls = (active = false, megaActive = false) =>
-    `relative px-3 py-2 text-[13px] font-semibold tracking-tight whitespace-nowrap transition-colors ${
+    `relative px-4 py-2.5 text-[15px] font-semibold tracking-tight whitespace-nowrap transition-colors ${
       megaActive
         ? "text-[var(--ochre)]"
         : active
-        ? "text-[var(--bone)]"
+        ? scrolled
+          ? "text-[var(--ink)]"
+          : "text-[var(--bone)]"
         : scrolled
-        ? "text-[var(--bone)]/80 hover:text-[var(--bone)]"
+        ? "text-[var(--ink)]/72 hover:text-[var(--ink)]"
         : "text-[var(--bone)]/85 hover:text-[var(--bone)]"
     }`;
 
@@ -255,14 +242,14 @@ function Header() {
       <div
         className={`transition-all duration-500 ${
           scrolled
-            ? "bg-[var(--ink)]/94 backdrop-blur-xl shadow-[0_8px_40px_-12px_rgba(0,0,0,0.45)] border-b border-[var(--bone)]/8"
+            ? "bg-[color-mix(in_oklab,var(--bone)_78%,transparent)] backdrop-blur-2xl backdrop-saturate-150 shadow-[0_10px_40px_-16px_rgba(17,24,39,0.14)] border-b border-[var(--ink)]/[0.07]"
             : "bg-transparent"
         }`}
       >
         <div className="max-w-[1600px] mx-auto px-4 md:px-8">
           {/* row 1 — utility bar (rechtsboven) */}
           <motion.div
-            animate={{ height: scrolled ? 0 : 28, opacity: scrolled ? 0 : 1 }}
+            animate={{ height: scrolled ? 0 : 36, opacity: scrolled ? 0 : 1 }}
             transition={{ duration: 0.4, ease }}
             className="overflow-hidden"
           >
@@ -276,9 +263,9 @@ function Header() {
             onMouseEnter={clearMegaClose}
             onMouseLeave={scheduleMegaClose}
           >
-            <div className="flex items-center justify-between gap-5 xl:gap-8 py-2">
+            <div className="flex items-center justify-between gap-5 xl:gap-8 py-3.5">
               <a href="/" className="shrink-0">
-                <img src={OI.logo} alt="Office Image" className="h-10 md:h-11 w-auto" />
+                <img src={OI.logo} alt="Office Image" className="h-14 md:h-16 w-auto" />
               </a>
 
               <nav className="flex items-center justify-end gap-0.5 shrink-0 ml-auto">
@@ -308,8 +295,8 @@ function Header() {
                   );
                 })}
 
-                <div className="ml-3 pl-3 border-l border-[var(--bone)]/12 shrink-0">
-                  <HeaderCartButton />
+                <div className={`ml-4 pl-4 border-l shrink-0 ${scrolled ? "border-[var(--ink)]/10" : "border-[var(--bone)]/12"}`}>
+                  <HeaderCartButton className="px-4 py-2.5 text-[13px]" />
                 </div>
               </nav>
             </div>
@@ -326,9 +313,9 @@ function Header() {
           </div>
 
           {/* mobile — logo + cart + hamburger */}
-          <div className="flex lg:hidden items-center justify-between gap-4 py-2.5">
+          <div className="flex lg:hidden items-center justify-between gap-4 py-3">
             <a href="/" className="shrink-0">
-              <img src={OI.logo} alt="Office Image" className="h-10 w-auto" />
+              <img src={OI.logo} alt="Office Image" className="h-12 w-auto" />
             </a>
             <div className="flex items-center gap-2">
               <HeaderCartButton />
@@ -336,7 +323,11 @@ function Header() {
                 type="button"
                 onClick={() => setMobileOpen(o => !o)}
                 aria-label="Menu"
-                className="grid size-9 place-items-center rounded-lg text-[var(--bone)]/80 hover:bg-[var(--bone)]/10"
+                className={`grid size-9 place-items-center rounded-lg transition-colors ${
+                  scrolled
+                    ? "text-[var(--ink)]/75 hover:bg-[var(--ink)]/6"
+                    : "text-[var(--bone)]/80 hover:bg-[var(--bone)]/10"
+                }`}
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                   {mobileOpen ? (
@@ -547,7 +538,7 @@ function Hero() {
       </motion.div>
 
       {/* hero content */}
-      <motion.div style={{ y: contentY }} className="relative z-10 flex h-full flex-col pt-[112px] sm:pt-[120px] md:pt-[136px] lg:pt-[172px] xl:pt-[180px]">
+      <motion.div style={{ y: contentY }} className="relative z-10 flex h-full flex-col pt-[124px] sm:pt-[132px] md:pt-[152px] lg:pt-[196px] xl:pt-[204px]">
         <div className="flex-1 px-4 md:px-8 lg:px-12">
           <div className="h-full max-w-[1600px] mx-auto flex flex-col gap-6 lg:gap-8 pb-32 md:pb-36 pt-4 md:pt-6 lg:pt-10">
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-6 lg:gap-8 lg:items-center">
@@ -616,41 +607,6 @@ function Hero() {
       </motion.div>
 
       <HeroScrollCue targetId="waarom" />
-
-      {/* fade hero imagery into the light chapter below */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[8] h-40 md:h-52 bg-gradient-to-b from-transparent via-[color-mix(in_oklab,var(--bone)_35%,transparent)] to-[var(--bone)]"
-      />
-
-      {/* bottom trust strip — matches officeimage.nl hero USPs */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.75, duration: 0.85, ease }}
-        className="absolute inset-x-0 bottom-0 z-10 bg-[color-mix(in_oklab,var(--bone)_97%,white)] shadow-[0_-8px_32px_rgba(0,0,0,0.08)]"
-      >
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8 lg:px-12 py-3.5 md:py-4">
-          <ul className="flex items-center justify-start md:justify-center gap-x-8 lg:gap-x-12 gap-y-3 overflow-x-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {HERO_TRUST_ITEMS.map((text, i) => (
-              <motion.li
-                key={text}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.85 + i * 0.07, duration: 0.5, ease }}
-                className="group flex items-center gap-2.5 shrink-0"
-              >
-                <span className="text-[#424242] transition-colors duration-300 group-hover:text-[var(--ochre)]">
-                  <OICheckCircleIcon className="size-[18px] md:size-5" />
-                </span>
-                <span className="text-[12px] md:text-[13px] font-medium leading-snug text-[#424242] whitespace-nowrap transition-colors duration-300 group-hover:text-[var(--ink)]">
-                  {text}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
     </section>
   );
 }
@@ -665,19 +621,14 @@ function Trust() {
     { k: "NL", v: "Grote voorraad", note: "Snelle levering", icon: "04" },
   ];
   return (
-    <PageSection id="waarom" tone="bone" prevTone="hero" nextTone="ink">
+    <PageSection id="waarom" tone="bone" prevTone="hero" nextTone="sand">
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-20 items-end">
+        <div className="grid md:grid-cols-1 gap-12 md:gap-20 items-end max-w-3xl">
           <Reveal>
             <Eyebrow>Waarom Office Image</Eyebrow>
             <h2 className={`mt-5 ${sectionH2}`}>
               De nieuwste producten, <span className="italic text-[var(--clay)]">de juiste prijzen</span>, direct uit voorraad.
             </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-[var(--muted-foreground)] text-lg leading-relaxed max-w-xl">
-              Office Image is een jong en dynamisch bedrijf dat zakelijke kantoorinrichting eenvoudig en snel maakt. Bestel online of bezoek onze showroom in Rotterdam. Wij denken graag mee.
-            </p>
           </Reveal>
         </div>
 
@@ -801,21 +752,14 @@ function Configurator() {
   const c = CONCEPTS[i];
 
   return (
-    <PageSection id="concepts" tone="ink" prevTone="ink" nextTone="bone">
+    <PageSection id="concepts" tone="sand" prevTone="sand" nextTone="bone" className="before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,color-mix(in_oklab,var(--bone)_55%,transparent),transparent_72%)]">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
-        <div className="grid md:grid-cols-[1fr_auto] gap-10 items-end">
-          <Reveal>
-            <Eyebrow>De werkplekervaring</Eyebrow>
-            <h2 className={`mt-5 ${sectionH2} text-[var(--bone)] max-w-[16ch]`}>
-              Vijf werkomgevingen. <span className="italic text-[var(--ochre)]">Eén partner.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15}>
-            <p className="text-[var(--bone)]/65 max-w-md text-base leading-relaxed">
-              Ontdek de ruimtelijke concepten die centraal staan in elke Office Image transformatie. Wissel tussen categorieën en ervaar het verschil.
-            </p>
-          </Reveal>
-        </div>
+        <Reveal>
+          <Eyebrow>De werkplekervaring</Eyebrow>
+          <h2 className={`mt-5 ${sectionH2} max-w-[16ch]`}>
+            Vijf werkomgevingen. <span className="italic text-[var(--clay)]">Eén partner.</span>
+          </h2>
+        </Reveal>
 
         <div className="mt-14 md:mt-20 grid lg:grid-cols-[1fr_360px] gap-8 lg:gap-10 items-start">
           {/* framed canvas */}
@@ -905,23 +849,23 @@ function Configurator() {
             transition={{ duration: 0.9, delay: 0.15, ease }}
             className="flex flex-col gap-6"
           >
-            <div className="relative rounded-2xl border border-[var(--bone)]/12 p-2 overflow-hidden">
+            <div className="relative rounded-2xl border border-[var(--ink)]/8 bg-[var(--card)] p-2 overflow-hidden shadow-[0_8px_30px_-16px_rgba(17,24,39,0.12)]">
               {CONCEPTS.map((cc, idx) => {
                 const active = idx === i;
                 return (
                   <button
                     key={cc.id}
                     onClick={() => setI(idx)}
-                    className={`relative w-full text-left ${btnR} px-4 py-3.5 flex items-center gap-4 transition-colors duration-500 ${active ? "text-[var(--ink)]" : "hover:bg-[var(--bone)]/5 text-[var(--bone)]"}`}
+                    className={`relative w-full text-left ${btnR} px-4 py-3.5 flex items-center gap-4 transition-colors duration-500 ${active ? "text-[var(--ink)]" : "hover:bg-[var(--sand)] text-[var(--muted-foreground)]"}`}
                   >
                     {active && (
                       <motion.div
                         layoutId="concept-active-pill"
-                        className="absolute inset-0 bg-[var(--bone)] rounded-lg"
+                        className="absolute inset-0 bg-[var(--sand)] rounded-lg"
                         transition={{ type: "spring", stiffness: 420, damping: 34 }}
                       />
                     )}
-                    <span className={`relative z-[1] num text-xs ${active ? "text-[var(--clay)]" : "text-[var(--bone)]/45"}`}>{cc.n}</span>
+                    <span className={`relative z-[1] num text-xs ${active ? "text-[var(--clay)]" : "text-[var(--muted-foreground)]"}`}>{cc.n}</span>
                     <span className="relative z-[1] font-display text-base md:text-lg leading-none flex-1">{cc.name}</span>
                     <motion.span
                       className="relative z-[1] text-xs"
@@ -942,10 +886,10 @@ function Configurator() {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -10, filter: "blur(2px)" }}
                 transition={{ duration: 0.5, ease }}
-                className="rounded-2xl border border-[var(--bone)]/12 p-6 bg-[color-mix(in_oklab,var(--bone)_3%,var(--ink))]"
+                className="rounded-2xl border border-[var(--ink)]/8 p-6 bg-[var(--card)] shadow-[0_12px_40px_-24px_rgba(17,24,39,0.14)]"
               >
-                <p className="text-[var(--bone)]/80 text-[15px] leading-relaxed">{c.body}</p>
-                <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[13px] text-[var(--bone)]/70">
+                <p className="text-[var(--muted-foreground)] text-[15px] leading-relaxed">{c.body}</p>
+                <div className="mt-5 grid grid-cols-2 gap-x-4 gap-y-2.5 text-[13px] text-[var(--ink)]/75">
                   {c.benefits.map((b, bi) => (
                     <motion.div
                       key={b}
@@ -1577,9 +1521,9 @@ function Home() {
       <Header />
       <Hero />
       <Trust />
+      <Bestsellers />
       <ProductCarousel />
       <Configurator />
-      <Bestsellers />
       <Process />
       <Visualization />
       <Services />
@@ -1613,6 +1557,115 @@ function GoogleReviewsSection() {
 
 type ProductCarouselItem = (typeof OI.productCarousel)[number];
 
+const COLLECTIE_STATS = [
+  {
+    k: "8",
+    v: "Hoogwaardige categorieën",
+    note: "Curated assortiment",
+    icon: (
+      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    ),
+    tone: "clay" as const,
+  },
+  {
+    k: "NL",
+    v: "Grote voorraad",
+    note: "Direct leverbaar",
+    icon: (
+      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path d="M3 7h11v9H3V7zm11 2h3l3 4v3h-6V9z" strokeLinejoin="round" />
+        <circle cx="7" cy="18" r="1.5" /><circle cx="17" cy="18" r="1.5" />
+      </svg>
+    ),
+    tone: "ink" as const,
+  },
+  {
+    k: "6",
+    v: "Dagen showroom open",
+    note: "Bezoek op afspraak",
+    icon: (
+      <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 9h18M8 3v4M16 3v4" strokeLinecap="round" />
+      </svg>
+    ),
+    tone: "ochre" as const,
+  },
+  {
+    k: "100%",
+    v: "Klanttevredenheid",
+    note: "Bewezen service",
+    icon: (
+      <svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden>
+        <path d="M12 2l2.9 6.9L22 9.8l-5.2 4.5 1.6 6.9L12 17.8 5.6 21.2l1.6-6.9L2 9.8l7.1-.9L12 2z" />
+      </svg>
+    ),
+    tone: "clay" as const,
+  },
+] as const;
+
+function CollectieStatsRail() {
+  const toneBg = {
+    clay: "from-[var(--clay)]/12 to-transparent",
+    ink: "from-[var(--ink)]/8 to-transparent",
+    ochre: "from-[var(--ochre)]/14 to-transparent",
+  } as const;
+
+  const toneNum = {
+    clay: "text-[var(--clay)]",
+    ink: "text-[var(--ink)]",
+    ochre: "text-[var(--ochre)]",
+  } as const;
+
+  return (
+    <div className="mt-12 md:mt-16 relative">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-[8%] top-1/2 hidden lg:block h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/25 to-transparent"
+      />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        {COLLECTIE_STATS.map((s, i) => (
+          <motion.div
+            key={s.v}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.65, delay: i * 0.08, ease }}
+            className={`group/stat relative overflow-hidden rounded-2xl border border-[var(--ochre)]/20 bg-[var(--card)] p-5 md:p-6 transition-all duration-500 hover:border-[var(--ochre)]/45 hover:shadow-[0_20px_50px_-28px_rgba(240,160,96,0.28)] hover:-translate-y-1 ${i % 2 === 1 ? "lg:translate-y-3" : ""}`}
+          >
+            <div
+              aria-hidden
+              className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${toneBg[s.tone]} opacity-80 transition-opacity duration-500 group-hover/stat:opacity-100`}
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-6 -top-6 size-28 rounded-full bg-[var(--ochre)]/10 blur-2xl transition-all duration-700 group-hover/stat:bg-[var(--ochre)]/18 group-hover/stat:scale-125"
+            />
+            <div className="relative flex items-start justify-between gap-3">
+              <span className="grid size-9 place-items-center rounded-xl border border-[var(--ochre)]/25 bg-[var(--sand)]/80 text-[var(--clay)] transition-colors duration-500 group-hover/stat:border-[var(--ochre)]/45 group-hover/stat:bg-[var(--bone)]">
+                {s.icon}
+              </span>
+              <span className="num text-[10px] tracking-[0.22em] text-[var(--muted-foreground)]/70">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            </div>
+            <div className={`relative mt-5 font-display text-3xl md:text-[2.35rem] leading-none tracking-tight num ${toneNum[s.tone]} transition-transform duration-500 group-hover/stat:scale-[1.03] origin-left`}>
+              {s.k}
+            </div>
+            <div className="relative mt-2 text-[11px] md:text-xs font-semibold uppercase tracking-[0.16em] text-[var(--ink)] leading-snug">
+              {s.v}
+            </div>
+            <div className="relative mt-1.5 text-[11px] text-[var(--muted-foreground)]">{s.note}</div>
+            <div className="relative mt-4 h-px w-8 bg-[var(--ochre)]/40 transition-all duration-500 group-hover/stat:w-full group-hover/stat:bg-gradient-to-r group-hover/stat:from-[var(--ochre)] group-hover/stat:to-transparent" />
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ProductCategoryCard({
   item,
   index,
@@ -1623,33 +1676,36 @@ function ProductCategoryCard({
   const n = (index % OI.productCarousel.length) + 1;
 
   return (
-    <div className="group relative h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[320px] lg:w-[340px] pb-5">
-      <div className="relative h-full rounded-2xl border border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--bone)_6%,var(--ink))] shadow-[0_24px_60px_-28px_rgba(0,0,0,0.65)] transition-all duration-700 group-hover:border-[var(--ochre)]/35 group-hover:shadow-[0_32px_70px_-24px_rgba(212,165,116,0.22)] group-hover:-translate-y-1.5">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+    <div className="group relative h-full shrink-0 w-[min(78vw,300px)] sm:w-[300px] md:w-[328px] lg:w-[352px] pb-7">
+      <div className="relative flex h-full min-h-[420px] flex-col rounded-2xl border border-[var(--ochre)]/45 bg-[var(--ink)] ring-1 ring-[var(--ochre)]/20 shadow-none transition-all duration-500 group-hover:border-[var(--ochre)] group-hover:ring-[var(--ochre)]/45 group-hover:shadow-[0_18px_44px_-24px_rgba(240,160,96,0.35)] group-hover:-translate-y-1">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--ochre)]/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-        <a href={item.href} className="block relative aspect-[4/5] overflow-hidden rounded-t-2xl">
-          <div className="absolute inset-0 category-card-glow opacity-80 group-hover:opacity-100 transition-opacity duration-700" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--ink)]/20 via-transparent to-[var(--ink)]/90" />
+        <a href={item.href} className="block relative aspect-[5/4] overflow-hidden rounded-t-2xl sm:aspect-[4/3]">
+          <img
+            src={item.img}
+            alt={item.name}
+            loading="lazy"
+            draggable={false}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--ink)]/28 via-transparent to-transparent"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--ochre)]/75 via-[var(--clay)]/20 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+          />
 
-          <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+          <div className="absolute top-3.5 left-3.5 z-10 flex items-center gap-2">
             <span className="num glass-dark rounded-lg px-2.5 py-1 text-[10px] tracking-[0.2em] text-[var(--bone)]/80">
               {String(n).padStart(2, "0")}
             </span>
           </div>
-          <div className="absolute top-4 right-4 z-10">
+          <div className="absolute top-3.5 right-3.5 z-10">
             <span className="glass-dark rounded-lg px-2.5 py-1 text-[9px] uppercase tracking-[0.18em] text-[var(--ochre)]">
               {item.tag}
             </span>
-          </div>
-
-          <div className="absolute inset-0 flex items-center justify-center p-6 md:p-7">
-            <img
-              src={item.img}
-              alt={item.name}
-              loading="lazy"
-              draggable={false}
-              className="relative z-[1] max-h-[72%] max-w-[88%] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition-transform duration-[1.1s] ease-out group-hover:scale-[1.08] group-hover:-translate-y-1"
-            />
           </div>
 
           <motion.div
@@ -1661,34 +1717,28 @@ function ProductCategoryCard({
           />
         </a>
 
-        <div className="relative px-5 py-5 md:px-6 md:py-6 border-t border-[var(--bone)]/8">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <a href={item.href}>
-                <h3 className="font-display text-lg md:text-xl leading-tight text-[var(--bone)] group-hover:text-[var(--ochre)] transition-colors duration-500">
-                  {item.name}
-                </h3>
-              </a>
-              <p className="mt-2 text-[12px] md:text-[13px] leading-relaxed text-[var(--bone)]/55 line-clamp-2 group-hover:text-[var(--bone)]/72 transition-colors duration-500">
-                {item.line}
-              </p>
-            </div>
+        <div className="relative flex flex-1 flex-col px-5 pt-5 pb-10 md:px-6 md:pt-6 md:pb-11 border-t border-[var(--ochre)]/15">
+          <div className="min-w-0">
+            <a href={item.href}>
+              <h3 className="font-display text-lg md:text-xl leading-tight text-[var(--bone)] group-hover:text-[var(--ochre)] transition-colors duration-500">
+                {item.name}
+              </h3>
+            </a>
+            <p className="mt-2 text-[12px] md:text-[13px] leading-relaxed text-[var(--bone)]/55 line-clamp-2 group-hover:text-[var(--bone)]/75 transition-colors duration-500">
+              {item.line}
+            </p>
           </div>
-          <div className="mt-4 flex items-center justify-between gap-2">
+          <div className="mt-3 flex items-center justify-between gap-2">
             <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--ochre)]/90 font-medium">
               {item.stat}
             </span>
           </div>
-          <div className="mt-3 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
+          <div className="mt-2.5 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
         </div>
 
-        <CardOverlapButton
-          href={item.href}
-          variant="dark"
-          className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 z-30"
-        >
-          Ontdek collectie
-        </CardOverlapButton>
+        <div className="absolute left-1/2 bottom-0 z-30 flex -translate-x-1/2 translate-y-1/2 justify-center">
+          <CategoryCollectieButton href={item.href} />
+        </div>
       </div>
     </div>
   );
@@ -1759,44 +1809,37 @@ function ProductCarousel() {
   };
 
   return (
-    <PageSection id="categories" tone="ink" prevTone="bone" nextTone="ink">
+    <PageSection id="categories" tone="sand" prevTone="sand" nextTone="sand" className="before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,color-mix(in_oklab,var(--bone)_55%,transparent),transparent_72%)]">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 section-grain-light opacity-[0.04]"
+        className="pointer-events-none absolute inset-0 section-grain-light opacity-[0.06]"
       />
 
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
-        <div className="grid lg:grid-cols-[1.15fr_1fr] gap-10 lg:gap-16 items-end">
-          <Reveal>
-            <Eyebrow dot={false}>
-              <span className="text-[var(--ochre)]">Collectie</span>
-            </Eyebrow>
-            <h2 className={`mt-4 ${sectionH2} text-[var(--bone)]`}>
-              Kantoormeubelen die uw werkruimte{" "}
-              <em className="text-[var(--ochre)]">naar een hoger niveau</em> tillen.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <p className="text-[var(--bone)]/68 text-base md:text-lg leading-relaxed max-w-xl lg:ml-auto">
-              Office Image combineert exclusieve collecties met grote voorraad en persoonlijk advies. Ontdek acht categorieën, direct bestelbaar of te bekijken in onze showroom in Rotterdam.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              <a href={SHOP_PATH}>
-                <ArrowLink variant="clay">Bekijk alle categorieën</ArrowLink>
-              </a>
-              <a href="#showroom">
-                <ArrowLink variant="bone">Plan showroombezoek</ArrowLink>
-              </a>
-            </div>
-          </Reveal>
-        </div>
+        <Reveal>
+          <Eyebrow dot={false}>
+            <span className="text-[var(--clay)]">Collectie</span>
+          </Eyebrow>
+          <h2 className={`mt-4 ${sectionH2}`}>
+            Kantoormeubelen die uw werkruimte{" "}
+            <em className="italic text-[var(--clay)]">naar een hoger niveau</em> tillen.
+          </h2>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <a href={SHOP_PATH}>
+              <ArrowLink variant="clay">Bekijk alle categorieën</ArrowLink>
+            </a>
+            <a href="#showroom">
+              <ArrowLink variant="ink">Plan showroombezoek</ArrowLink>
+            </a>
+          </div>
+        </Reveal>
 
-        <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--bone)]/10 pt-6">
-          <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/45">
-            <span className="size-1.5 rounded-full bg-[var(--ochre)] animate-pulse" />
+        <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--ink)]/8 pt-6">
+          <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[var(--muted-foreground)]">
+            <span className="size-1.5 rounded-full bg-[var(--clay)] animate-pulse" />
             <span>Loopt automatisch · hover &amp; sleep om te verschuiven</span>
           </div>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--bone)]/45 num">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--muted-foreground)] num">
             {String(items.length).padStart(2, "0")} categorieën
           </span>
         </div>
@@ -1805,7 +1848,7 @@ function ProductCarousel() {
           <div
             className="absolute -inset-x-4 top-8 bottom-8 rounded-3xl pointer-events-none opacity-60"
             style={{
-              background: "linear-gradient(90deg, var(--ink) 0%, transparent 8%, transparent 92%, var(--ink) 100%)",
+              background: "linear-gradient(90deg, var(--sand) 0%, transparent 8%, transparent 92%, var(--sand) 100%)",
             }}
             aria-hidden
           />
@@ -1838,19 +1881,7 @@ function ProductCarousel() {
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-4 gap-px rounded-2xl overflow-hidden border border-[var(--bone)]/10 bg-[var(--bone)]/10">
-            {[
-              { k: "8", v: "Hoogwaardige categorieën" },
-              { k: "NL", v: "Grote voorraad" },
-              { k: "6", v: "Dagen showroom open" },
-              { k: "100%", v: "Klanttevredenheid" },
-            ].map((s) => (
-              <div key={s.v} className="bg-[color-mix(in_oklab,var(--ink)_92%,var(--bone))] px-5 py-5 md:py-6 text-center">
-                <div className="font-display text-2xl md:text-3xl text-[var(--ochre)] num">{s.k}</div>
-                <div className="mt-1 text-[10px] md:text-[11px] uppercase tracking-[0.18em] text-[var(--bone)]/50">{s.v}</div>
-              </div>
-            ))}
-          </div>
+          <CollectieStatsRail />
         </Reveal>
       </div>
     </PageSection>
@@ -1908,7 +1939,7 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
 
 function Bestsellers() {
   return (
-    <PageSection id="bestsellers" tone="bone" prevTone="ink" nextTone="bone">
+    <PageSection id="bestsellers" tone="bone" prevTone="bone" nextTone="sand">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
           <Reveal>

@@ -48,7 +48,7 @@
 
   /* Premium architectural palette — charcoal + soft stone + subtle orange */
   --bone: #F8F7F4;
-  --sand: #EFEDE6;
+  --sand: #F3F1EA;
   --ink: #111827;
   --graphite: #1F2937;
   --slate: #64748B;
@@ -297,4 +297,143 @@
   max-height: 9rem;
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Collectie category cards — premium CTA wipe */
+.category-collectie-wipe {
+  transform: scaleX(0);
+  transition: transform 0.68s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.category-collectie-shine {
+  transform: translateX(-140%);
+  opacity: 0;
+}
+
+.group:hover .category-collectie-wipe,
+.category-collectie-cta:hover .category-collectie-wipe {
+  transform: scaleX(1);
+}
+
+.group:hover .category-collectie-shine,
+.category-collectie-cta:hover .category-collectie-shine {
+  opacity: 1;
+  animation: category-collectie-shine-sweep 0.9s ease 0.18s forwards;
+}
+
+.category-collectie-label > span {
+  transition: color 0.45s ease 0.12s;
+}
+
+.group:hover .category-collectie-label > span,
+.category-collectie-cta:hover .category-collectie-label > span {
+  color: var(--ink);
+}
+
+.group:hover .category-collectie-arrow,
+.category-collectie-cta:hover .category-collectie-arrow {
+  transform: scale(1.08);
+}
+
+.group:hover .category-collectie-cta,
+.category-collectie-cta:hover {
+  transform: translateY(-1px);
+}
+
+@keyframes category-collectie-shine-sweep {
+  from { transform: translateX(-140%); }
+  to { transform: translateX(280%); }
+}
+
+@utility collectie-stat-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--ochre) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--ochre) 6%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+
+@keyframes hero-experience-gloss-sweep {
+  0% { transform: translateX(-130%) skewX(-16deg); opacity: 0; }
+  18% { opacity: 1; }
+  100% { transform: translateX(240%) skewX(-16deg); opacity: 0; }
+}
+
+@keyframes hero-experience-border-spin {
+  to { --hero-experience-frame-angle: 360deg; }
+}
+
+@property --hero-experience-frame-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.hero-experience-frame {
+  background: linear-gradient(
+    148deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(255, 255, 255, 0.1) 28%,
+    rgba(240, 160, 96, 0.55) 62%,
+    rgba(255, 255, 255, 0.28) 100%
+  );
+  box-shadow:
+    0 32px 80px -28px rgba(0, 0, 0, 0.75),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: box-shadow 0.65s ease, filter 0.65s ease;
+}
+
+.hero-experience-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--hero-experience-frame-angle, 0deg),
+    rgba(255, 255, 255, 0.65),
+    rgba(240, 160, 96, 0.85),
+    rgba(255, 255, 255, 0.2),
+    transparent 40%,
+    rgba(240, 160, 96, 0.5),
+    rgba(255, 255, 255, 0.55)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.55;
+  pointer-events: none;
+  transition: opacity 0.55s ease;
+}
+
+.group\/hero-card:hover .hero-experience-frame {
+  box-shadow:
+    0 40px 96px -24px rgba(0, 0, 0, 0.82),
+    0 0 0 1px rgba(240, 160, 96, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.group\/hero-card:hover .hero-experience-frame::before {
+  opacity: 1;
+  animation: hero-experience-border-spin 4.5s linear infinite;
+}
+
+.hero-experience-video-shine {
+  background: linear-gradient(
+    108deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.14) 48%,
+    rgba(240, 160, 96, 0.28) 52%,
+    transparent 62%
+  );
+  transform: translateX(-140%) skewX(-14deg);
+  opacity: 0;
+}
+
+.group\/hero-card:hover .hero-experience-video-shine {
+  animation: hero-experience-gloss-sweep 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

@@ -33,7 +33,7 @@ export function GoogleReviewsBadge({ className = "", variant = "dark" }: GoogleR
       target="_blank"
       rel="noopener noreferrer"
       className={[
-        "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 transition-all duration-300",
+        "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 transition-all duration-300",
         isDark
           ? "border-[var(--bone)]/14 bg-[var(--bone)]/6 hover:border-[var(--ochre)]/35 hover:bg-[var(--bone)]/10"
           : "border-[var(--ink)]/10 bg-white/80 hover:border-[var(--clay)]/30 hover:bg-white",
@@ -48,7 +48,7 @@ export function GoogleReviewsBadge({ className = "", variant = "dark" }: GoogleR
           <IconStar key={i} />
         ))}
       </span>
-      <span className={`hidden sm:inline text-[10px] font-medium leading-none ${isDark ? "text-[var(--bone)]/75" : "text-[var(--graphite)]/80"}`}>
+      <span className={`hidden sm:inline text-[11px] font-medium leading-none ${isDark ? "text-[var(--bone)]/75" : "text-[var(--graphite)]/80"}`}>
         Google Reviews
       </span>
     </a>
