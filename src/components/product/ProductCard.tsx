@@ -15,14 +15,15 @@ export function ProductCard({ product, index = 0 }: { product: Bestseller; index
       className="group relative flex h-full flex-col pb-5"
     >
       <div className="relative flex h-full flex-col rounded-2xl border border-[var(--ink)]/8 bg-[var(--card)] shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
-        <div className="relative aspect-square overflow-hidden rounded-t-2xl bg-[var(--sand)]">
+        <div className="relative aspect-[5/4] overflow-hidden rounded-t-2xl bg-[var(--sand)] sm:aspect-square">
           <img
             src={product.img}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--ink)]/30 via-[var(--ink)]/5 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--ochre)]/25 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
           {product.was && (
             <div className="absolute top-4 left-4 rounded-lg bg-[var(--clay)] text-[var(--bone)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] font-medium">
               Sale

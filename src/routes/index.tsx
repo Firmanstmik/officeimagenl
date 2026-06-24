@@ -11,9 +11,17 @@ import { PageSection } from "@/components/site/PageSection";
 import { HeroExperienceCard } from "@/components/site/HeroExperienceCard";
 import { HeroEyebrow } from "@/components/site/HeroEyebrow";
 import { CategoryCollectieButton } from "@/components/site/CategoryCollectieButton";
+import { PremiumStatAccent } from "@/components/site/PremiumLinkMarker";
 import { CardOverlapButton } from "@/components/site/CardOverlapButton";
 import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
+import { MaterialPicker } from "@/components/site/MaterialPicker";
+import { LayoutPicker } from "@/components/site/LayoutPicker";
+import {
+  VISUALIZATION_STEPS,
+  type VisualizationLayoutId,
+  type VisualizationMaterialId,
+} from "@/lib/visualization-data";
 import { ProjectRevealButton } from "@/components/site/ProjectRevealButton";
 import { GoogleReviewsConstellation } from "@/components/site/GoogleReviewsConstellation";
 import { MEGA_MENUS } from "@/lib/mega-menu-data";
@@ -444,7 +452,7 @@ function Header() {
 /** Hero imagery scraped from officeimage.nl homepage carousel (ARMA, Foxline, roldeurkast). */
 const HERO_SLIDES = [
   {
-    img: "https://officeimage.nl/wp-content/uploads/2024/10/ARMA-1.jpg",
+    img: OI.media.armaDirectie,
     alt: "Luxe directiekantoor met ARMA directiemeubelen, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Directie",
@@ -455,7 +463,7 @@ const HERO_SLIDES = [
     meta: "Exclusief bij OI",
   },
   {
-    img: "https://officeimage.nl/wp-content/uploads/2024/10/fox-320x160-tafel-1-1.jpg",
+    img: OI.media.foxlineWerkplek,
     alt: "Foxline werkplekken met vergadertafel, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Foxline",
@@ -466,7 +474,7 @@ const HERO_SLIDES = [
     meta: "Modulair en snel",
   },
   {
-    img: "https://officeimage.nl/wp-content/uploads/2024/10/roldeurkast-ch-1.jpg",
+    img: OI.media.brandwerendArchief,
     alt: "Kantoorkasten en archiefkasten, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Opslag",
@@ -695,7 +703,7 @@ const CONCEPTS = [
     n: "01",
     name: "Directiemeubelen",
     sub: "Exclusief, voor leiderschap",
-    img: OI.categories[0].img,
+    img: OI.media.concepts.directie,
     mood: "Luxe, representatief, tijdloos",
     body: "Onze exclusieve directiemeubelen brengen rust en autoriteit in elke directiekamer. Hoogwaardige materialen, perfecte afwerking, alleen bij Office Image.",
     metrics: [["100%", "exclusief"], ["NL", "voorraad"], ["A+", "afwerking"]],
@@ -706,7 +714,7 @@ const CONCEPTS = [
     n: "02",
     name: "Werkplekken",
     sub: "Elektrisch verstelbaar, Foxline, T line",
-    img: OI.categories[1].img,
+    img: OI.media.concepts.werkplekken,
     mood: "Ergonomisch, modern, modulair",
     body: "Elektrisch zit sta werkplekken in meerdere stijlen: Foxline, Nieuw Line, Slinger en T line. Ergonomisch, duurzaam en modulair uitbreidbaar.",
     metrics: [["4", "series"], ["120cm", "max hoogte"], ["10jr", "garantie"]],
@@ -717,7 +725,7 @@ const CONCEPTS = [
     n: "03",
     name: "Bureaustoelen",
     sub: "24 uurs, stof en leder",
-    img: OI.categories[3].img,
+    img: OI.media.concepts.bureaustoelen,
     mood: "Comfort, ondersteunend, 24/7",
     body: "Van de bestseller Raptor 24uurs bureaustoel tot luxe lederen directiestoelen. Ergonomisch ontworpen voor de hele werkdag en daarna.",
     metrics: [["24u", "gebruik"], ["€669", "vanaf"], ["NEN", "EN 1335"]],
@@ -728,7 +736,7 @@ const CONCEPTS = [
     n: "04",
     name: "Archiefkasten",
     sub: "Roldeur, ladenkasten, rolblokken",
-    img: OI.categories[4].img,
+    img: OI.media.concepts.archiefkasten,
     mood: "Strak, functioneel, veilig",
     body: "Exclusieve roldeurkasten, ladenkasten en rolblokken in diverse afmetingen. Duurzaam staal, zacht sluitende lades en strakke afwerking.",
     metrics: [["5", "afmetingen"], ["Zacht", "sluitend"], ["10jr", "garantie"]],
@@ -739,7 +747,7 @@ const CONCEPTS = [
     n: "05",
     name: "Lockers",
     sub: "Garderobe, werkplaats",
-    img: OI.categories[6].img,
+    img: OI.media.concepts.lockers,
     mood: "Robuust, geperforeerd, hybride",
     body: "Geperforeerde lockers voor moderne hybride kantoren. Persoonlijke opbergruimte met elektronische sloten, perfect voor flexplekken.",
     metrics: [["1 t/m 6", "deuren"], ["RAL", "kleur vrij"], ["Diverse", "slotopties"]],
@@ -789,7 +797,8 @@ function Configurator() {
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/90 via-[var(--ink)]/15 to-[var(--ink)]/25 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/95 via-[var(--ink)]/40 to-[var(--ink)]/15 pointer-events-none" />
+                <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-[var(--ink)]/88 to-transparent pointer-events-none" />
                 <motion.div
                   aria-hidden
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--bone)]/8 to-transparent pointer-events-none"
@@ -802,7 +811,7 @@ function Configurator() {
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.5 }}
-                  className="absolute left-5 top-5 md:left-6 md:top-6 glass-dark rounded-lg px-3.5 py-1.5 text-[11px] tracking-[0.22em] uppercase"
+                  className="absolute left-5 top-5 md:left-6 md:top-6 rounded-lg border border-white/15 bg-[rgba(12,10,8,0.55)] backdrop-blur-xl px-3.5 py-1.5 text-[11px] tracking-[0.22em] uppercase text-white shadow-[0_8px_32px_-8px_rgba(0,0,0,0.45)]"
                 >
                   {String(i + 1).padStart(2, "0")} / {String(CONCEPTS.length).padStart(2, "0")}
                 </motion.div>
@@ -816,9 +825,13 @@ function Configurator() {
                       exit={{ opacity: 0, y: -12 }}
                       transition={{ duration: 0.55, ease }}
                     >
-                      <div className="eyebrow text-[var(--bone)]/65">Concept {c.n}, {c.mood}</div>
-                      <div className="mt-2 font-display text-2xl md:text-3xl tracking-tight">{c.name}</div>
-                      <div className="mt-1 text-[var(--bone)]/70 text-sm">{c.sub}</div>
+                      <div className="text-[10px] font-medium uppercase tracking-[0.22em] text-white/80">
+                        Concept {c.n}, {c.mood}
+                      </div>
+                      <div className="mt-2 font-display text-2xl md:text-3xl tracking-tight text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.55)]">
+                        {c.name}
+                      </div>
+                      <div className="mt-1 text-sm text-white/90">{c.sub}</div>
                     </motion.div>
                   </AnimatePresence>
 
@@ -827,12 +840,12 @@ function Configurator() {
                     initial={{ opacity: 0, x: 16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.1, ease }}
-                    className="glass-dark rounded-xl p-4 md:p-5 grid grid-cols-3 gap-4 min-w-[260px] md:min-w-[280px]"
+                    className="rounded-xl border border-white/15 bg-[rgba(12,10,8,0.58)] backdrop-blur-xl p-4 md:p-5 grid grid-cols-3 gap-4 min-w-[260px] md:min-w-[280px] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.55)]"
                   >
                     {c.metrics.map(([k, v]) => (
                       <div key={v}>
-                        <div className="font-display text-lg md:text-xl num">{k}</div>
-                        <div className="text-[10px] uppercase tracking-widest text-[var(--bone)]/55">{v}</div>
+                        <div className="font-display text-lg md:text-xl num text-white">{k}</div>
+                        <div className="text-[10px] uppercase tracking-widest text-white/75">{v}</div>
                       </div>
                     ))}
                   </motion.div>
@@ -915,12 +928,12 @@ function Configurator() {
 /* ──────────────────────────── 4. process storytelling ──────────────────────────── */
 
 const STEPS = [
-  { n: "01", t: "Adviesgesprek", d: "Bezoek de showroom of bel ons. We denken vrijblijvend mee over uw kantoorinrichting." },
-  { n: "02", t: "Ruimteplan", d: "Een passend voorstel met indeling, materialen en budget binnen 48 uur." },
-  { n: "03", t: "3D Visualisatie", d: "Fotorealistische beelden tonen het eindresultaat voordat er één product wordt geleverd." },
-  { n: "04", t: "Productselectie", d: "Bestsellers uit eigen voorraad of op maat geconfigureerd: directiemeubelen tot werkplekken." },
-  { n: "05", t: "Levering en montage", d: "Snelle landelijke levering met professionele montage door ons eigen team." },
-  { n: "06", t: "Klanttevredenheid", d: "Ingericht, klaar om te gebruiken. 100% klanttevredenheid is ons uitgangspunt." },
+  { n: "01", t: "Adviesgesprek", d: "Bezoek de showroom of bel ons. We denken vrijblijvend mee over uw kantoorinrichting.", img: OI.media.process.adviesgesprek },
+  { n: "02", t: "Ruimteplan", d: "Een passend voorstel met indeling, materialen en budget binnen 48 uur.", img: OI.media.process.ruimteplan },
+  { n: "03", t: "3D Visualisatie", d: "Fotorealistische beelden tonen het eindresultaat voordat er één product wordt geleverd.", img: OI.media.process.visualisatie3d },
+  { n: "04", t: "Productselectie", d: "Bestsellers uit eigen voorraad of op maat geconfigureerd: directiemeubelen tot werkplekken.", img: OI.media.process.productselectie },
+  { n: "05", t: "Levering en montage", d: "Snelle landelijke levering met professionele montage door ons eigen team.", img: OI.media.process.leveringMontage },
+  { n: "06", t: "Klanttevredenheid", d: "Ingericht, klaar om te gebruiken. 100% klanttevredenheid is ons uitgangspunt.", img: OI.media.process.klanttevredenheid },
 ];
 
 function ProcessStepCard({ s, stepIndex }: { s: (typeof STEPS)[number]; stepIndex: number }) {
@@ -928,7 +941,7 @@ function ProcessStepCard({ s, stepIndex }: { s: (typeof STEPS)[number]; stepInde
     <article className="group/card shrink-0 w-[86vw] sm:w-[58vw] md:w-[400px] lg:w-[440px] rounded-[20px] overflow-hidden border border-[var(--ink)]/8 bg-[var(--card)] shadow-[0_1px_2px_rgba(20,15,10,0.04)] hover:shadow-[0_40px_80px_-30px_rgba(20,15,10,0.35)] hover:border-[var(--clay)]/40 transition-[box-shadow,border-color] duration-500">
       <div className="relative aspect-[4/3] overflow-hidden bg-[var(--sand)]">
         <img
-          src={OI.categories[stepIndex % OI.categories.length].img}
+          src={s.img}
           alt={s.t}
           draggable={false}
           className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover/card:scale-[1.08] pointer-events-none"
@@ -1080,7 +1093,7 @@ function Process() {
         <div className="mt-10 md:mt-12 max-w-[1500px] mx-auto px-6 md:px-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">
             <span className="size-1.5 rounded-full bg-[var(--clay)] animate-pulse" />
-            <span>Loopt automatisch · hover &amp; sleep om te verschuiven</span>
+            <span>Loopt automatisch, hover en sleep om te verschuiven</span>
           </div>
           <div className="flex items-center gap-2">
             {STEPS.map((s) => (
@@ -1103,15 +1116,30 @@ function Process() {
 /* ──────────────────────────── 5. 3D visualization ──────────────────────────── */
 
 function Visualization() {
-  const tabs = ["Plattegrond", "Concept", "Render", "Opgeleverd"];
   const [t, setT] = useState(2);
+  const [material, setMaterial] = useState<VisualizationMaterialId>("walnoot");
+  const [layout, setLayout] = useState<VisualizationLayoutId>("open");
+  const [flipVersion, setFlipVersion] = useState(0);
+  const active = VISUALIZATION_STEPS[t] ?? VISUALIZATION_STEPS[2];
+  const isPlattegrond = active.id === "plattegrond";
+
+  const handleMaterialChange = (id: VisualizationMaterialId) => {
+    setMaterial(id);
+    setFlipVersion(v => v + 1);
+  };
+
+  const handleLayoutChange = (id: VisualizationLayoutId) => {
+    setLayout(id);
+    setFlipVersion(v => v + 1);
+  };
+
   return (
     <PageSection id="visualization" tone="sand" prevTone="bone" nextTone="bone">
       <div className="max-w-[1500px] mx-auto px-6 md:px-12">
-        <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-start">
           <Reveal>
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden bg-[var(--bone)] border border-[var(--ink)]/8 shadow-[0_40px_80px_-40px_rgba(20,15,10,0.35)]">
+            <div className="space-y-4">
+              <div className="rounded-2xl overflow-hidden bg-[var(--bone)] border border-[var(--ink)]/8 shadow-[0_40px_80px_-40px_rgba(20,15,10,0.35)]">
                 <div className="flex items-center gap-2 px-5 py-3 border-b border-[var(--ink)]/8 bg-[var(--bone)]">
                   <div className="flex gap-1.5">
                     <span className="size-2.5 rounded-full bg-[var(--ink)]/15" />
@@ -1123,37 +1151,51 @@ function Visualization() {
                   </div>
                   <div className="ml-auto text-[11px] num text-[var(--muted-foreground)]">v2.4</div>
                 </div>
-                <VisualizationStudio3D activeTab={t} />
-                <div className="absolute bottom-4 left-4 right-4 glass rounded-xl p-3 flex items-center gap-2 flex-wrap">
-                  {tabs.map((tt, idx) => (
-                    <button
-                      key={tt}
-                      onClick={() => setT(idx)}
-                      className={`px-3.5 py-1.5 ${btnR} text-xs transition-all ${t === idx ? "bg-[var(--ink)] text-[var(--bone)]" : "text-[var(--ink)]/70 hover:text-[var(--ink)]"}`}
-                    >
-                      {tt}
-                    </button>
-                  ))}
-                  <span className="ml-auto text-[11px] uppercase tracking-widest text-[var(--muted-foreground)] num">240 m², 1 verdieping</span>
-                </div>
+                <VisualizationStudio3D
+                  activeTab={t}
+                  activeMaterial={material}
+                  activeLayout={layout}
+                  flipVersion={flipVersion}
+                />
               </div>
 
-              {/* floating dimension card */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.9, delay: 0.3, ease }}
-                className="absolute -bottom-8 -right-4 md:-right-10 glass rounded-2xl p-5 w-[230px] hidden md:block"
-              >
-                <div className="eyebrow">Materiaalkeuze</div>
-                <div className="mt-3 flex gap-2">
-                  {["#3b2a20", "#c7956b", "#e8dfd1", "#5a6b54"].map(c => (
-                    <div key={c} className="size-9 rounded-full border border-[var(--ink)]/10" style={{ background: c }} />
+              <div className="glass rounded-xl p-4 space-y-3" role="tablist" aria-label="Visualisatie fases">
+                <div className="flex items-center gap-2 flex-wrap">
+                  {VISUALIZATION_STEPS.map((step, idx) => (
+                    <button
+                      key={step.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={t === idx}
+                      aria-controls={`viz-panel-${step.id}`}
+                      onClick={() => setT(idx)}
+                      className={`px-3.5 py-1.5 ${btnR} text-xs transition-all ${
+                        t === idx
+                          ? "bg-[var(--ink)] text-[var(--bone)] shadow-[0_4px_14px_-4px_rgba(17,24,39,0.45)]"
+                          : "text-[var(--ink)]/70 hover:text-[var(--ink)] hover:bg-[var(--sand)]/80"
+                      }`}
+                    >
+                      <span className="num mr-1.5 opacity-60">{step.step}</span>
+                      {step.label}
+                    </button>
                   ))}
+                  <span className="ml-auto text-[11px] uppercase tracking-widest text-[var(--muted-foreground)] num hidden sm:inline">
+                    {active.detail}
+                  </span>
                 </div>
-                <div className="mt-3 text-xs text-[var(--muted-foreground)]">Walnoot, Halifax, Wit, Antraciet</div>
-              </motion.div>
+                <p className="text-[13px] leading-relaxed text-[var(--muted-foreground)]">
+                  <span className="font-medium text-[var(--ink)]">{active.caption}.</span>{" "}
+                  {active.description}
+                </p>
+              </div>
+
+              <div className="glass rounded-xl p-5">
+                {isPlattegrond ? (
+                  <LayoutPicker value={layout} onChange={handleLayoutChange} />
+                ) : (
+                  <MaterialPicker value={material} onChange={handleMaterialChange} />
+                )}
+              </div>
             </div>
           </Reveal>
 
@@ -1165,21 +1207,39 @@ function Visualization() {
             <p className="mt-7 text-[var(--muted-foreground)] text-lg leading-relaxed max-w-lg">
               Vrijblijvend laten wij u zien hoe uw nieuwe kantoor eruit komt te zien. Van plattegrond en materiaalstalen tot een fotorealistische render, zodat u kiest op basis van beleving, niet alleen op productcode.
             </p>
-            <ul className="mt-8 space-y-4 text-[15px]">
-              {[
-                ["Plattegrond", "Looplijnen, indeling en akoestiek eerst op papier opgelost."],
-                ["3D rondleiding", "Loop door uw toekomstige kantoor in een interactief 3D model."],
-                ["Materiaalstalen", "Voel hout, textiel en metaal in onze showroom in Rotterdam."],
-                ["Snelle revisies", "Iedere aanpassing binnen 48 uur terug bij alle betrokkenen."],
-              ].map(([t2, d]) => (
-                <li key={t2} className="grid grid-cols-[auto_1fr] gap-5 items-baseline">
-                  <span className="size-1.5 rounded-full bg-[var(--clay)] translate-y-2" />
-                  <div>
-                    <span className="font-medium">{t2}.</span>{" "}
-                    <span className="text-[var(--muted-foreground)]">{d}</span>
-                  </div>
-                </li>
-              ))}
+            <ul className="mt-8 space-y-3" role="list">
+              {VISUALIZATION_STEPS.map((step, idx) => {
+                const selected = t === idx;
+                return (
+                  <li key={step.id}>
+                    <button
+                      type="button"
+                      onClick={() => setT(idx)}
+                      className={`w-full text-left rounded-xl border px-4 py-3.5 transition-all duration-300 ${
+                        selected
+                          ? "border-[var(--clay)]/35 bg-[var(--sand)]/60 shadow-[0_8px_24px_-12px_rgba(184,138,90,0.25)]"
+                          : "border-transparent hover:border-[var(--ink)]/8 hover:bg-[var(--sand)]/40"
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <span
+                          className={`mt-0.5 grid size-7 shrink-0 place-items-center rounded-lg text-[11px] num font-medium transition-colors ${
+                            selected ? "bg-[var(--ink)] text-[var(--bone)]" : "bg-[var(--sand)] text-[var(--muted-foreground)]"
+                          }`}
+                        >
+                          {step.step}
+                        </span>
+                        <div>
+                          <div className={`text-[15px] font-medium ${selected ? "text-[var(--ink)]" : "text-[var(--ink)]/80"}`}>
+                            {step.label}
+                          </div>
+                          <p className="mt-1 text-[13px] leading-relaxed text-[var(--muted-foreground)]">{step.description}</p>
+                        </div>
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
             <div className="mt-10"><ArrowLink>Bezoek de showroom</ArrowLink></div>
           </Reveal>
@@ -1192,11 +1252,11 @@ function Visualization() {
 /* ──────────────────────────── 6. services ──────────────────────────── */
 
 const SERVICES = [
-  { n: "01", t: "Inrichtingsadvies", tag: "Advies", d: "Vrijblijvend adviesgesprek in onze showroom of bij u op locatie. Wij denken mee over indeling en stijl.", img: OI.categories[0].img },
-  { n: "02", t: "3D Visualisatie", tag: "Visualisatie", d: "Fotorealistische beelden van uw nieuwe kantoor. Zien is geloven, kiezen wordt eenvoudig.", img: OI.categories[1].img },
-  { n: "03", t: "Ergonomisch Advies", tag: "Ergonomie", d: "24uurs stoelen, elektrisch verstelbare bureaus en akoestiek. Gezondheid en productiviteit voorop.", img: OI.categories[3].img },
-  { n: "04", t: "Levering en montage", tag: "Logistiek", d: "Landelijke levering met eigen montageteam. Uw kantoor staat klaar wanneer u het nodig heeft.", img: OI.categories[2].img },
-  { n: "05", t: "Onderhoud en service", tag: "Service", d: "Reparatie, uitbreiding en herinrichting. Eén partner voor de hele levensduur van uw kantoor.", img: OI.categories[6].img },
+  { n: "01", t: "Inrichtingsadvies", tag: "Advies", d: "Vrijblijvend adviesgesprek in onze showroom of bij u op locatie. Wij denken mee over indeling en stijl.", img: OI.media.services.inrichtingsadvies },
+  { n: "02", t: "3D Visualisatie", tag: "Visualisatie", d: "Fotorealistische beelden van uw nieuwe kantoor. Zien is geloven, kiezen wordt eenvoudig.", img: OI.media.services.visualisatie3d },
+  { n: "03", t: "Ergonomisch Advies", tag: "Ergonomie", d: "24uurs stoelen, elektrisch verstelbare bureaus en akoestiek. Gezondheid en productiviteit voorop.", img: OI.media.services.ergonomischAdvies },
+  { n: "04", t: "Levering en montage", tag: "Logistiek", d: "Landelijke levering met eigen montageteam. Uw kantoor staat klaar wanneer u het nodig heeft.", img: OI.media.services.leveringMontage },
+  { n: "05", t: "Onderhoud en service", tag: "Service", d: "Reparatie, uitbreiding en herinrichting. Eén partner voor de hele levensduur van uw kantoor.", img: OI.media.services.onderhoudService },
 ] as const;
 
 const SERVICE_LAYOUT = [
@@ -1658,7 +1718,9 @@ function CollectieStatsRail() {
               {s.v}
             </div>
             <div className="relative mt-1.5 text-[11px] text-[var(--muted-foreground)]">{s.note}</div>
-            <div className="relative mt-4 h-px w-8 bg-[var(--ochre)]/40 transition-all duration-500 group-hover/stat:w-full group-hover/stat:bg-gradient-to-r group-hover/stat:from-[var(--ochre)] group-hover/stat:to-transparent" />
+            <div className="relative mt-4">
+              <PremiumStatAccent hoverClassName="group-hover/stat:w-full" />
+            </div>
           </motion.div>
         ))}
       </div>
@@ -1728,12 +1790,12 @@ function ProductCategoryCard({
               {item.line}
             </p>
           </div>
-          <div className="mt-3 flex items-center justify-between gap-2">
+          <div className="mt-3 flex items-center gap-2">
+            <PremiumStatAccent />
             <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--ochre)]/90 font-medium">
               {item.stat}
             </span>
           </div>
-          <div className="mt-2.5 h-px w-0 group-hover:w-full bg-gradient-to-r from-[var(--ochre)] to-transparent transition-all duration-700 ease-out" />
         </div>
 
         <div className="absolute left-1/2 bottom-0 z-30 flex -translate-x-1/2 translate-y-1/2 justify-center">
@@ -1837,7 +1899,7 @@ function ProductCarousel() {
         <div className="mt-10 md:mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--ink)]/8 pt-6">
           <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[var(--muted-foreground)]">
             <span className="size-1.5 rounded-full bg-[var(--clay)] animate-pulse" />
-            <span>Loopt automatisch · hover &amp; sleep om te verschuiven</span>
+            <span>Loopt automatisch, hover en sleep om te verschuiven</span>
           </div>
           <span className="text-[11px] uppercase tracking-[0.2em] text-[var(--muted-foreground)] num">
             {String(items.length).padStart(2, "0")} categorieën
@@ -1897,14 +1959,15 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
     <Reveal delay={i * 0.06}>
       <article className="group relative flex h-full flex-col pb-5">
         <div className="relative flex h-full flex-col rounded-2xl border border-[var(--ink)]/8 bg-[var(--card)] shadow-[0_12px_40px_-24px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:border-[var(--clay)]/25 group-hover:shadow-[0_20px_50px_-20px_rgba(184,138,90,0.22)] group-hover:-translate-y-1">
-          <div className="relative aspect-square overflow-hidden rounded-t-2xl bg-[var(--sand)]">
+          <div className="relative aspect-[5/4] overflow-hidden rounded-t-2xl bg-[var(--sand)] sm:aspect-square">
             <img
               src={b.img}
               alt={b.name}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--ink)]/30 via-[var(--ink)]/5 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--ochre)]/25 via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
             {b.was && (
               <div className="absolute top-4 left-4 rounded-lg bg-[var(--clay)] text-[var(--bone)] px-3 py-1 text-[10px] uppercase tracking-[0.18em] font-medium">
                 Sale

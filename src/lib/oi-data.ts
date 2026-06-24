@@ -3,6 +3,47 @@ export const SHOP_PATH = "/producten";
 export const OI = {
   logo: "https://officeimage.nl/wp-content/uploads/2024/10/logo-nieuw.png",
   hero: "https://officeimage.nl/wp-content/uploads/2025/03/Luxe-kantoorinrichting.jpg",
+  media: {
+    showroomStudio: "https://officeimage.nl/wp-content/uploads/2024/10/546-product_yHFOVOII.jpg",
+    luxeKantoor: "https://officeimage.nl/wp-content/uploads/2025/03/Luxe-kantoorinrichting.jpg",
+    armaDirectie: "https://officeimage.nl/wp-content/uploads/2024/10/ARMA-1.jpg",
+    foxlineWerkplek: "https://officeimage.nl/wp-content/uploads/2024/10/fox-320x160-tafel-1-1.jpg",
+    hrWerkplek: "https://officeimage.nl/wp-content/uploads/2020/07/HR_ZF3ZHFlaag_ret-scaled.jpg",
+    hrVergader: "https://officeimage.nl/wp-content/uploads/2025/03/HR_20230806_16-scaled.jpg",
+    raptorStoel: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_4A-scaled.jpg",
+    brandwerendArchief: "https://officeimage.nl/wp-content/uploads/2024/10/brandweerende-kast-1.jpg",
+    lockersGarderobe: "https://officeimage.nl/wp-content/uploads/2024/10/okk-40_20120827164028.jpg",
+    roldeurArchief: "https://officeimage.nl/wp-content/uploads/2024/10/roldeurkast3-1-600x600.png",
+    archiefOpslag: "https://officeimage.nl/wp-content/uploads/2024/10/eco-rolblok-3.jpg",
+    services: {
+      inrichtingsadvies: "/images/services/inrichtingsadvies.png",
+      visualisatie3d: "/images/services/visualisatie-3d.png",
+      ergonomischAdvies: "/images/services/ergonomisch-advies.png",
+      leveringMontage: "/images/services/levering-montage.png",
+      onderhoudService: "/images/services/onderhoud-service.png",
+    },
+    concepts: {
+      directie: "/images/concepts/concept-directie.png",
+      werkplekken: "/images/concepts/concept-werkplekken.png",
+      bureaustoelen: "/images/concepts/concept-bureaustoelen.png",
+      archiefkasten: "/images/concepts/concept-archiefkasten.png",
+      lockers: "/images/concepts/concept-lockers.png",
+    },
+    bestsellers: {
+      bartafelHalifax: "/images/bestsellers/bestseller-bartafel-halifax.png",
+      bartafelVSerie: "/images/bestsellers/bestseller-bartafel-v-serie.png",
+      raptorStoel: "/images/bestsellers/bestseller-raptor-stoel.png",
+      stoel706cs: "/images/bestsellers/bestseller-706-cs.png",
+    },
+    process: {
+      adviesgesprek: "/images/process/process-adviesgesprek.png",
+      ruimteplan: "/images/process/process-ruimteplan.png",
+      visualisatie3d: "/images/process/process-3d-visualisatie.png",
+      productselectie: "/images/process/process-productselectie.png",
+      leveringMontage: "/images/process/process-levering-montage.png",
+      klanttevredenheid: "/images/process/process-klanttevredenheid.png",
+    },
+  },
   productCarousel: [
     {
       name: "Directie meubelen",
@@ -80,10 +121,38 @@ export const OI = {
     { name: "Kapstokken", img: "https://officeimage.nl/wp-content/uploads/2024/10/127.jpg", href: SHOP_PATH },
   ],
   bestsellers: [
-    { id: "bartafel-manage-it-halifax", name: "Bartafel Manage it 220×80cm, Halifax", price: "€529", was: null, img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20161109_13_RobsonEiken-scaled.jpg", href: SHOP_PATH },
-    { id: "bartafel-v-serie-180", name: "Bartafel V serie 180×80cm", price: "€285", was: null, img: "https://officeimage.nl/wp-content/uploads/2026/04/HR_20231106_14-scaled.jpg", href: SHOP_PATH },
-    { id: "raptor-24uurs-stof", name: "Raptor 24uurs Bureaustoel, stof", price: "€669", was: "€749", img: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_4A-scaled.jpg", href: SHOP_PATH },
-    { id: "bureaustoel-706-cs", name: "706 CS Bureaustoel, mesh zwart", price: "€325", was: null, img: "https://officeimage.nl/wp-content/uploads/2024/12/ca82911f-cd65-4760-aefa-eec137588608.jpg", href: SHOP_PATH },
+    {
+      id: "bartafel-manage-it-halifax",
+      name: "Bartafel Manage it 220×80cm, Halifax",
+      price: "€529",
+      was: null,
+      img: "/images/bestsellers/bestseller-bartafel-halifax.png",
+      href: SHOP_PATH,
+    },
+    {
+      id: "bartafel-v-serie-180",
+      name: "Bartafel V serie 180×80cm",
+      price: "€285",
+      was: null,
+      img: "/images/bestsellers/bestseller-bartafel-v-serie.png",
+      href: SHOP_PATH,
+    },
+    {
+      id: "raptor-24uurs-stof",
+      name: "Raptor 24uurs Bureaustoel, stof",
+      price: "€669",
+      was: "€749",
+      img: "/images/bestsellers/bestseller-raptor-stoel.png",
+      href: SHOP_PATH,
+    },
+    {
+      id: "bureaustoel-706-cs",
+      name: "706 CS Bureaustoel, mesh zwart",
+      price: "€325",
+      was: null,
+      img: "/images/bestsellers/bestseller-706-cs.png",
+      href: SHOP_PATH,
+    },
   ],
   showroom: {
     name: "Office Image Kantoormeubelen",
@@ -112,6 +181,36 @@ export const OI = {
     ["Zaterdag", "11:00 tot 16:00"],
     ["Zondag", "Gesloten"],
   ] as const,
+  footer: {
+    tagline: "LUXE KANTOORINRICHTING, ROTTERDAM & LANDELIJK",
+    description:
+      "Als jong en dynamisch bedrijf biedt Office Image u een unieke mogelijkheid snel en gemakkelijk te bestellen. Exclusieve directiemeubelen, werkplekken en archiefkasten uit eigen voorraad.",
+    catalog: [
+      { label: "Directie meubelen", href: SHOP_PATH },
+      { label: "Bureaustoelen & stoelen", href: SHOP_PATH },
+      { label: "Tafels", href: SHOP_PATH },
+      { label: "Kantoorkasten Archiefkasten", href: SHOP_PATH },
+      { label: "Ladenkasten & rolblokken", href: SHOP_PATH },
+      { label: "Werkplekken elektrisch", href: SHOP_PATH },
+      { label: "Werkplekken Foxline", href: SHOP_PATH },
+      { label: "Werkplekken Nieuw Line", href: SHOP_PATH },
+      { label: "Werkplekken Slinger", href: SHOP_PATH },
+      { label: "Werkplekken T-line", href: SHOP_PATH },
+    ],
+    info: [
+      { label: "Klantenservice", href: "https://officeimage.nl/klantenservice/" },
+      { label: "Bezorgen", href: "https://officeimage.nl/bezorgen/" },
+      { label: "Betaalmethoden", href: "https://officeimage.nl/betaalmethoden/" },
+      { label: "Retourneren", href: "https://officeimage.nl/retourneren/" },
+    ],
+    terms: [
+      { label: "Algemene voorwaarden", href: "https://officeimage.nl/algemene-voorwaarden/" },
+      { label: "Privacy policy", href: "https://officeimage.nl/privacy-policy/" },
+    ],
+    mapsHref:
+      "https://www.google.com/maps/search/?api=1&query=Industrieweg+167+3044+AS+Rotterdam",
+    appointmentNote: "Buiten openingstijden kunt u ook op afspraak de showroom bezoeken",
+  },
 };
 
 export type Bestseller = (typeof OI.bestsellers)[number];

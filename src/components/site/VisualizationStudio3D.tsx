@@ -1,18 +1,11 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
-
-import viz from "@/assets/visualization.jpg";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
-import empty from "@/assets/process-empty.jpg";
-
-const TAB_SCENES = [
-  { img: empty, label: "Plattegrond", depth: -120, scale: 0.92 },
-  { img: viz, label: "Concept", depth: -40, scale: 1 },
-  { img: p2, label: "Render", depth: 20, scale: 1.04 },
-  { img: p3, label: "Opgeleverd", depth: 60, scale: 1.08 },
-] as const;
+import { PaperFlipImage } from "@/components/site/PaperFlipImage";
+import {
+  resolveVisualizationScene,
+  type VisualizationLayoutId,
+  type VisualizationMaterialId,
+} from "@/lib/visualization-data";
 
 function CornerBracket({ className }: { className?: string }) {
   return (
@@ -22,14 +15,25 @@ function CornerBracket({ className }: { className?: string }) {
   );
 }
 
-export function VisualizationStudio3D({ activeTab }: { activeTab: number }) {
+export function VisualizationStudio3D({
+  activeTab,
+  activeMaterial,
+  activeLayout,
+  flipVersion,
+}: {
+  activeTab: number;
+  activeMaterial: VisualizationMaterialId;
+  activeLayout: VisualizationLayoutId;
+  flipVersion: number;
+}) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [14, -14]), { stiffness: 80, damping: 18 });
-  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [-10, 10]), { stiffness: 80, damping: 18 });
+  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [12, -12]), { stiffness: 80, damping: 18 });
+  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [-8, 8]), { stiffness: 80, damping: 18 });
 
-  const scene = TAB_SCENES[activeTab] ?? TAB_SCENES[2];
+  const scene = resolveVisualizationScene(activeTab, activeMaterial, activeLayout);
+  const isPlattegrond = scene.id === "plattegrond";
 
   const handleMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const rect = wrapRef.current?.getBoundingClientRect();
@@ -42,6 +46,10 @@ export function VisualizationStudio3D({ activeTab }: { activeTab: number }) {
     pointerX.set(0);
     pointerY.set(0);
   };
+
+  const mainAlt = isPlattegrond
+    ? `${scene.label}, ${scene.layoutName ?? "indeling"}`
+    : `${scene.label}, ${scene.materialName ?? "materiaal"}`;
 
   return (
     <div
@@ -64,7 +72,7 @@ export function VisualizationStudio3D({ activeTab }: { activeTab: number }) {
 
       <div className="absolute inset-0 [perspective:1400px]">
         <motion.div
-          className="absolute inset-[10%] [transform-style:preserve-3d]"
+          className="absolute inset-[8%] [transform-style:preserve-3d]"
           style={{ rotateX, rotateY }}
         >
           <motion.div
@@ -80,54 +88,84 @@ export function VisualizationStudio3D({ activeTab }: { activeTab: number }) {
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           />
 
-          <motion.div
-            className="absolute left-[8%] top-[18%] h-[48%] w-[34%] overflow-hidden rounded-xl border border-white/10 bg-[#151b24]/80 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] backdrop-blur-sm"
-            style={{ transform: "translateZ(-90px) rotateY(18deg)" }}
-            animate={{ y: [0, -6, 0] }}
-            transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <img src={p1} alt="" className="h-full w-full object-cover opacity-80" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f14]/80 via-transparent to-transparent" />
-            <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-[0.2em] text-white/45">Zone A</span>
-          </motion.div>
+          {!isPlattegrond && (
+            <>
+              <motion.div
+                key={`zone-a-${scene.flipKey}`}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="absolute left-[6%] top-[16%] h-[44%] w-[30%] overflow-hidden rounded-xl border border-white/10 bg-[#151b24]/80 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] backdrop-blur-sm"
+                style={{ transform: "translateZ(-90px) rotateY(18deg)" }}
+              >
+                <motion.img
+                  key={scene.zoneA.img}
+                  src={scene.zoneA.img}
+                  alt={scene.zoneA.label}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.85, y: [0, -6, 0] }}
+                  transition={{ opacity: { duration: 0.4 }, y: { duration: 5.5, repeat: Infinity, ease: "easeInOut" } }}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f14]/80 via-transparent to-transparent" />
+                <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-[0.2em] text-white/55">{scene.zoneA.label}</span>
+              </motion.div>
+
+              <motion.div
+                key={`zone-b-${scene.id}`}
+                initial={{ opacity: 0, x: 12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.05 }}
+                className="absolute right-[4%] top-[20%] h-[38%] w-[26%] overflow-hidden rounded-xl border border-white/10 bg-[#151b24]/80 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] backdrop-blur-sm"
+                style={{ transform: "translateZ(-50px) rotateY(-16deg)" }}
+              >
+                <motion.img
+                  key={scene.zoneB.img}
+                  src={scene.zoneB.img}
+                  alt={scene.zoneB.label}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 0.8, y: [0, 8, 0] }}
+                  transition={{ opacity: { duration: 0.4 }, y: { duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 } }}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f14]/80 via-transparent to-transparent" />
+                <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-[0.2em] text-white/55">{scene.zoneB.label}</span>
+              </motion.div>
+            </>
+          )}
 
           <motion.div
-            className="absolute right-[6%] top-[24%] h-[42%] w-[30%] overflow-hidden rounded-xl border border-white/10 bg-[#151b24]/80 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8)] backdrop-blur-sm"
-            style={{ transform: "translateZ(-50px) rotateY(-16deg)" }}
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 6.2, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-          >
-            <img src={p2} alt="" className="h-full w-full object-cover opacity-75" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f14]/80 via-transparent to-transparent" />
-            <span className="absolute bottom-2 left-2 text-[9px] uppercase tracking-[0.2em] text-white/45">Zone B</span>
-          </motion.div>
-
-          <motion.div
-            key={scene.label}
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: scene.scale }}
+            key={scene.flipKey}
+            animate={{ scale: scene.scale }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-1/2 top-[12%] h-[62%] w-[72%] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/15 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)_inset]"
+            className="absolute left-1/2 top-[6%] h-[70%] w-[80%] -translate-x-1/2 overflow-hidden rounded-2xl border border-white/15 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.85),0_0_0_1px_rgba(255,255,255,0.06)_inset]"
             style={{ transform: `translateZ(${scene.depth}px)` }}
           >
-            <img src={scene.img} alt={scene.label} className="h-full w-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-[var(--ochre)]/10 via-transparent to-white/10 mix-blend-screen" />
+            <PaperFlipImage
+              src={scene.img}
+              alt={mainAlt}
+              flipVersion={flipVersion}
+              className="h-full w-full"
+            />
+            <div className="absolute inset-0 bg-gradient-to-tr from-[var(--ochre)]/10 via-transparent to-white/10 mix-blend-screen pointer-events-none" />
             <div
-              className="absolute inset-0 opacity-[0.18]"
+              className="absolute inset-0 opacity-[0.12] pointer-events-none"
               style={{
                 backgroundImage:
                   "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.35) 2px, rgba(255,255,255,0.35) 3px)",
               }}
             />
             <motion.div
-              className="absolute inset-x-0 top-0 h-[38%] bg-gradient-to-b from-white/20 to-transparent"
+              className="absolute inset-x-0 top-0 h-[38%] bg-gradient-to-b from-white/20 to-transparent pointer-events-none"
               animate={{ y: ["-100%", "120%"] }}
               transition={{ duration: 3.8, repeat: Infinity, ease: "linear", repeatDelay: 2.2 }}
             />
           </motion.div>
 
           <motion.div
-            className="absolute left-1/2 top-[10%] h-[64%] w-[74%] -translate-x-1/2 rounded-2xl border border-[var(--ochre)]/25"
+            className="absolute left-1/2 top-[5%] h-[72%] w-[82%] -translate-x-1/2 rounded-2xl border border-[var(--ochre)]/25 pointer-events-none"
             style={{ transform: "translateZ(95px)" }}
             animate={{ opacity: [0.25, 0.55, 0.25] }}
             transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
@@ -147,8 +185,15 @@ export function VisualizationStudio3D({ activeTab }: { activeTab: number }) {
         <span className="text-[10px] uppercase tracking-[0.22em] text-white/70">Live 3D studio</span>
       </div>
 
-      <div className="pointer-events-none absolute right-4 top-4 rounded-lg border border-white/10 bg-black/35 px-2.5 py-1.5 text-[10px] num text-white/55 backdrop-blur-md">
-        240 m² · {scene.label}
+      <div className="pointer-events-none absolute right-4 top-4 flex flex-col items-end gap-1.5">
+        <div className="rounded-lg border border-white/10 bg-black/35 px-2.5 py-1.5 text-[10px] num text-white/55 backdrop-blur-md">
+          {scene.detail}
+        </div>
+        {(scene.materialName || scene.layoutName) && (
+          <div className="rounded-lg border border-[var(--ochre)]/25 bg-black/35 px-2.5 py-1.5 text-[10px] uppercase tracking-[0.18em] text-[var(--ochre)] backdrop-blur-md">
+            {scene.layoutName ?? scene.materialName}
+          </div>
+        )}
       </div>
 
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_42%,rgba(0,0,0,0.45)_100%)]" />

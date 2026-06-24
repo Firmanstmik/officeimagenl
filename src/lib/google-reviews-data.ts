@@ -20,7 +20,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "hd",
     name: "H D",
-    role: "Local Guide · Maatwerkproject",
+    role: "Local Guide, maatwerkproject",
     initials: "HD",
     accent: "vergadertafel op maat voor 30 personen",
     quote:
@@ -30,7 +30,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "parkeren",
     name: "Bovenmeester Parkeren",
-    role: "Directiemeubelen · Arma",
+    role: "Directiemeubelen, Arma",
     initials: "BP",
     accent: "volgende dag bezorgd en gemonteerd",
     quote:
@@ -40,7 +40,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "robert",
     name: "Robert V.",
-    role: "Particulier · Bureaustoel",
+    role: "Particulier, bureaustoel",
     initials: "RV",
     accent: "expertadvies en snelle levering",
     quote:
@@ -50,7 +50,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "kadir",
     name: "Kadir Ince",
-    role: "Ondernemer · Showroombezoek",
+    role: "Ondernemer, showroombezoek",
     initials: "KI",
     accent: "enorme variatie aan modellen",
     quote:
@@ -60,7 +60,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "hakan",
     name: "Hakan Aksoy",
-    role: "Zaakvoerder · Complete inrichting",
+    role: "Zaakvoerder, complete inrichting",
     initials: "HA",
     accent: "tweede keer volledig kantoor ingericht",
     quote:
@@ -70,7 +70,7 @@ export const GOOGLE_REVIEWS: GoogleReview[] = [
   {
     id: "selvi",
     name: "Selvi Safety & Consultancy",
-    role: "Directie · Kantoorinrichting",
+    role: "Directie, kantoorinrichting",
     initials: "SS",
     accent: "klantenservice ongeëvenaard",
     quote:

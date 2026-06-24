@@ -46,7 +46,7 @@ const CARD_SIZE: Record<
   }
 > = {
   lg: {
-    img: "aspect-[4/3] w-full",
+    img: "aspect-[5/4] w-full",
     title: "text-[14px]",
     link: "text-[11px]",
     pad: "px-3.5 py-3.5",
@@ -55,7 +55,7 @@ const CARD_SIZE: Record<
     showLink: true,
   },
   md: {
-    img: "aspect-[4/3] w-full",
+    img: "aspect-[5/4] w-full",
     title: "text-[13px]",
     link: "text-[10px]",
     pad: "px-3 py-3",
@@ -64,7 +64,7 @@ const CARD_SIZE: Record<
     showLink: true,
   },
   sm: {
-    img: "aspect-[4/3] w-full",
+    img: "aspect-[5/4] w-full",
     title: "text-[12px]",
     link: "text-[10px]",
     pad: "px-2.5 py-2.5",
@@ -73,7 +73,7 @@ const CARD_SIZE: Record<
     showLink: true,
   },
   xs: {
-    img: "aspect-[4/3] w-full",
+    img: "aspect-[5/4] w-full",
     title: "text-[11px]",
     link: "text-[9px]",
     pad: "px-2 py-2",
