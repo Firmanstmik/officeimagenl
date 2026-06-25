@@ -9,9 +9,11 @@ export const DEFAULT_TITLE =
 export const DEFAULT_DESCRIPTION =
   "Exclusieve directiemeubelen, werkplekken, bureaustoelen en archiefkasten. Grote voorraad, snelle levering en persoonlijk advies in onze showroom in Rotterdam, 6 dagen per week open.";
 
-export const OG_IMAGE_PATH = "/og-image.jpg";
+/** Square share card generated from /images/logo-office-image.png */
+export const OG_IMAGE_PATH = "/images/og-whatsapp.png?v=2";
 export const OG_IMAGE_WIDTH = "1200";
-export const OG_IMAGE_HEIGHT = "630";
+export const OG_IMAGE_HEIGHT = "1200";
+export const OG_IMAGE_TYPE = "image/png";
 
 export function absoluteUrl(path: string) {
   return path.startsWith("http") ? path : `${SITE_URL.replace(/\/$/, "")}${path}`;
@@ -49,7 +51,7 @@ export function createPageHead({
       { property: "og:description", content: description },
       { property: "og:image", content: image },
       { property: "og:image:secure_url", content: image },
-      { property: "og:image:type", content: "image/jpeg" },
+      { property: "og:image:type", content: OG_IMAGE_TYPE },
       { property: "og:image:width", content: OG_IMAGE_WIDTH },
       { property: "og:image:height", content: OG_IMAGE_HEIGHT },
       { property: "og:image:alt", content: `${SITE_NAME}, premium kantoormeubelen en showroom Rotterdam` },
