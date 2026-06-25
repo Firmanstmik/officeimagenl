@@ -2,8 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PaymentTrustBar } from "@/components/site/PaymentTrustBar";
 import { PremiumLinkMarker } from "@/components/site/PremiumLinkMarker";
+import { InteractiveOpeningHours, PremiumShowroomCard } from "@/components/site/ShowroomCards";
 import { OI } from "@/lib/oi-data";
-import { btnR } from "@/lib/site-tokens";
 
 function IconPin({ className = "size-4" }: { className?: string }) {
   return (
@@ -227,72 +227,21 @@ export function MainFooter() {
               </a>
               <p className="num text-[var(--graphite)]/70">Kvk: {OI.showroom.kvk}</p>
             </div>
-
-            <div className="mt-6 overflow-hidden rounded-2xl border border-[var(--ink)]/[0.08] bg-white shadow-[0_16px_48px_-28px_rgba(17,24,39,0.18)]">
-              <div className="px-4 py-3 border-b border-[var(--ink)]/[0.06]">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--graphite)]/60 mb-2">
-                  Openingstijden
-                </p>
-                <ul className="space-y-1 text-[13px]">
-                  {OI.hours.map(([day, time]) => (
-                    <li key={day} className="flex items-center justify-between gap-3">
-                      <span className="text-[var(--graphite)]/75">{day}</span>
-                      <span className={`num text-right ${time === "Gesloten" ? "text-[var(--graphite)]/50" : "text-[var(--ink)]/80"}`}>
-                        {time}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-[11px] leading-relaxed text-[var(--graphite)]/60 italic">
-                  {OI.footer.appointmentNote}
-                </p>
-              </div>
-
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <img
-                  src={OI.showroom.img}
-                  alt="Office Image showroom Rotterdam"
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 size-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/88 via-[var(--ink)]/35 to-transparent" />
-                <span className="absolute left-3 top-3 rounded-md bg-[var(--clay)] px-2.5 py-1 text-[9px] font-bold uppercase tracking-[0.18em] text-white">
-                  Premium showroom
-                </span>
-                <div className="absolute inset-x-0 bottom-0 p-4">
-                  <p className="font-display text-lg text-white">{OI.showroom.name}</p>
-                  <p className="text-[12px] text-white/75">
-                    {OI.showroom.address}, {OI.showroom.zip}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    <a
-                      href="/#showroom"
-                      className={`inline-flex items-center gap-1.5 ${btnR} bg-white/95 px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--ink)] hover:bg-white transition-colors`}
-                    >
-                      <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" strokeLinejoin="round" />
-                      </svg>
-                      Bekijk showroom
-                    </a>
-                    <a
-                      href={OI.footer.mapsHref}
-                      target="_blank"
-                      rel="noreferrer"
-                      className={`inline-flex items-center gap-1.5 ${btnR} bg-white/15 backdrop-blur-sm px-3 py-2 text-[10px] font-bold uppercase tracking-[0.14em] text-white ring-1 ring-white/25 hover:bg-white/25 transition-colors`}
-                    >
-                      <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                        <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" />
-                        <circle cx="12" cy="10" r="2.5" />
-                      </svg>
-                      Route plannen
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
           </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-10 md:mt-12 grid gap-5 md:grid-cols-2 items-stretch"
+        >
+          <div className="rounded-2xl border border-[var(--ink)]/[0.08] bg-white p-5 md:p-6 shadow-[0_16px_48px_-28px_rgba(17,24,39,0.18)] h-full">
+            <InteractiveOpeningHours variant="light" />
+          </div>
+          <PremiumShowroomCard className="h-full" />
+        </motion.div>
 
         <PaymentTrustBar variant="light" className="mt-12 md:mt-14" />
       </div>

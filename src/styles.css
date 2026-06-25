@@ -437,3 +437,21 @@
 .group\/hero-card:hover .hero-experience-video-shine {
   animation: hero-experience-gloss-sweep 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
+
+.mega-menu-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--clay) 55%, transparent) transparent;
+}
+
+.mega-menu-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.mega-menu-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--clay) 45%, var(--sand));
+}
+
+.mega-menu-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}

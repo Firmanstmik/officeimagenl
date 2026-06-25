@@ -31,79 +31,27 @@ function CategoryIcon({ id }: { id: string }) {
   );
 }
 
-type CardSize = "lg" | "md" | "sm" | "xs";
+/** Unified mega menu card size — matches Tafels (4-col) layout for every category. */
+const MEGA_CARD = {
+  img: "aspect-[4/3] w-full min-h-[118px]",
+  title: "text-[13px]",
+  link: "text-[11px]",
+  pad: "px-3.5 py-3.5",
+  rounded: "rounded-2xl",
+  tag: "top-3 left-3 text-[9px] px-2 py-1",
+} as const;
 
-const CARD_SIZE: Record<
-  CardSize,
-  {
-    img: string;
-    title: string;
-    link: string;
-    pad: string;
-    rounded: string;
-    tag: string;
-    showLink: boolean;
-  }
-> = {
-  lg: {
-    img: "aspect-[5/4] w-full",
-    title: "text-[14px]",
-    link: "text-[11px]",
-    pad: "px-3.5 py-3.5",
-    rounded: "rounded-2xl",
-    tag: "top-3 left-3 text-[9px] px-2 py-1",
-    showLink: true,
-  },
-  md: {
-    img: "aspect-[5/4] w-full",
-    title: "text-[13px]",
-    link: "text-[10px]",
-    pad: "px-3 py-3",
-    rounded: "rounded-xl",
-    tag: "top-2.5 left-2.5 text-[8px] px-1.5 py-0.5",
-    showLink: true,
-  },
-  sm: {
-    img: "aspect-[5/4] w-full",
-    title: "text-[12px]",
-    link: "text-[10px]",
-    pad: "px-2.5 py-2.5",
-    rounded: "rounded-xl",
-    tag: "top-2 left-2 text-[8px] px-1.5 py-0.5",
-    showLink: true,
-  },
-  xs: {
-    img: "aspect-[5/4] w-full",
-    title: "text-[11px]",
-    link: "text-[9px]",
-    pad: "px-2 py-2",
-    rounded: "rounded-lg",
-    tag: "top-1.5 left-1.5 text-[7px] px-1.5 py-0.5",
-    showLink: true,
-  },
-};
-
-function layoutForCount(count: number) {
-  if (count <= 3) return { grid: "grid-cols-3", size: "lg" as CardSize, gap: "gap-4 xl:gap-5" };
-  if (count === 4) return { grid: "grid-cols-4", size: "md" as CardSize, gap: "gap-3" };
-  if (count === 5) return { grid: "grid-cols-5", size: "sm" as CardSize, gap: "gap-2.5" };
-  if (count === 6) return { grid: "grid-cols-6", size: "sm" as CardSize, gap: "gap-2.5" };
-  return { grid: "grid-cols-8", size: "xs" as CardSize, gap: "gap-2" };
-}
+const COLS_PER_ROW = 4;
 
 function FeaturedCard({
   item,
   index,
   href,
-  size,
 }: {
   item: MegaMenuSection["items"][number];
   index: number;
   href: string;
-  size: CardSize;
 }) {
-  const s = CARD_SIZE[size];
-
   return (
     <motion.a
       href={href}
@@ -113,33 +61,31 @@ function FeaturedCard({
       className="group block min-w-0"
     >
       <div
-        className={`relative overflow-hidden ${s.rounded} border border-[var(--ink)]/[0.06] bg-[var(--card)] shadow-[0_8px_28px_-16px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_20px_48px_-18px_rgba(224,122,50,0.28)] group-hover:border-[var(--clay)]/30`}
+        className={`relative overflow-hidden ${MEGA_CARD.rounded} border border-[var(--ink)]/[0.06] bg-[var(--card)] shadow-[0_8px_28px_-16px_rgba(17,24,39,0.18)] transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_20px_48px_-18px_rgba(224,122,50,0.28)] group-hover:border-[var(--clay)]/30`}
       >
-        <div className={`relative ${s.img} overflow-hidden bg-[color-mix(in_oklab,var(--sand)_45%,var(--bone))]`}>
+        <div className={`relative ${MEGA_CARD.img} overflow-hidden bg-[color-mix(in_oklab,var(--sand)_45%,var(--bone))]`}>
           <img
             src={item.img}
             alt={item.label}
             loading="lazy"
-            className="block h-full w-full object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.04]"
+            className="block h-full w-full object-cover object-center transition-transform duration-[1.1s] ease-out group-hover:scale-[1.05]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/35 via-transparent to-transparent pointer-events-none" />
           {item.tag && (
             <span
-              className={`absolute z-10 rounded-lg bg-[var(--ink)]/80 backdrop-blur-sm uppercase tracking-[0.14em] text-[var(--ochre)] ${s.tag}`}
+              className={`absolute z-10 rounded-lg bg-[var(--ink)]/80 backdrop-blur-sm uppercase tracking-[0.14em] text-[var(--ochre)] ${MEGA_CARD.tag}`}
             >
               {item.tag}
             </span>
           )}
         </div>
-        <div className={`${s.pad} border-t border-[var(--ink)]/[0.05]`}>
+        <div className={`${MEGA_CARD.pad} border-t border-[var(--ink)]/[0.05]`}>
           <span
-            className={`block font-display ${s.title} leading-snug tracking-tight text-[var(--ink)] group-hover:text-[var(--clay)] transition-colors line-clamp-2`}
+            className={`block font-display ${MEGA_CARD.title} leading-snug tracking-tight text-[var(--ink)] group-hover:text-[var(--clay)] transition-colors line-clamp-2`}
           >
             {item.label}
           </span>
-          {s.showLink && (
-            <span className={`mt-1.5 block ${s.link} text-[var(--clay)] font-medium`}>Bekijk collectie</span>
-          )}
+          <span className={`mt-1.5 block ${MEGA_CARD.link} text-[var(--clay)] font-medium`}>Bekijk collectie</span>
         </div>
       </div>
     </motion.a>
@@ -150,7 +96,7 @@ function MegaMenuContent({ menu }: { menu: MegaMenuSection }) {
   const pillItems = menu.extras?.length
     ? [...menu.items.map(i => i.label), ...menu.extras.map(e => e.label)]
     : menu.items.map(i => i.label);
-  const { grid, size, gap } = layoutForCount(menu.items.length);
+  const multiRow = menu.items.length > COLS_PER_ROW;
   const compact = menu.items.length > 5;
 
   return (
@@ -198,10 +144,19 @@ function MegaMenuContent({ menu }: { menu: MegaMenuSection }) {
         ))}
       </div>
 
-      <div className={`grid ${grid} ${gap}`}>
-        {menu.items.map((item, i) => (
-          <FeaturedCard key={item.label} item={item} index={i} href={menu.href} size={size} />
-        ))}
+      <div
+        className={`relative ${multiRow ? "max-h-[min(520px,58vh)] overflow-y-auto overflow-x-hidden pr-1 -mr-1 mega-menu-scroll" : ""}`}
+      >
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 xl:gap-4">
+          {menu.items.map((item, i) => (
+            <FeaturedCard key={item.label} item={item} index={i} href={menu.href} />
+          ))}
+        </div>
+        {multiRow && (
+          <p className="pointer-events-none sticky bottom-0 mt-2 pt-3 text-center text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)] bg-gradient-to-t from-[var(--bone)] via-[var(--bone)]/95 to-transparent">
+            Scroll voor meer collecties
+          </p>
+        )}
       </div>
 
       <p

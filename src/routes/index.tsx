@@ -17,6 +17,8 @@ import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
 import { MaterialPicker } from "@/components/site/MaterialPicker";
 import { LayoutPicker } from "@/components/site/LayoutPicker";
+import { InteractiveOpeningHours } from "@/components/site/ShowroomCards";
+import { ShowroomContactCard } from "@/components/site/ShowroomContactCard";
 import {
   VISUALIZATION_STEPS,
   type VisualizationLayoutId,
@@ -2035,9 +2037,13 @@ function Showroom() {
     <PageSection id="showroom" tone="ink" prevTone="sand" nextTone="ink">
       <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
         <Reveal>
-          <div className="relative rounded-2xl overflow-hidden border border-[var(--bone)]/12">
-            <img src={OI.categories[0].img} alt="Office Image toonzaal" className="w-full aspect-[4/3] object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/70 to-transparent" />
+          <div className="relative rounded-2xl overflow-hidden border border-[var(--bone)]/12 group">
+            <img
+              src={OI.showroom.heroImg}
+              alt="Office Image premium showroom Rotterdam"
+              className="w-full aspect-[4/3] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/75 via-[var(--ink)]/20 to-transparent" />
             <div className="absolute left-6 bottom-6 right-6 flex items-end justify-between gap-4">
               <div>
                 <div className="eyebrow text-[var(--bone)]/65">Showroom, Rotterdam</div>
@@ -2061,32 +2067,17 @@ function Showroom() {
             Onze fysieke showroom in Rotterdam is zes dagen per week open. Buiten openingstijden kunt u ook op afspraak langskomen. Wij staan voor u klaar.
           </p>
 
-          <div className="mt-8 grid sm:grid-cols-2 gap-5">
-            <div className="rounded-2xl border border-[var(--bone)]/12 p-5">
-              <div className="eyebrow text-[var(--bone)]/55">Contact</div>
-              <ul className="mt-3 space-y-1.5 text-[var(--bone)]/85 text-sm">
-                <li><a href={OI.showroom.telHref} className="hover:text-[var(--ochre)] num">Tel {OI.showroom.tel}</a></li>
-                <li><a href={OI.showroom.mobileHref} className="hover:text-[var(--ochre)] num">Mob {OI.showroom.mobile}</a></li>
-                <li className="num">{OI.showroom.email}</li>
-                <li className="num text-[var(--bone)]/55">KvK {OI.showroom.kvk}</li>
-              </ul>
-            </div>
-            <div className="rounded-2xl border border-[var(--bone)]/12 p-5">
-              <div className="eyebrow text-[var(--bone)]/55">Openingstijden</div>
-              <ul className="mt-3 space-y-1.5 text-sm">
-                {OI.hours.map(([d, h]) => (
-                  <li key={d} className="flex justify-between text-[var(--bone)]/85">
-                    <span>{d}</span>
-                    <span className={`num ${h === "Gesloten" ? "text-[var(--bone)]/40" : ""}`}>{h}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="mt-8 grid sm:grid-cols-2 gap-5 items-stretch">
+            <ShowroomContactCard />
+            <div className="rounded-2xl border border-[var(--bone)]/12 p-5 h-full flex flex-col">
+              <InteractiveOpeningHours variant="dark" className="flex-1" />
             </div>
           </div>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href={OI.showroom.telHref}><ArrowLink variant="clay">Bel direct</ArrowLink></a>
-            <span className="pointer-events-none"><ArrowLink variant="bone">Volg op Instagram</ArrowLink></span>
+            <a href={OI.social.instagram} target="_blank" rel="noreferrer">
+              <ArrowLink variant="bone">Volg op Instagram</ArrowLink>
+            </a>
           </div>
         </Reveal>
       </div>
