@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PaymentTrustBar } from "@/components/site/PaymentTrustBar";
 import { PremiumLinkMarker } from "@/components/site/PremiumLinkMarker";
-import { SimpleOpeningHours, PremiumShowroomCard } from "@/components/site/ShowroomCards";
+import { PremiumShowroomCard } from "@/components/site/ShowroomCards";
 import { OI } from "@/lib/oi-data";
 
 function IconPin({ className = "size-4" }: { className?: string }) {
@@ -226,10 +226,6 @@ export function MainFooter() {
                 Mobiel: {OI.showroom.mobile}
               </a>
               <p className="num text-[var(--graphite)]/70">Kvk: {OI.showroom.kvk}</p>
-            </div>
-
-            <div className="mt-6">
-              <SimpleOpeningHours variant="light" />
             </div>
 
             <PremiumShowroomCard className="mt-6 max-w-[320px]" />

@@ -17,7 +17,7 @@ import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
 import { MaterialPicker } from "@/components/site/MaterialPicker";
 import { LayoutPicker } from "@/components/site/LayoutPicker";
-import { SimpleOpeningHours } from "@/components/site/ShowroomCards";
+import { InteractiveOpeningHours } from "@/components/site/ShowroomCards";
 import { ShowroomContactCard } from "@/components/site/ShowroomContactCard";
 import {
   VISUALIZATION_STEPS,
@@ -2070,7 +2070,7 @@ function Showroom() {
           <div className="mt-8 grid sm:grid-cols-2 gap-5 items-stretch">
             <ShowroomContactCard />
             <div className="rounded-2xl border border-[var(--bone)]/12 p-5 h-full flex flex-col">
-              <SimpleOpeningHours variant="dark" className="flex-1" />
+              <InteractiveOpeningHours variant="dark" className="flex-1" />
             </div>
           </div>
 
