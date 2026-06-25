@@ -49,9 +49,10 @@ export function createPageHead({
       { property: "og:description", content: description },
       { property: "og:image", content: image },
       { property: "og:image:secure_url", content: image },
+      { property: "og:image:type", content: "image/jpeg" },
       { property: "og:image:width", content: OG_IMAGE_WIDTH },
       { property: "og:image:height", content: OG_IMAGE_HEIGHT },
-      { property: "og:image:alt", content: `${SITE_NAME}, hoogwaardige kantoorinrichting` },
+      { property: "og:image:alt", content: `${SITE_NAME}, premium kantoormeubelen en showroom Rotterdam` },
 
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
