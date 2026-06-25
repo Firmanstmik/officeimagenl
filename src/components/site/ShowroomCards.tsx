@@ -1,188 +1,63 @@
-import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { OI } from "@/lib/oi-data";
 import { btnR } from "@/lib/site-tokens";
 
-const DAY_INDEX: Record<string, number> = {
-  Zondag: 0,
-  Maandag: 1,
-  Dinsdag: 2,
-  Woensdag: 3,
-  Donderdag: 4,
-  Vrijdag: 5,
-  Zaterdag: 6,
-};
-
-function parseTime(t: string) {
-  const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
-}
-
-function getShowroomStatus(now = new Date()) {
-  const day = now.getDay();
-  const minutes = now.getHours() * 60 + now.getMinutes();
-  const today = OI.hours.find(([name]) => DAY_INDEX[name] === day);
-  if (!today) return { open: false, label: "Gesloten", todayName: "" };
-
-  const [, hours] = today;
-  if (hours === "Gesloten") return { open: false, label: "Vandaag gesloten", todayName: today[0] };
-
-  const [start, end] = hours.split(" tot ");
-  const open = minutes >= parseTime(start) && minutes < parseTime(end);
-  return {
-    open,
-    label: open ? "Nu open" : "Nu gesloten",
-    todayName: today[0],
-  };
-}
-
 type Variant = "dark" | "light";
 
-export function InteractiveOpeningHours({
+const GROUPED_HOURS = [
+  ["Maandag tot Vrijdag", "09:00 tot 17:30"],
+  ["Zaterdag", "11:00 tot 16:00"],
+  ["Zondag", "Gesloten"],
+] as const;
+
+export function SimpleOpeningHours({
   variant = "light",
   className = "",
 }: {
   variant?: Variant;
   className?: string;
 }) {
-  const [expanded, setExpanded] = useState(false);
-  const status = useMemo(() => getShowroomStatus(), []);
-  const todayIdx = new Date().getDay();
-
   const isDark = variant === "dark";
 
   return (
     <div className={className}>
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div>
-          <p
-            className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${
-              isDark ? "text-[var(--bone)]/55" : "text-[var(--graphite)]/65"
+      <p
+        className={`text-[10px] font-semibold uppercase tracking-[0.22em] ${
+          isDark ? "text-[var(--bone)]/55" : "text-[var(--graphite)]/65"
+        }`}
+      >
+        Openingstijden
+      </p>
+      <ul className="mt-3 space-y-1.5">
+        {GROUPED_HOURS.map(([day, time]) => (
+          <li
+            key={day}
+            className={`flex items-center justify-between gap-3 text-[13px] ${
+              isDark ? "text-[var(--bone)]/85" : "text-[var(--ink)]/85"
             }`}
           >
-            Openingstijden
-          </p>
-          <p className={`mt-1 text-[13px] ${isDark ? "text-[var(--bone)]/55" : "text-[var(--graphite)]/65"}`}>
-            {status.todayName ? `Vandaag: ${status.todayName}` : "Showroom Rotterdam"}
-          </p>
-        </div>
-        <motion.span
-          animate={{ scale: status.open ? [1, 1.04, 1] : 1 }}
-          transition={{ duration: 2.2, repeat: status.open ? Infinity : 0, ease: "easeInOut" }}
-          className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${
-            status.open
-              ? "bg-emerald-500/15 text-emerald-700 ring-1 ring-emerald-500/25"
-              : isDark
-                ? "bg-[var(--bone)]/10 text-[var(--bone)]/55 ring-1 ring-[var(--bone)]/15"
-                : "bg-[var(--sand)] text-[var(--graphite)]/70 ring-1 ring-[var(--ink)]/[0.08]"
-          }`}
-        >
-          <span
-            className={`size-1.5 rounded-full ${
-              status.open ? "bg-emerald-500 animate-pulse" : isDark ? "bg-[var(--bone)]/35" : "bg-[var(--graphite)]/35"
-            }`}
-          />
-          {status.label}
-        </motion.span>
-      </div>
-
-      <ul className="space-y-1.5">
-        {OI.hours.map(([day, time]) => {
-          const isToday = DAY_INDEX[day] === todayIdx;
-          const closed = time === "Gesloten";
-          return (
-            <motion.li
-              key={day}
-              layout
-              className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2 transition-colors duration-300 ${
-                isDark
-                  ? "border-[var(--bone)]/10 hover:bg-[var(--bone)]/[0.06]"
-                  : "border-[var(--ink)]/[0.06] hover:bg-[var(--sand)]/60"
-              } ${
-                isToday
+            <span>{day}</span>
+            <span
+              className={`num text-right ${
+                time === "Gesloten"
                   ? isDark
-                    ? "bg-[var(--bone)]/[0.08] border-[var(--clay)]/35"
-                    : "bg-[var(--sand)]/80 border-[var(--clay)]/30 shadow-[0_4px_16px_-10px_rgba(184,138,90,0.35)]"
+                    ? "text-[var(--bone)]/45"
+                    : "text-[var(--graphite)]/55"
                   : ""
               }`}
             >
-              <span
-                className={`text-[13px] font-medium ${
-                  isToday ? (isDark ? "text-[var(--bone)]" : "text-[var(--ink)]") : isDark ? "text-[var(--bone)]/85" : "text-[var(--ink)]/85"
-                }`}
-              >
-                {day}
-                {isToday && (
-                  <span
-                    className={`ml-2 text-[10px] uppercase tracking-widest ${
-                      isDark ? "text-[var(--ochre)]" : "text-[var(--clay)]"
-                    }`}
-                  >
-                    vandaag
-                  </span>
-                )}
-              </span>
-              <span
-                className={`num text-[13px] text-right ${
-                  closed
-                    ? isDark
-                      ? "text-[var(--bone)]/55"
-                      : "text-[var(--graphite)]/65"
-                    : isToday
-                      ? isDark
-                        ? "text-[var(--bone)]"
-                        : "text-[var(--ink)]"
-                      : isDark
-                        ? "text-[var(--bone)]/85"
-                        : "text-[var(--ink)]/85"
-                }`}
-              >
-                {time}
-              </span>
-            </motion.li>
-          );
-        })}
+              {time}
+            </span>
+          </li>
+        ))}
       </ul>
-
-      <button
-        type="button"
-        onClick={() => setExpanded(v => !v)}
-        className={`mt-4 w-full text-left text-[12px] leading-relaxed transition-colors ${
-          isDark ? "text-[var(--bone)]/55 hover:text-[var(--bone)]/80" : "text-[var(--graphite)]/65 hover:text-[var(--ink)]"
+      <p
+        className={`mt-3 text-[11px] leading-relaxed italic ${
+          isDark ? "text-[var(--bone)]/50" : "text-[var(--graphite)]/60"
         }`}
       >
-        <span className="font-medium">{expanded ? "Minder info" : "Afspraak buiten openingstijden?"}</span>
-      </button>
-
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden"
-          >
-            <p
-              className={`pt-2 text-[12px] leading-relaxed italic ${
-                isDark ? "text-[var(--bone)]/55" : "text-[var(--graphite)]/65"
-              }`}
-            >
-              {OI.footer.appointmentNote}
-            </p>
-            <a
-              href={OI.showroom.telHref}
-              className={`mt-3 inline-flex items-center gap-2 ${btnR} px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors ${
-                isDark
-                  ? "bg-[var(--clay)] text-[var(--bone)] hover:bg-[var(--ochre)]"
-                  : "bg-[var(--ink)] text-[var(--bone)] hover:bg-[var(--clay)]"
-              }`}
-            >
-              Bel voor afspraak
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {OI.footer.appointmentNote}
+      </p>
     </div>
   );
 }
@@ -190,54 +65,59 @@ export function InteractiveOpeningHours({
 export function PremiumShowroomCard({ className = "" }: { className?: string }) {
   return (
     <motion.div
-      whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 320, damping: 24 }}
-      className={`group relative overflow-hidden rounded-2xl border border-[var(--ink)]/[0.08] bg-white shadow-[0_20px_56px_-28px_rgba(17,24,39,0.22)] ${className}`}
+      whileHover={{ y: -2 }}
+      transition={{ type: "spring", stiffness: 340, damping: 26 }}
+      className={`group overflow-hidden rounded-xl border border-[var(--ink)]/[0.08] bg-white shadow-[0_12px_36px_-24px_rgba(17,24,39,0.22)] ${className}`}
     >
-      <div className="relative aspect-[16/11] overflow-hidden">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={OI.showroom.img}
           alt="Office Image premium showroom Rotterdam"
           loading="lazy"
-          className="absolute inset-0 size-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.05]"
+          className="absolute inset-0 size-full object-cover transition-transform duration-[1.1s] ease-out group-hover:scale-[1.04]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/92 via-[var(--ink)]/30 to-[var(--ink)]/10" />
-        <span className="absolute left-4 top-4 rounded-full bg-[var(--clay)] px-3 py-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-white shadow-[0_8px_20px_-8px_rgba(224,122,50,0.65)]">
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/95 via-[var(--ink)]/35 to-[var(--ink)]/10" />
+
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[var(--ink)]/75 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
+          <span className="size-1.5 rounded-full bg-[var(--clay)]" />
           Premium showroom
         </span>
-        <div className="absolute right-4 top-4 rounded-xl bg-black/35 px-2.5 py-1.5 text-[10px] num text-white/80 backdrop-blur-md">
-          6/7 dagen open
-        </div>
 
-        <div className="absolute inset-x-0 bottom-0 p-5">
-          <p className="font-display text-xl text-white">{OI.showroom.name}</p>
-          <p className="mt-1 text-[13px] text-white/75">
+        <div className="absolute inset-x-0 bottom-0 p-3.5">
+          <p className="font-display text-[15px] leading-tight text-white">{OI.showroom.name}</p>
+          <p className="mt-1 flex items-center gap-1.5 text-[11px] text-white/70">
+            <svg className="size-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" />
+              <circle cx="12" cy="10" r="2.5" />
+            </svg>
             {OI.showroom.address}, {OI.showroom.zip}
           </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            <a
-              href="/#showroom"
-              className={`inline-flex items-center gap-1.5 ${btnR} bg-white/95 px-3.5 py-2.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--ink)] hover:bg-white transition-colors`}
-            >
-              <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" strokeLinejoin="round" />
-              </svg>
-              Bekijk showroom
-            </a>
-            <a
-              href={OI.footer.mapsHref}
-              target="_blank"
-              rel="noreferrer"
-              className={`inline-flex items-center gap-1.5 ${btnR} bg-white/15 backdrop-blur-sm px-3.5 py-2.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white ring-1 ring-white/25 hover:bg-white/25 transition-colors`}
-            >
-              <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" />
-                <circle cx="12" cy="10" r="2.5" />
-              </svg>
-              Route plannen
-            </a>
-          </div>
         </div>
+      </div>
+
+      <div className="flex border-t border-[var(--ink)]/[0.08] bg-[var(--ink)] text-[10px] font-bold uppercase tracking-[0.14em]">
+        <a
+          href="/#showroom"
+          className={`flex flex-1 items-center justify-center gap-1.5 px-3 py-2.5 text-white/90 transition-colors hover:bg-white/[0.06] ${btnR}`}
+        >
+          <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" strokeLinejoin="round" />
+          </svg>
+          Bekijk showroom
+        </a>
+        <div className="w-px bg-white/12" />
+        <a
+          href={OI.footer.mapsHref}
+          target="_blank"
+          rel="noreferrer"
+          className={`flex flex-1 items-center justify-center gap-1.5 px-3 py-2.5 text-white/90 transition-colors hover:bg-white/[0.06] ${btnR}`}
+        >
+          <svg className="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>
+          Route plannen
+        </a>
       </div>
     </motion.div>
   );

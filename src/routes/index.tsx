@@ -17,7 +17,7 @@ import { HeroScrollCue } from "@/components/site/HeroScrollCue";
 import { VisualizationStudio3D } from "@/components/site/VisualizationStudio3D";
 import { MaterialPicker } from "@/components/site/MaterialPicker";
 import { LayoutPicker } from "@/components/site/LayoutPicker";
-import { InteractiveOpeningHours } from "@/components/site/ShowroomCards";
+import { SimpleOpeningHours } from "@/components/site/ShowroomCards";
 import { ShowroomContactCard } from "@/components/site/ShowroomContactCard";
 import {
   VISUALIZATION_STEPS,
@@ -1422,7 +1422,7 @@ function Services() {
 const PROJECTS = [
   { img: OI.categories[0].img, t: "Directiesuite", type: "Directiemeubelen", scope: "Exclusief, op maat", city: "Rotterdam", year: "2025" },
   { img: OI.categories[1].img, t: "Foxline werkplek", type: "Werkplekken", scope: "Elektrisch verstelbaar", city: "Showroom Rotterdam", year: "2025" },
-  { img: OI.categories[3].img, t: "Raptor bureaustoel", type: "Bureaustoelen", scope: "24 uurs, vanaf €669", city: "Bestseller", year: "2026" },
+  { img: "/images/collections/raptor-bureaustoel-premium.jpg", t: "Raptor bureaustoel", type: "Bureaustoelen", scope: "24 uurs, vanaf €669", city: "Bestseller", year: "2026" },
 ];
 
 function Projects() {
@@ -2070,7 +2070,7 @@ function Showroom() {
           <div className="mt-8 grid sm:grid-cols-2 gap-5 items-stretch">
             <ShowroomContactCard />
             <div className="rounded-2xl border border-[var(--bone)]/12 p-5 h-full flex flex-col">
-              <InteractiveOpeningHours variant="dark" className="flex-1" />
+              <SimpleOpeningHours variant="dark" className="flex-1" />
             </div>
           </div>
 

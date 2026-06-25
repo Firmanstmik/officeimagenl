@@ -130,19 +130,19 @@ export const OI = {
       href: SHOP_PATH,
     },
     {
-      id: "bartafel-v-serie-180",
-      name: "Bartafel V serie 180×80cm",
-      price: "€285",
-      was: null,
-      img: "/images/bestsellers/bestseller-bartafel-v-serie.png",
-      href: SHOP_PATH,
-    },
-    {
       id: "raptor-24uurs-stof",
       name: "Raptor 24uurs Bureaustoel, stof",
       price: "€669",
       was: "€749",
       img: "/images/bestsellers/bestseller-raptor-stoel.png",
+      href: SHOP_PATH,
+    },
+    {
+      id: "bartafel-v-serie-180",
+      name: "Bartafel V serie 180×80cm",
+      price: "€285",
+      was: null,
+      img: "/images/bestsellers/bestseller-bartafel-v-serie.png",
       href: SHOP_PATH,
     },
     {

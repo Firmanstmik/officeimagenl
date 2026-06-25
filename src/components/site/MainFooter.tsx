@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { PaymentTrustBar } from "@/components/site/PaymentTrustBar";
 import { PremiumLinkMarker } from "@/components/site/PremiumLinkMarker";
-import { InteractiveOpeningHours, PremiumShowroomCard } from "@/components/site/ShowroomCards";
+import { SimpleOpeningHours, PremiumShowroomCard } from "@/components/site/ShowroomCards";
 import { OI } from "@/lib/oi-data";
 
 function IconPin({ className = "size-4" }: { className?: string }) {
@@ -227,21 +227,14 @@ export function MainFooter() {
               </a>
               <p className="num text-[var(--graphite)]/70">Kvk: {OI.showroom.kvk}</p>
             </div>
+
+            <div className="mt-6">
+              <SimpleOpeningHours variant="light" />
+            </div>
+
+            <PremiumShowroomCard className="mt-6 max-w-[320px]" />
           </motion.div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-10 md:mt-12 grid gap-5 md:grid-cols-2 items-stretch"
-        >
-          <div className="rounded-2xl border border-[var(--ink)]/[0.08] bg-white p-5 md:p-6 shadow-[0_16px_48px_-28px_rgba(17,24,39,0.18)] h-full">
-            <InteractiveOpeningHours variant="light" />
-          </div>
-          <PremiumShowroomCard className="h-full" />
-        </motion.div>
 
         <PaymentTrustBar variant="light" className="mt-12 md:mt-14" />
       </div>
