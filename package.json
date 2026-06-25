@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "og:image": "node scripts/generate-og-image.mjs"
+    "og:image": "node scripts/generate-og-image.mjs",
+    "images:webp": "node scripts/convert-images-to-webp.mjs"
   },
   "engines": {
     "node": ">=20"

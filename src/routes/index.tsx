@@ -30,17 +30,17 @@ import { MEGA_MENUS } from "@/lib/mega-menu-data";
 import { btnR, ease, sectionH2 } from "@/lib/site-tokens";
 import { createPageHead } from "@/lib/site-seo";
 
-import hero from "@/assets/hero.jpg";
-import cExec from "@/assets/concept-executive.jpg";
-import cCollab from "@/assets/concept-collaborative.jpg";
-import cHybrid from "@/assets/concept-hybrid.jpg";
-import cFocus from "@/assets/concept-focus.jpg";
-import cCreative from "@/assets/concept-creative.jpg";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
-import empty from "@/assets/process-empty.jpg";
-import ctaImg from "@/assets/cta-dark.jpg";
+import hero from "@/assets/hero.webp";
+import cExec from "@/assets/concept-executive.webp";
+import cCollab from "@/assets/concept-collaborative.webp";
+import cHybrid from "@/assets/concept-hybrid.webp";
+import cFocus from "@/assets/concept-focus.webp";
+import cCreative from "@/assets/concept-creative.webp";
+import p1 from "@/assets/project-1.webp";
+import p2 from "@/assets/project-2.webp";
+import p3 from "@/assets/project-3.webp";
+import empty from "@/assets/process-empty.webp";
+import ctaImg from "@/assets/cta-dark.webp";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -1422,7 +1422,7 @@ function Services() {
 const PROJECTS = [
   { img: OI.categories[0].img, t: "Directiesuite", type: "Directiemeubelen", scope: "Exclusief, op maat", city: "Rotterdam", year: "2025" },
   { img: OI.categories[1].img, t: "Foxline werkplek", type: "Werkplekken", scope: "Elektrisch verstelbaar", city: "Showroom Rotterdam", year: "2025" },
-  { img: "/images/collections/raptor-bureaustoel-premium.jpg", t: "Raptor bureaustoel", type: "Bureaustoelen", scope: "24 uurs, vanaf €669", city: "Bestseller", year: "2026" },
+  { img: "/images/collections/raptor-bureaustoel-premium.webp", t: "Raptor bureaustoel", type: "Bureaustoelen", scope: "24 uurs, vanaf €669", city: "Bestseller", year: "2026" },
 ];
 
 function Projects() {

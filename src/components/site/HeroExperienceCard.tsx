@@ -6,7 +6,7 @@ import { Maximize4, Pause, Play } from "iconsax-reactjs";
 import vidHero1 from "@/assets/hero/vid-hero1.mp4";
 import vidHero2 from "@/assets/hero/vid-hero2.mp4";
 import vidHero3 from "@/assets/hero/vid-hero3.mp4";
-import imgHero from "@/assets/hero/img-hero.jpg";
+import imgHero from "@/assets/hero/img-hero.webp";
 import { ease } from "@/lib/site-tokens";
 
 const MEDIA_TILES = [
