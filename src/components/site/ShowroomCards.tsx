@@ -190,27 +190,37 @@ export function InteractiveOpeningHours({
 export function PremiumShowroomCard({ className = "" }: { className?: string }) {
   return (
     <motion.div
-      whileHover={{ y: -2 }}
+      whileHover={{ y: -3 }}
       transition={{ type: "spring", stiffness: 340, damping: 26 }}
-      className={`group overflow-hidden rounded-xl border border-[var(--ink)]/[0.08] bg-white shadow-[0_12px_36px_-24px_rgba(17,24,39,0.22)] ${className}`}
+      className={`group overflow-hidden rounded-xl border border-[var(--ink)]/[0.08] bg-white shadow-[0_12px_36px_-24px_rgba(17,24,39,0.22)] transition-[border-color,box-shadow] duration-500 ease-out hover:border-[var(--clay)]/60 hover:shadow-[0_28px_64px_-22px_rgba(224,122,50,0.32),0_18px_48px_-28px_rgba(17,24,39,0.28)] ${className}`}
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
           src={OI.showroom.img}
           alt="Office Image premium showroom Rotterdam"
           loading="lazy"
-          className="absolute inset-0 size-full object-cover transition-transform duration-[1.1s] ease-out group-hover:scale-[1.04]"
+          className="absolute inset-0 size-full object-cover transition-[transform,filter] duration-[1.1s] ease-out group-hover:scale-[1.06] group-hover:brightness-[1.08] group-hover:saturate-[1.12] group-hover:contrast-[1.04]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/95 via-[var(--ink)]/35 to-[var(--ink)]/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/95 via-[var(--ink)]/38 to-[var(--ink)]/12 transition-opacity duration-500 group-hover:from-[var(--ink)]/72 group-hover:via-[var(--ink)]/18 group-hover:to-transparent" />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+          style={{
+            background:
+              "linear-gradient(135deg, color-mix(in oklab, var(--clay) 14%, transparent) 0%, transparent 45%, color-mix(in oklab, var(--ochre) 10%, transparent) 100%)",
+          }}
+        />
 
-        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[var(--ink)]/75 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm">
-          <span className="size-1.5 rounded-full bg-[var(--clay)]" />
+        <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[var(--ink)]/75 px-2.5 py-1 text-[8px] font-bold uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-colors duration-500 group-hover:border-[var(--clay)]/40 group-hover:bg-[var(--ink)]/85">
+          <span className="size-1.5 rounded-full bg-[var(--clay)] shadow-[0_0_8px_rgba(224,122,50,0.65)]" />
           Premium showroom
         </span>
 
-        <div className="absolute inset-x-0 bottom-0 p-3.5">
-          <p className="font-display text-[15px] leading-tight text-white">{OI.showroom.name}</p>
-          <p className="mt-1 flex items-center gap-1.5 text-[11px] text-white/70">
+        <div className="absolute inset-x-0 bottom-0 p-3.5 transition-transform duration-500 group-hover:-translate-y-0.5">
+          <p className="font-display text-[15px] leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]">
+            {OI.showroom.name}
+          </p>
+          <p className="mt-1 flex items-center gap-1.5 text-[11px] text-white/80 group-hover:text-white/95 transition-colors duration-500">
             <svg className="size-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11Z" />
               <circle cx="12" cy="10" r="2.5" />
@@ -220,7 +230,7 @@ export function PremiumShowroomCard({ className = "" }: { className?: string }) 
         </div>
       </div>
 
-      <div className="flex border-t border-[var(--ink)]/[0.08] bg-[var(--ink)] text-[10px] font-bold uppercase tracking-[0.14em]">
+      <div className="flex border-t border-[var(--ink)]/[0.08] bg-[var(--ink)] text-[10px] font-bold uppercase tracking-[0.14em] transition-colors duration-500 group-hover:border-[var(--clay)]/25">
         <a
           href="/#showroom"
           className={`flex flex-1 items-center justify-center gap-1.5 px-3 py-2.5 text-white/90 transition-colors hover:bg-white/[0.06] ${btnR}`}
