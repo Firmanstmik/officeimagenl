@@ -51,12 +51,12 @@ export function PageSection({
   const toneChangesNext = nextTone != null && nextTone !== tone;
 
   const pt = continuesPrev
-    ? "pt-10 md:pt-14"
+    ? "pt-8 md:pt-14"
     : prevTone === "hero"
-      ? "pt-14 md:pt-20"
-      : "pt-[4.75rem] md:pt-[6.5rem]";
+      ? "pt-10 md:pt-20"
+      : "pt-12 md:pt-[6.5rem]";
 
-  const pb = continuesNext ? "pb-10 md:pb-14" : "pb-[5.75rem] md:pb-[7.75rem]";
+  const pb = continuesNext ? "pb-8 md:pb-14" : "pb-12 md:pb-[7.75rem]";
 
   const showTopHairline = continuesPrev;
   const showTopBlend = !continuesPrev && (toneChanges || prevTone === "hero");

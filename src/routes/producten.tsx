@@ -43,16 +43,16 @@ function ProductenPage() {
       <section className="relative overflow-hidden border-b border-[var(--ink)]/6">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_70%_-10%,rgba(212,165,116,0.18),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_40%_at_10%_100%,rgba(17,24,39,0.06),transparent)]" />
-        <div className="relative max-w-[1500px] mx-auto px-6 md:px-12 pt-14 md:pt-20 pb-16 md:pb-24">
+        <div className="relative max-w-[1500px] mx-auto px-3.5 md:px-12 pt-10 md:pt-20 pb-10 md:pb-24">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease }}>
             <div className="eyebrow inline-flex items-center gap-2.5 text-[var(--muted-foreground)]">
               <span className="inline-block size-1.5 rounded-full bg-[var(--clay)]" />
               Hoogwaardige catalogus
             </div>
-            <h1 className={`mt-5 ${sectionH2} max-w-[16ch]`}>
+            <h1 className={`mt-4 md:mt-5 ${sectionH2} max-w-[16ch]`}>
               Ontdek meubelen die uw <span className="italic text-[var(--clay)]">werkplek verheffen.</span>
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-[var(--muted-foreground)] leading-relaxed">
+            <p className="mt-4 md:mt-6 max-w-xl text-[13px] md:text-lg text-[var(--muted-foreground)] leading-relaxed">
               Bestsellers uit eigen voorraad, direct leverbaar. Filter op categorie, voeg toe aan uw winkelwagen en rond af in een naadloos afrekenproces.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">

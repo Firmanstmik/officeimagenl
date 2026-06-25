@@ -455,3 +455,66 @@
 .mega-menu-scroll::-webkit-scrollbar-track {
   background: transparent;
 }
+
+/* ── Native mobile app shell (≤767px) ── */
+@media (max-width: 767px) {
+  :root {
+    --oi-tab-bar-h: calc(3.35rem + env(safe-area-inset-bottom, 0px));
+    --oi-app-radius: 1.35rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .oi-mobile-main {
+    padding-bottom: var(--oi-tab-bar-h);
+  }
+
+  .oi-mobile-main .eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+  }
+
+  .oi-mobile-main section {
+    scroll-margin-top: 3.5rem;
+  }
+
+  .oi-app-section {
+    margin-inline: 0.75rem;
+    border-radius: var(--oi-app-radius);
+    overflow: hidden;
+  }
+
+  .oi-app-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: color-mix(in oklab, var(--ink) 96%, transparent);
+    backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid color-mix(in oklab, var(--bone) 10%, transparent);
+  }
+
+  .oi-mobile-main .max-w-\[1500px\],
+  .oi-mobile-main .max-w-\[1600px\] {
+    max-width: 100%;
+  }
+
+  .oi-mobile-main .max-w-\[1500px\].mx-auto,
+  .oi-mobile-main .max-w-\[1600px\].mx-auto {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+
+  .oi-mobile-main [class*="rounded-2xl"] {
+    border-radius: 1.15rem;
+  }
+}

@@ -55,10 +55,10 @@ function MediaTile({
       transition={{ duration: 0.7, delay: 0.6 + index * 0.09, ease }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`group/tile relative min-w-0 overflow-hidden rounded-xl border border-white/22 bg-[var(--ink)]/20 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.55)] backdrop-blur-md transition-[border-color,box-shadow,transform] duration-500 hover:border-[var(--ochre)]/50 hover:shadow-[0_14px_36px_-10px_rgba(240,160,96,0.38)] ${
+      className={`group/tile relative min-w-0 overflow-hidden rounded-lg md:rounded-xl border border-white/22 bg-[var(--ink)]/20 shadow-[0_10px_28px_-14px_rgba(0,0,0,0.55)] backdrop-blur-md transition-[border-color,box-shadow,transform] duration-500 hover:border-[var(--ochre)]/50 hover:shadow-[0_14px_36px_-10px_rgba(240,160,96,0.38)] ${
         tile.featured
-          ? "z-[2] aspect-[5/3.5] sm:aspect-[16/11] -translate-y-1 sm:-translate-y-1.5"
-          : "aspect-[16/11]"
+          ? "z-[2] aspect-[5/3.5] max-md:aspect-[4/3] sm:aspect-[16/11] max-md:-translate-y-0.5 sm:-translate-y-1 md:-translate-y-1.5"
+          : "aspect-[16/11] max-md:aspect-[5/3]"
       }`}
     >
       {tile.type === "video" ? (
@@ -236,8 +236,8 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
         transition={{ duration: 0.65, ease }}
         className="relative"
       >
-        <div className="hero-experience-frame relative overflow-hidden rounded-[26px] p-[1.5px]">
-          <div className="relative overflow-hidden rounded-[24px] aspect-[16/11] min-h-[290px] sm:min-h-[325px] lg:min-h-[375px] xl:min-h-[400px]">
+        <div className="hero-experience-frame relative overflow-hidden rounded-[20px] md:rounded-[26px] p-[1.5px]">
+          <div className="relative overflow-hidden rounded-[18px] md:rounded-[24px] aspect-[16/14] sm:aspect-[16/12] md:aspect-[16/11] min-h-[248px] sm:min-h-[325px] lg:min-h-[375px] xl:min-h-[400px]">
             <motion.video
               ref={bgVideoRef}
               src={vidHero1}
@@ -290,15 +290,15 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
             <div className="pointer-events-none absolute inset-x-6 top-0 z-[2] h-px bg-gradient-to-r from-transparent via-white/70 to-transparent" />
 
             <div className="relative z-[3] flex h-full flex-col">
-              <div className="relative flex-1 min-h-[44%] px-4 pt-4 sm:px-5 sm:pt-5">
+              <div className="relative shrink-0 px-3.5 pt-3 pb-1 sm:px-5 sm:pt-5 sm:pb-0 md:flex-1 md:min-h-[44%]">
                 <motion.div
                   animate={{ opacity: hovered ? 0.72 : 1, y: hovered ? 4 : 0 }}
                   transition={{ duration: 0.45, ease }}
                 >
-                  <p className="text-[9px] font-medium tracking-[0.24em] text-[var(--ochre)] uppercase sm:text-[10px]">
+                  <p className="text-[8px] font-medium tracking-[0.22em] text-[var(--ochre)] uppercase sm:text-[10px]">
                     Ervaring bij Office Image
                   </p>
-                  <p className="mt-2 max-w-[28ch] font-display text-[13px] leading-snug tracking-[-0.02em] text-white/95 sm:text-[15px] lg:text-base drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)]">
+                  <p className="mt-1 max-w-[28ch] font-display text-[11px] leading-snug tracking-[-0.02em] text-white/95 sm:text-[15px] lg:text-base drop-shadow-[0_2px_12px_rgba(0,0,0,0.65)] max-md:line-clamp-2">
                     Inspirerende werkplekken ontwerpen{" "}
                     <em className="not-italic text-[var(--ochre)]">waar visie en productiviteit samenkomen</em>
                   </p>
@@ -365,27 +365,27 @@ export function HeroExperienceCard({ className = "" }: { className?: string }) {
                 </AnimatePresence>
               </div>
 
-              <div className="mt-auto min-w-0 pl-4 pr-5 pb-3.5 sm:pl-[18px] sm:pr-6 sm:pb-4">
-                <div className="flex min-w-0 items-end gap-2 sm:gap-2.5">
+              <div className="mt-auto min-w-0 px-3 pb-2.5 sm:pl-[18px] sm:pr-6 sm:pb-4">
+                <div className="flex min-w-0 items-end gap-1.5 sm:gap-2.5">
                   {MEDIA_TILES.map((tile, i) => (
                     <div
                       key={tile.id}
-                      className={`min-w-0 ${tile.featured ? "flex-[1.1] shrink-0" : "flex-1"}`}
+                      className={`min-w-0 ${tile.featured ? "flex-[1.15] shrink-0" : "flex-1"}`}
                     >
                       <MediaTile tile={tile} index={i} />
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-2.5 flex items-center justify-between gap-3 rounded-xl border border-white/12 bg-[var(--ink)]/45 px-3 py-2 backdrop-blur-md sm:mt-3 sm:px-4">
-                  <span className="text-[8px] uppercase tracking-[0.2em] text-white/55 sm:text-[9px]">
+                <div className="mt-2 flex items-center justify-between gap-2 rounded-lg md:rounded-xl border border-white/12 bg-[var(--ink)]/45 px-2.5 py-1.5 backdrop-blur-md sm:mt-3 sm:px-4 sm:py-2">
+                  <span className="text-[7px] uppercase tracking-[0.18em] text-white/55 sm:text-[9px]">
                     Live showroom sfeer
                   </span>
                   <div className="flex items-center gap-1">
                     {MEDIA_TILES.map((t) => (
                       <span
                         key={t.id}
-                        className={`grid size-5 place-items-center rounded border text-[8px] num backdrop-blur-sm sm:size-6 sm:text-[9px] ${
+                        className={`grid size-4 place-items-center rounded border text-[7px] num backdrop-blur-sm sm:size-6 sm:text-[9px] ${
                           t.featured
                             ? "border-[var(--ochre)]/45 bg-[var(--ochre)]/15 text-[var(--ochre)]"
                             : "border-white/12 bg-white/6 text-white/55"

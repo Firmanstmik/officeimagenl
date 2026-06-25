@@ -19,15 +19,15 @@ export function SiteHeader() {
       initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="sticky top-0 z-50 border-b border-[var(--bone)]/8 bg-[var(--ink)]/96 backdrop-blur-xl shadow-[0_8px_32px_-12px_rgba(0,0,0,0.35)]"
+      className="sticky top-0 z-50 max-md:pt-[env(safe-area-inset-top)] border-b border-[var(--ink)]/8 bg-[var(--bone)]/98 backdrop-blur-xl shadow-[0_4px_24px_-14px_rgba(17,24,39,0.1)] md:bg-[var(--ink)]/96 md:shadow-[0_8px_32px_-12px_rgba(0,0,0,0.35)]"
     >
-      <div className="border-b border-[var(--bone)]/6">
+      <div className="hidden md:block border-b border-[var(--bone)]/6">
         <div className="max-w-[1500px] mx-auto px-4 md:px-8 flex justify-end">
           <TopUtilityBar />
         </div>
       </div>
-      <div className="max-w-[1500px] mx-auto px-4 md:px-8">
-        <div className="flex items-center justify-between gap-4 py-3 md:py-3.5">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-8">
+        <div className="flex items-center justify-between gap-3 py-2.5 md:py-3.5">
           <Link to="/" className="shrink-0">
             <img src={OI.logo} alt="Office Image" className="h-9 md:h-10 w-auto" />
           </Link>
@@ -54,7 +54,7 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2">
             <a
               href={OI.showroom.telHref}
               className="hidden lg:inline-flex items-center gap-2 px-3 py-2 text-[12px] text-[var(--bone)]/70 hover:text-[var(--bone)] transition-colors"
@@ -65,7 +65,7 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className={`relative inline-flex items-center gap-2 ${btnR} bg-[var(--clay)] text-[var(--bone)] px-4 py-2.5 text-[12px] font-semibold hover:bg-[var(--ochre)] hover:text-[var(--ink)] transition-colors`}
+              className={`relative hidden md:inline-flex items-center gap-2 ${btnR} bg-[var(--clay)] text-[var(--bone)] px-3 md:px-4 py-2 md:py-2.5 text-[11px] md:text-[12px] font-semibold hover:bg-[var(--ochre)] hover:text-[var(--ink)] transition-colors`}
             >
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                 <path d="M6 6h15l-1.5 9h-12L5 6H3" strokeLinecap="round" strokeLinejoin="round" />

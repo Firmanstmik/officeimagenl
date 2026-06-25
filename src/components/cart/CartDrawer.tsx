@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { formatEuro, useCart } from "@/lib/cart";
 import { btnR } from "@/lib/site-tokens";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 function SelectCheckbox({
   checked,
@@ -56,6 +57,7 @@ export function CartDrawer() {
     toggleSelectAll,
   } = useCart();
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   const goTo = (path: "/producten" | "/afrekenen") => {
     setOpen(false);
@@ -80,18 +82,19 @@ export function CartDrawer() {
           <motion.aside
             role="dialog"
             aria-label="Winkelwagen"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
+            initial={isMobile ? { y: "100%" } : { x: "100%" }}
+            animate={isMobile ? { y: 0 } : { x: 0 }}
+            exit={isMobile ? { y: "100%" } : { x: "100%" }}
             transition={{ type: "spring", stiffness: 340, damping: 34 }}
-            className="fixed right-0 top-0 bottom-0 z-[71] flex w-full max-w-[min(100vw,440px)] flex-col bg-[var(--bone)] shadow-[-24px_0_80px_-20px_rgba(0,0,0,0.35)]"
+            className="fixed z-[71] flex w-full flex-col bg-[var(--bone)] shadow-[-24px_0_80px_-20px_rgba(0,0,0,0.35)] inset-x-0 bottom-0 max-h-[92svh] rounded-t-[1.75rem] md:inset-y-0 md:right-0 md:left-auto md:top-0 md:bottom-0 md:max-h-none md:max-w-[min(100vw,440px)] md:rounded-none"
           >
-            <div className="relative shrink-0 border-b border-[var(--ink)]/8 px-5 py-5 md:px-6">
+            <div className="mx-auto mt-2.5 h-1 w-10 rounded-full bg-[var(--ink)]/15 md:hidden" />
+            <div className="relative shrink-0 border-b border-[var(--ink)]/8 px-4 py-4 md:px-6 md:py-5">
               <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-[var(--ochre)] via-[var(--clay)] to-transparent" />
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="eyebrow text-[var(--muted-foreground)]">Uw selectie</div>
-                  <h3 className="mt-1 font-display text-2xl text-[var(--ink)] tracking-tight">
+                  <h3 className="mt-1 font-display text-xl md:text-2xl text-[var(--ink)] tracking-tight">
                     Winkelwagen
                     {totalCount > 0 && (
                       <span className="ml-2 text-base text-[var(--clay)] num">({totalCount})</span>
@@ -208,7 +211,7 @@ export function CartDrawer() {
             </div>
 
             {items.length > 0 && (
-              <div className="shrink-0 border-t border-[var(--ink)]/8 bg-[color-mix(in_oklab,var(--bone)_92%,white)] p-5 md:p-6 space-y-4">
+              <div className="shrink-0 border-t border-[var(--ink)]/8 bg-[color-mix(in_oklab,var(--bone)_92%,white)] p-4 md:p-6 pb-[calc(1rem+env(safe-area-inset-bottom))] md:pb-6 space-y-3 md:space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-sm text-[var(--muted-foreground)]">Subtotaal geselecteerd</span>

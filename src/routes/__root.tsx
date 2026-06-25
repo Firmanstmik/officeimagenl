@@ -13,6 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "@/lib/cart";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { MobileTabBar } from "@/components/site/MobileTabBar";
+import { mobileMain } from "@/lib/site-tokens";
 import { createPageHead, rootHeadLinks } from "@/lib/site-seo";
 
 function NotFoundComponent() {
@@ -81,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     return {
       meta: [
         { charSet: "utf-8" },
-        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
         ...page.meta,
       ],
       links: [
@@ -120,8 +122,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <CartProvider>
-        <Outlet />
+        <div className={mobileMain}>
+          <Outlet />
+        </div>
         <CartDrawer />
+        <MobileTabBar />
       </CartProvider>
     </QueryClientProvider>
   );

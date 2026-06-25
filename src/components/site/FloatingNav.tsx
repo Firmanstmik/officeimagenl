@@ -166,7 +166,7 @@ export function FloatingNav() {
           exit={{ y: 80, opacity: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           aria-label="Snelle acties"
-          className="fixed bottom-0 md:bottom-5 inset-x-0 z-40 md:px-4 pointer-events-none"
+          className="fixed bottom-0 md:bottom-5 inset-x-0 z-40 md:px-4 pointer-events-none hidden md:block"
         >
           <motion.div
             animate={justAdded ? { scale: [1, 1.012, 1] } : { scale: 1 }}
@@ -187,8 +187,8 @@ export function FloatingNav() {
               <IconClose className="size-3 md:size-3.5" />
             </motion.button>
 
-            {/* Mobile: Shopee-style bottom bar */}
-            <div className="md:hidden border-t border-[var(--bone)]/10 bg-[color-mix(in_oklab,var(--ink)_94%,transparent)] backdrop-blur-2xl shadow-[0_-12px_40px_-12px_rgba(0,0,0,0.45)] pb-[env(safe-area-inset-bottom)]">
+            {/* Mobile tab bar lives in MobileTabBar (root shell) */}
+            <div className="hidden">
               <div className="grid grid-cols-4">
                 {items.map(item => {
                   const inner = (
@@ -328,7 +328,7 @@ export function FloatingNav() {
           whileHover={{ scale: 1.06, y: -2 }}
           whileTap={{ scale: 0.96 }}
           aria-label="Open snelle navigatie"
-          className="fixed z-40 bottom-[calc(1rem+env(safe-area-inset-bottom))] md:bottom-6 right-4 md:right-6 flex items-center gap-2 rounded-full p-px bg-gradient-to-r from-[var(--ochre)]/80 via-[var(--clay)]/70 to-[var(--ochre)]/50 shadow-[0_12px_40px_-10px_rgba(0,0,0,0.55)]"
+          className="fixed z-40 bottom-[calc(1rem+env(safe-area-inset-bottom))] md:bottom-6 right-4 md:right-6 hidden md:flex items-center gap-2 rounded-full p-px bg-gradient-to-r from-[var(--ochre)]/80 via-[var(--clay)]/70 to-[var(--ochre)]/50 shadow-[0_12px_40px_-10px_rgba(0,0,0,0.55)]"
         >
           <span className="relative flex items-center gap-2 rounded-full bg-[color-mix(in_oklab,var(--ink)_92%,transparent)] backdrop-blur-xl border border-[var(--bone)]/12 pl-3 pr-3.5 py-2 md:pl-3.5 md:pr-4 md:py-2.5 text-[var(--bone)]">
             <span className="grid size-7 place-items-center rounded-full bg-[var(--clay)]/90 text-[var(--bone)]">

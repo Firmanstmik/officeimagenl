@@ -18,11 +18,12 @@ function GoogleMark({ className = "size-4" }: { className?: string }) {
   );
 }
 
-function Stars({ className = "text-[var(--clay)]" }: { className?: string }) {
+function Stars({ className = "text-[var(--clay)]", size = "md" }: { className?: string; size?: "sm" | "md" }) {
+  const star = size === "sm" ? "size-2" : "size-3";
   return (
     <span className={`inline-flex gap-0.5 ${className}`} aria-hidden>
       {Array.from({ length: 5 }).map((_, i) => (
-        <svg key={i} className="size-3" viewBox="0 0 24 24" fill="currentColor">
+        <svg key={i} className={star} viewBox="0 0 24 24" fill="currentColor">
           <path d="M12 2l2.9 6.9L22 9.8l-5.2 4.5 1.6 6.9L12 17.8 5.6 21.2l1.6-6.9L2 9.8l7.1-.9L12 2z" />
         </svg>
       ))}
@@ -45,7 +46,7 @@ function FloatingReviewCard({
     <motion.article
       layout
       layoutId={`review-card-${review.id}`}
-      className="absolute w-[min(290px,44vw)] max-w-[290px] cursor-default select-none"
+      className="absolute w-[min(118px,36vw)] sm:w-[min(210px,40vw)] lg:w-[min(290px,44vw)] max-w-[290px] cursor-default select-none"
       style={{ zIndex: slot.z }}
       initial={false}
       animate={{
@@ -73,7 +74,7 @@ function FloatingReviewCard({
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 4.8 + slotIndex * 0.35, repeat: Infinity, ease: "easeInOut" }}
         className={[
-          "relative rounded-2xl border p-5 shadow-[0_24px_60px_-28px_rgba(17,24,39,0.28)] backdrop-blur-sm",
+          "relative rounded-xl md:rounded-2xl border p-2.5 sm:p-3.5 md:p-5 shadow-[0_24px_60px_-28px_rgba(17,24,39,0.28)] backdrop-blur-sm",
           review.tone === "warm"
             ? "border-[var(--clay)]/15 bg-[color-mix(in_oklab,var(--bone)_94%,var(--ochre))]"
             : "border-[var(--ink)]/8 bg-[var(--card)]",
@@ -81,25 +82,25 @@ function FloatingReviewCard({
       >
         <span
           aria-hidden
-          className="pointer-events-none absolute -inset-px rounded-2xl opacity-60"
+          className="pointer-events-none absolute -inset-px rounded-xl md:rounded-2xl opacity-60"
           style={{
             background:
               "linear-gradient(135deg, color-mix(in oklab, var(--ochre) 25%, transparent), transparent 45%, color-mix(in oklab, var(--clay) 15%, transparent))",
           }}
         />
         <div className="relative">
-          <Stars />
-          <p className="mt-3 text-[13px] leading-relaxed text-[var(--ink)]/88 line-clamp-4">
+          <Stars size="sm" className="md:[&_svg]:size-3 [&_svg]:size-2" />
+          <p className="mt-1.5 md:mt-3 text-[9px] sm:text-[11px] md:text-[13px] leading-snug md:leading-relaxed text-[var(--ink)]/88 line-clamp-3 md:line-clamp-4">
             &ldquo;{review.quote}&rdquo;
           </p>
-          <p className="mt-2 text-[11px] font-medium text-[var(--clay)] line-clamp-1">{review.accent}</p>
-          <div className="mt-4 flex items-center gap-3 border-t border-[var(--ink)]/6 pt-3">
-            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[var(--ink)] text-[11px] font-semibold text-[var(--bone)]">
+          <p className="mt-1 md:mt-2 text-[8px] sm:text-[10px] md:text-[11px] font-medium text-[var(--clay)] line-clamp-1">{review.accent}</p>
+          <div className="mt-2 md:mt-4 flex items-center gap-2 md:gap-3 border-t border-[var(--ink)]/6 pt-2 md:pt-3">
+            <span className="grid size-6 sm:size-7 md:size-9 shrink-0 place-items-center rounded-full bg-[var(--ink)] text-[8px] md:text-[11px] font-semibold text-[var(--bone)]">
               {review.initials}
             </span>
             <div className="min-w-0">
-              <div className="truncate text-sm font-semibold text-[var(--ink)]">{review.name}</div>
-              <div className="truncate text-[11px] text-[var(--muted-foreground)]">{review.role}</div>
+              <div className="truncate text-[10px] sm:text-xs md:text-sm font-semibold text-[var(--ink)]">{review.name}</div>
+              <div className="truncate text-[8px] sm:text-[10px] md:text-[11px] text-[var(--muted-foreground)]">{review.role}</div>
             </div>
           </div>
         </div>
@@ -119,11 +120,11 @@ function CenterHub() {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ scale: 1.02 }}
-      className="group/hub relative z-20 mx-auto block w-[min(100%,320px)] md:w-[min(88%,360px)]"
+      className="group/hub relative z-20 mx-auto block w-[min(38vw,148px)] sm:w-[min(46vw,220px)] md:w-[min(88%,360px)]"
       aria-label="Bekijk Google Reviews van Office Image"
     >
-      <div className="relative overflow-hidden rounded-[1.35rem] border border-[var(--ink)]/10 bg-[var(--card)] p-2 shadow-[0_40px_90px_-40px_rgba(17,24,39,0.45)] ring-1 ring-white/60">
-        <div className="relative overflow-hidden rounded-[1.1rem]">
+      <div className="relative overflow-hidden rounded-[1.35rem] border border-[var(--ink)]/10 bg-[var(--card)] p-1 sm:p-1.5 md:p-2 shadow-[0_40px_90px_-40px_rgba(17,24,39,0.45)] ring-1 ring-white/60">
+        <div className="relative overflow-hidden rounded-[1rem] md:rounded-[1.1rem]">
           <img
             src={GOOGLE_REVIEWS_HUB.centerImage}
             alt="Kantoorinrichting door Office Image"
@@ -139,16 +140,16 @@ function CenterHub() {
           />
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 text-[var(--bone)]">
-          <div className="flex items-center gap-2">
-            <GoogleMark />
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--bone)]/75">Google Reviews</span>
+        <div className="absolute inset-x-0 bottom-0 p-2 sm:p-3.5 md:p-6 text-[var(--bone)]">
+          <div className="flex items-center gap-1 md:gap-2">
+            <GoogleMark className="size-3 md:size-4" />
+            <span className="text-[7px] md:text-[10px] uppercase tracking-[0.16em] md:tracking-[0.2em] text-[var(--bone)]/75">Google Reviews</span>
           </div>
-          <div className="mt-2 flex items-end gap-3">
-            <span className="font-display text-5xl num leading-none tracking-tight">{GOOGLE_REVIEWS_HUB.rating}</span>
-            <div className="pb-1">
-              <Stars className="text-[var(--ochre)]" />
-              <p className="mt-1 text-[11px] text-[var(--bone)]/65">
+          <div className="mt-1 md:mt-2 flex items-end gap-2 md:gap-3">
+            <span className="font-display text-2xl sm:text-4xl md:text-5xl num leading-none tracking-tight">{GOOGLE_REVIEWS_HUB.rating}</span>
+            <div className="pb-0.5 md:pb-1">
+              <Stars className="text-[var(--ochre)] [&_svg]:size-2 md:[&_svg]:size-3" />
+              <p className="mt-0.5 md:mt-1 text-[7px] sm:text-[9px] md:text-[11px] leading-tight text-[var(--bone)]/65">
                 Gebaseerd op {GOOGLE_REVIEWS_HUB.count} beoordelingen
               </p>
             </div>
@@ -201,7 +202,7 @@ export function GoogleReviewsConstellation({
   }, [swapRandomPair]);
 
   return (
-    <section id="reviews" className="relative overflow-hidden bg-[var(--bone)] py-20 md:py-28 lg:py-32">
+    <section id="reviews" className="relative overflow-hidden bg-[var(--bone)] py-14 md:py-28 lg:py-32">
       <div aria-hidden className="pointer-events-none absolute inset-0 section-grain opacity-[0.28]" />
       <div
         aria-hidden
@@ -212,21 +213,21 @@ export function GoogleReviewsConstellation({
         }}
       />
 
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="relative max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="text-center max-w-3xl mx-auto">
           <div className="eyebrow inline-flex items-center justify-center gap-3 text-[var(--muted-foreground)]">
-            <span className="h-px w-8 bg-[var(--clay)]/35" aria-hidden />
+            <span className="h-px w-6 md:w-8 bg-[var(--clay)]/35" aria-hidden />
             {eyebrow}
-            <span className="h-px w-8 bg-[var(--clay)]/35" aria-hidden />
+            <span className="h-px w-6 md:w-8 bg-[var(--clay)]/35" aria-hidden />
           </div>
-          <h2 className="mt-5 font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[1.05] tracking-tight text-[var(--ink)]">
+          <h2 className="mt-4 md:mt-5 font-display text-[1.35rem] sm:text-[clamp(1.75rem,4.5vw,3.5rem)] leading-[1.08] md:leading-[1.05] tracking-tight text-[var(--ink)]">
             {title}
           </h2>
-          <p className="mt-5 text-[var(--muted-foreground)] text-base md:text-lg leading-relaxed">{subtitle}</p>
+          <p className="mt-3 md:mt-5 text-[var(--muted-foreground)] text-[13px] md:text-lg leading-relaxed">{subtitle}</p>
         </div>
 
-        <div className="relative mt-14 md:mt-20 hidden lg:block">
-          <div className="relative mx-auto h-[min(72vh,680px)] max-w-[1180px]">
+        <div className="relative mt-8 md:mt-20">
+          <div className="relative mx-auto h-[min(118vw,560px)] sm:h-[min(100vw,620px)] lg:h-[min(72vh,680px)] max-w-[1180px] overflow-visible">
             <AnimatePresence>
               {GOOGLE_REVIEWS.map((review, cardIdx) => (
                 <FloatingReviewCard
@@ -246,31 +247,7 @@ export function GoogleReviewsConstellation({
           </div>
         </div>
 
-        <div className="mt-12 lg:hidden">
-          <CenterHub />
-          <div className="mt-6 space-y-4">
-            {GOOGLE_REVIEWS.slice(0, 3).map((review) => (
-              <article
-                key={review.id}
-                className="rounded-2xl border border-[var(--ink)]/8 bg-[var(--card)] p-5 shadow-[0_16px_40px_-28px_rgba(17,24,39,0.18)]"
-              >
-                <Stars />
-                <p className="mt-3 text-sm leading-relaxed text-[var(--ink)]/85">&ldquo;{review.quote}&rdquo;</p>
-                <div className="mt-4 flex items-center gap-3">
-                  <span className="grid size-9 place-items-center rounded-full bg-[var(--ink)] text-[11px] font-semibold text-[var(--bone)]">
-                    {review.initials}
-                  </span>
-                  <div>
-                    <div className="text-sm font-semibold">{review.name}</div>
-                    <div className="text-[11px] text-[var(--muted-foreground)]">{review.role}</div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-16 md:mt-20">
+        <div className="mt-10 md:mt-20">
           <div className="flex items-center justify-between gap-4 mb-5">
             <span className="text-[11px] uppercase tracking-[0.22em] text-[var(--muted-foreground)]">Meer beoordelingen</span>
             <a

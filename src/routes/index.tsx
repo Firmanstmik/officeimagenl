@@ -84,12 +84,14 @@ function ArrowLink({
   href,
   target,
   rel,
+  className = "",
 }: {
   children: React.ReactNode;
   variant?: "ink" | "bone" | "clay";
   href?: string;
   target?: string;
   rel?: string;
+  className?: string;
 }) {
   const color =
     variant === "bone"
@@ -97,7 +99,7 @@ function ArrowLink({
       : variant === "clay"
       ? "text-[var(--bone)] bg-[var(--clay)] border-[var(--clay)] hover:bg-[var(--ink)] hover:border-[var(--ink)]"
       : "text-[var(--ink)] border-[var(--ink)]/20 hover:bg-[var(--ink)] hover:text-[var(--bone)]";
-  const className = `group inline-flex items-center gap-3 ${btnR} border px-6 py-3.5 text-sm font-medium transition-all duration-500 ${color}`;
+  const classNameMerged = `group inline-flex items-center gap-3 ${btnR} border px-6 py-3.5 text-sm font-medium transition-all duration-500 ${color} ${className}`;
   const icon = (
     <svg width="14" height="14" viewBox="0 0 14 14" className="transition-transform duration-500 group-hover:translate-x-1" fill="none">
       <path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="square" />
@@ -105,14 +107,14 @@ function ArrowLink({
   );
   if (href) {
     return (
-      <a href={href} target={target} rel={rel} className={className}>
+      <a href={href} target={target} rel={rel} className={classNameMerged}>
         <span>{children}</span>
         {icon}
       </a>
     );
   }
   return (
-    <button type="button" className={className}>
+    <button type="button" className={classNameMerged}>
       <span>{children}</span>
       {icon}
     </button>
@@ -247,21 +249,21 @@ function Header() {
       initial={{ y: -16, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease }}
-      className="fixed inset-x-0 top-0 z-50"
+      className="fixed inset-x-0 top-0 z-50 max-lg:pt-[env(safe-area-inset-top)]"
     >
       <div
-        className={`transition-all duration-500 ${
+        className={`transition-all duration-500 max-lg:bg-[var(--bone)]/98 max-lg:backdrop-blur-xl max-lg:border-b max-lg:border-[var(--ink)]/8 max-lg:shadow-[0_4px_24px_-14px_rgba(17,24,39,0.1)] ${
           scrolled
             ? "bg-[color-mix(in_oklab,var(--bone)_78%,transparent)] backdrop-blur-2xl backdrop-saturate-150 shadow-[0_10px_40px_-16px_rgba(17,24,39,0.14)] border-b border-[var(--ink)]/[0.07]"
-            : "bg-transparent"
+            : "lg:bg-transparent"
         }`}
       >
-        <div className="max-w-[1600px] mx-auto px-4 md:px-8">
+        <div className="max-w-[1600px] mx-auto px-3.5 md:px-8">
           {/* row 1 — utility bar (rechtsboven) */}
           <motion.div
             animate={{ height: scrolled ? 0 : 36, opacity: scrolled ? 0 : 1 }}
             transition={{ duration: 0.4, ease }}
-            className="overflow-hidden"
+            className="overflow-hidden hidden md:block"
           >
             <TopUtilityBar />
           </motion.div>
@@ -322,23 +324,17 @@ function Header() {
             </AnimatePresence>
           </div>
 
-          {/* mobile — logo + cart + hamburger */}
-          <div className="flex lg:hidden items-center justify-between gap-4 py-3">
+          {/* mobile — compact app bar */}
+          <div className="flex lg:hidden items-center justify-between gap-3 py-2.5">
             <a href="/" className="shrink-0">
-              <img src={OI.logo} alt="Office Image" className="h-12 w-auto" />
+              <img src={OI.logo} alt="Office Image" className="h-9 w-auto" />
             </a>
-            <div className="flex items-center gap-2">
-              <HeaderCartButton />
-              <button
-                type="button"
-                onClick={() => setMobileOpen(o => !o)}
-                aria-label="Menu"
-                className={`grid size-9 place-items-center rounded-lg transition-colors ${
-                  scrolled
-                    ? "text-[var(--ink)]/75 hover:bg-[var(--ink)]/6"
-                    : "text-[var(--bone)]/80 hover:bg-[var(--bone)]/10"
-                }`}
-              >
+            <button
+              type="button"
+              onClick={() => setMobileOpen(o => !o)}
+              aria-label="Menu"
+              className="grid size-9 place-items-center rounded-xl text-[var(--ink)]/80 bg-[var(--ink)]/5 border border-[var(--ink)]/8 active:bg-[var(--ink)]/10 transition-colors"
+            >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75">
                   {mobileOpen ? (
                     <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
@@ -347,7 +343,6 @@ function Header() {
                   )}
                 </svg>
               </button>
-            </div>
           </div>
         </div>
       </div>
@@ -361,14 +356,15 @@ function Header() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-40 lg:hidden"
           >
-            <button type="button" aria-label="Sluiten" onClick={() => setMobileOpen(false)} className="absolute inset-0 bg-[var(--ink)]/80 backdrop-blur-sm" />
+            <button type="button" aria-label="Sluiten" onClick={() => setMobileOpen(false)} className="absolute inset-0 bg-[var(--ink)]/70 backdrop-blur-sm" />
             <motion.nav
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.35, ease }}
-              className="absolute right-0 top-0 bottom-0 w-[min(100%,320px)] bg-[var(--ink)] border-l border-[var(--bone)]/10 p-6 pt-24 overflow-y-auto"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ duration: 0.38, ease }}
+              className="absolute inset-x-0 bottom-0 max-h-[88svh] rounded-t-[1.75rem] bg-[var(--ink)] border-t border-[var(--bone)]/12 px-4 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))] overflow-y-auto"
             >
+              <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-[var(--bone)]/20" />
               <div className="space-y-1">
                 <a
                   href="/"
@@ -507,7 +503,7 @@ function Hero() {
   return (
     <section
       ref={ref}
-      className="relative h-[100svh] min-h-[700px] w-full overflow-hidden bg-[var(--ink)]"
+      className="relative h-[auto] min-h-[min(88svh,780px)] md:h-[100svh] md:min-h-[700px] w-full overflow-hidden bg-[var(--ink)]"
     >
       {/* background slides */}
       <motion.div style={{ y: imgY }} className="absolute inset-0">
@@ -548,10 +544,10 @@ function Hero() {
       </motion.div>
 
       {/* hero content */}
-      <motion.div style={{ y: contentY }} className="relative z-10 flex h-full flex-col pt-[124px] sm:pt-[132px] md:pt-[152px] lg:pt-[196px] xl:pt-[204px]">
-        <div className="flex-1 px-4 md:px-8 lg:px-12">
-          <div className="h-full max-w-[1600px] mx-auto flex flex-col gap-6 lg:gap-8 pb-32 md:pb-36 pt-4 md:pt-6 lg:pt-10">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-6 lg:gap-8 lg:items-center">
+      <motion.div style={{ y: contentY }} className="relative z-10 flex h-full flex-col pt-[92px] sm:pt-[100px] md:pt-[152px] lg:pt-[196px] xl:pt-[204px]">
+        <div className="flex-1 px-3.5 md:px-8 lg:px-12">
+          <div className="h-full max-w-[1600px] mx-auto flex flex-col gap-4 md:gap-8 pb-24 md:pb-36 pt-2 md:pt-6 lg:pt-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_minmax(0,40%)] gap-4 md:gap-8 lg:items-center">
             {/* main copy */}
             <div className="min-w-0 max-w-3xl relative">
               <AnimatePresence mode="wait">
@@ -566,16 +562,16 @@ function Hero() {
                 </motion.div>
               </AnimatePresence>
 
-              <h1 className="font-display text-[var(--bone)] leading-[0.98] tracking-[-0.025em] text-[1.9rem] sm:text-[2.55rem] md:text-[3.2rem] lg:text-[3.85rem] xl:text-[4.25rem]">
+              <h1 className={`font-display text-[var(--bone)] leading-[1.05] tracking-[-0.02em] ${sectionH2}`}>
                 <AnimatePresence mode="wait">
                   <motion.span key={`title-${idx}`} className="block">
                     {slide.title.map((line, li) => (
-                      <span key={li} className="block overflow-hidden">
+                      <span key={li} className="block">
                         <motion.span
-                          initial={{ y: "105%" }}
-                          animate={{ y: 0 }}
-                          exit={{ y: "-105%" }}
-                          transition={{ duration: 0.85, delay: 0.06 + li * 0.07, ease }}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.45, delay: 0.04 + li * 0.05, ease }}
                           className={`inline-block ${li === slide.italicIndex ? "italic text-[var(--ochre)]" : "text-[var(--bone)]"}`}
                         >
                           {line}
@@ -586,7 +582,7 @@ function Hero() {
                 </AnimatePresence>
               </h1>
 
-              <div className="mt-8 md:mt-10">
+              <div className="mt-4 md:mt-10">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={`sub-${idx}`}
@@ -594,23 +590,23 @@ function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.55, ease, delay: 0.15 }}
-                    className="max-w-lg text-[var(--bone)]/72 text-[13px] md:text-[14px] leading-relaxed"
+                    className="max-w-lg text-[var(--bone)]/78 text-[12px] md:text-[14px] leading-relaxed"
                   >
                     {slide.sub}
                   </motion.p>
                 </AnimatePresence>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <ArrowLink variant="clay" href={slide.href}>
+                <div className="mt-4 md:mt-6 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 md:gap-3">
+                  <ArrowLink variant="clay" href={slide.href} className="max-md:justify-center max-md:px-5 max-md:py-3 max-md:text-[13px]">
                     Bekijk collectie
                   </ArrowLink>
-                  <ArrowLink variant="bone" href="#showroom">
+                  <ArrowLink variant="bone" href="#showroom" className="max-md:justify-center max-md:px-5 max-md:py-3 max-md:text-[13px]">
                     Bezoek showroom
                   </ArrowLink>
                 </div>
               </div>
             </div>
 
-            <HeroExperienceCard className="lg:self-center" />
+            <HeroExperienceCard className="lg:self-center max-md:max-w-full max-md:mt-1" />
             </div>
           </div>
         </div>
@@ -632,7 +628,7 @@ function Trust() {
   ];
   return (
     <PageSection id="waarom" tone="bone" prevTone="hero" nextTone="sand">
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="relative max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="grid md:grid-cols-1 gap-12 md:gap-20 items-end max-w-3xl">
           <Reveal>
             <Eyebrow>Waarom Office Image</Eyebrow>
@@ -763,7 +759,7 @@ function Configurator() {
 
   return (
     <PageSection id="concepts" tone="sand" prevTone="sand" nextTone="bone" className="before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_80%_55%_at_50%_0%,color-mix(in_oklab,var(--bone)_55%,transparent),transparent_72%)]">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-12">
         <Reveal>
           <Eyebrow>De werkplekervaring</Eyebrow>
           <h2 className={`mt-5 ${sectionH2} max-w-[16ch]`}>
@@ -771,7 +767,7 @@ function Configurator() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 md:mt-20 grid lg:grid-cols-[1fr_360px] gap-8 lg:gap-10 items-start">
+        <div className="mt-10 md:mt-14 grid lg:grid-cols-[1fr_360px] gap-5 md:gap-10 items-start">
           {/* framed canvas */}
           <motion.div
             initial={{ opacity: 0, x: -32, scale: 0.98 }}
@@ -842,7 +838,7 @@ function Configurator() {
                     initial={{ opacity: 0, x: 16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.1, ease }}
-                    className="rounded-xl border border-white/15 bg-[rgba(12,10,8,0.58)] backdrop-blur-xl p-4 md:p-5 grid grid-cols-3 gap-4 min-w-[260px] md:min-w-[280px] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.55)]"
+                    className="rounded-xl border border-white/15 bg-[rgba(12,10,8,0.58)] backdrop-blur-xl p-3 md:p-5 grid grid-cols-3 gap-2 md:gap-4 w-full max-md:min-w-0 md:min-w-[280px] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.55)]"
                   >
                     {c.metrics.map(([k, v]) => (
                       <div key={v}>
@@ -1046,7 +1042,7 @@ function Process() {
         aria-hidden
         className="pointer-events-none absolute inset-0 section-grain opacity-[0.035]"
       />
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-12 items-end">
           <Reveal>
             <Eyebrow>Ons proces</Eyebrow>
@@ -1137,7 +1133,7 @@ function Visualization() {
 
   return (
     <PageSection id="visualization" tone="sand" prevTone="bone" nextTone="bone">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-start">
           <Reveal>
             <div className="space-y-4">
@@ -1387,7 +1383,7 @@ function ServiceCard({
 function Services() {
   return (
     <PageSection id="services" tone="bone" prevTone="sand" nextTone="bone">
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="relative max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="grid md:grid-cols-[1fr_1fr] gap-10 items-end">
           <Reveal>
             <Eyebrow>Onze diensten</Eyebrow>
@@ -1428,7 +1424,7 @@ const PROJECTS = [
 function Projects() {
   return (
     <PageSection id="projects" tone="bone" prevTone="bone" nextTone="sand">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
           <Reveal>
             <Eyebrow>Uitgelichte collecties</Eyebrow>
@@ -1583,7 +1579,7 @@ function CTA() {
 
 function Home() {
   return (
-    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)] pb-[68px] md:pb-0">
+    <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <Header />
       <Hero />
       <Trust />
@@ -1699,7 +1695,7 @@ function CollectieStatsRail() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.65, delay: i * 0.08, ease }}
-            className={`group/stat relative overflow-hidden rounded-2xl border border-[var(--ochre)]/20 bg-[var(--card)] p-5 md:p-6 transition-all duration-500 hover:border-[var(--ochre)]/45 hover:shadow-[0_20px_50px_-28px_rgba(240,160,96,0.28)] hover:-translate-y-1 ${i % 2 === 1 ? "lg:translate-y-3" : ""}`}
+            className={`group/stat relative overflow-hidden rounded-xl md:rounded-2xl border border-[var(--ochre)]/20 bg-[var(--card)] p-3.5 md:p-6 transition-all duration-500 hover:border-[var(--ochre)]/45 hover:shadow-[0_20px_50px_-28px_rgba(240,160,96,0.28)] hover:-translate-y-1 ${i % 2 === 1 ? "lg:translate-y-3" : ""}`}
           >
             <div
               aria-hidden
@@ -1883,7 +1879,7 @@ function ProductCarousel() {
         className="pointer-events-none absolute inset-0 section-grain-light opacity-[0.06]"
       />
 
-      <div className="relative max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="relative max-w-[1500px] mx-auto px-3.5 md:px-12">
         <Reveal>
           <Eyebrow dot={false}>
             <span className="text-[var(--clay)]">Collectie</span>
@@ -2009,7 +2005,7 @@ function BestsellerCard({ b, i }: { b: (typeof OI.bestsellers)[number]; i: numbe
 function Bestsellers() {
   return (
     <PageSection id="bestsellers" tone="bone" prevTone="bone" nextTone="sand">
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-12">
         <div className="grid md:grid-cols-[1fr_auto] gap-6 items-end">
           <Reveal>
             <Eyebrow>Bestsellers, tot 40% korting</Eyebrow>

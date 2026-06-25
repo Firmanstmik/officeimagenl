@@ -113,10 +113,10 @@ function AfrekenenPage() {
     <main className="min-h-screen bg-[var(--bone)] text-[var(--foreground)]">
       <SiteHeader />
 
-      <div className="max-w-[1500px] mx-auto px-6 md:px-12 py-10 md:py-16">
+      <div className="max-w-[1500px] mx-auto px-3.5 md:px-12 py-8 md:py-16">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
           <div className="eyebrow text-[var(--muted-foreground)]">Veilig afrekenen</div>
-          <h1 className="mt-3 font-display text-3xl md:text-5xl tracking-tight text-[var(--ink)]">
+          <h1 className="mt-2 md:mt-3 font-display text-[1.5rem] md:text-5xl tracking-tight text-[var(--ink)]">
             Uw bestelling afronden
           </h1>
         </motion.div>

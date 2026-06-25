@@ -62,6 +62,9 @@ export function createPageHead({
       { name: "twitter:image", content: image },
 
       { name: "apple-mobile-web-app-title", content: SITE_NAME },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
+      { name: "mobile-web-app-capable", content: "yes" },
     ],
     links: [
       { rel: "canonical", href: url },
