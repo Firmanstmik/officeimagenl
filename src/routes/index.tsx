@@ -1450,7 +1450,11 @@ function Projects() {
                     src={p.img}
                     alt={p.t}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.07]"
+                    className={`h-full w-full object-cover transition-transform duration-[1.6s] ease-out ${
+                      p.t === "Raptor bureaustoel"
+                        ? "object-[center_40%] group-hover:scale-[1.04]"
+                        : "group-hover:scale-[1.07]"
+                    }`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)]/82 via-[var(--ink)]/25 to-transparent transition-opacity duration-700 group-hover:from-[var(--ink)]/88" />
                   <div
