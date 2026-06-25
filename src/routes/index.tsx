@@ -451,10 +451,10 @@ function Header() {
 
 /* ──────────────────────────── 1. hero ──────────────────────────── */
 
-/** Hero imagery scraped from officeimage.nl homepage carousel (ARMA, Foxline, roldeurkast). */
+/** Premium hero backgrounds — AI-enhanced from Office Image product categories. */
 const HERO_SLIDES = [
   {
-    img: OI.media.armaDirectie,
+    img: OI.media.heroSlides.directie,
     alt: "Luxe directiekantoor met ARMA directiemeubelen, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Directie",
@@ -465,7 +465,7 @@ const HERO_SLIDES = [
     meta: "Exclusief bij OI",
   },
   {
-    img: OI.media.foxlineWerkplek,
+    img: OI.media.heroSlides.foxline,
     alt: "Foxline werkplekken met vergadertafel, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Foxline",
@@ -476,7 +476,7 @@ const HERO_SLIDES = [
     meta: "Modulair en snel",
   },
   {
-    img: OI.media.brandwerendArchief,
+    img: OI.media.heroSlides.archief,
     alt: "Kantoorkasten en archiefkasten, Office Image",
     href: SHOP_PATH,
     eyebrow: "Productcategorieën, Opslag",

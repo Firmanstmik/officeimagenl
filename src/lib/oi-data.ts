@@ -12,6 +12,11 @@ export const OI = {
     hrVergader: "https://officeimage.nl/wp-content/uploads/2025/03/HR_20230806_16-scaled.jpg",
     raptorStoel: "https://officeimage.nl/wp-content/uploads/2026/06/stoel_4A-scaled.jpg",
     brandwerendArchief: "https://officeimage.nl/wp-content/uploads/2024/10/brandweerende-kast-1.jpg",
+    heroSlides: {
+      directie: "/images/hero/hero-directie-premium.jpg",
+      foxline: "/images/hero/hero-foxline-premium.jpg",
+      archief: "/images/hero/hero-archief-premium.jpg",
+    },
     lockersGarderobe: "https://officeimage.nl/wp-content/uploads/2024/10/okk-40_20120827164028.jpg",
     roldeurArchief: "https://officeimage.nl/wp-content/uploads/2024/10/roldeurkast3-1-600x600.png",
     archiefOpslag: "https://officeimage.nl/wp-content/uploads/2024/10/eco-rolblok-3.jpg",
